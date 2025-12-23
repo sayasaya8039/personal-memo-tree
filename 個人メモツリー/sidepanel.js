@@ -22383,12 +22383,54 @@ var App = () => {
     }
     setShowExportMenu(false);
   };
+  const NOTEBOOKLM_IMPORTER_ID = "ijdefdijdmghafocfmmdojfghnpelnfn";
+  const tryNotebookLMImporter = async (content) => {
+    return new Promise((resolve) => {
+      try {
+        if (!chrome.runtime?.sendMessage) {
+          resolve(false);
+          return;
+        }
+        chrome.runtime.sendMessage(
+          NOTEBOOKLM_IMPORTER_ID,
+          {
+            type: "IMPORT_TEXT",
+            action: "importText",
+            text: content,
+            title: currentTree?.title || "\u30E1\u30E2\u30C4\u30EA\u30FC",
+            source: "\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC\u62E1\u5F35\u6A5F\u80FD"
+          },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              console.log("NotebookLM Web Importer not available:", chrome.runtime.lastError.message);
+              resolve(false);
+              return;
+            }
+            if (response?.success) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+        setTimeout(() => resolve(false), 2e3);
+      } catch {
+        resolve(false);
+      }
+    });
+  };
   const handleExportToNotebookLM = async () => {
     let content;
     if (viewMode === "current" && currentTree) {
       content = exportTree(currentTree, "notebooklm");
     } else {
       content = exportAllTrees(allTrees, "notebooklm");
+    }
+    const importerSuccess = await tryNotebookLMImporter(content);
+    if (importerSuccess) {
+      alert("NotebookLM Web Importer\u306B\u30E1\u30E2\u3092\u9001\u4FE1\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067\u30A4\u30F3\u30DD\u30FC\u30C8\u3092\u5B8C\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+      setShowExportMenu(false);
+      return;
     }
     try {
       await navigator.clipboard.writeText(content);
@@ -22398,7 +22440,7 @@ var App = () => {
       } else {
         window.open(notebookLMUrl, "_blank");
       }
-      alert("\u30E1\u30E2\u3092\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067:\n1.\u300C\u30BD\u30FC\u30B9\u3092\u8FFD\u52A0\u300D\u2192\u300C\u30B3\u30D4\u30FC\u3057\u305F\u30C6\u30AD\u30B9\u30C8\u300D\n2. Ctrl+V \u3067\u8CBC\u308A\u4ED8\u3051");
+      alert("\u30E1\u30E2\u3092\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067:\n1.\u300C\u30BD\u30FC\u30B9\u3092\u8FFD\u52A0\u300D\u2192\u300C\u30B3\u30D4\u30FC\u3057\u305F\u30C6\u30AD\u30B9\u30C8\u300D\n2. Ctrl+V \u3067\u8CBC\u308A\u4ED8\u3051\n\n\u{1F4A1} NotebookLM Web Importer\u62E1\u5F35\u6A5F\u80FD\u3092\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u3059\u308B\u3068\u3001\u3088\u308A\u7C21\u5358\u306B\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u304D\u307E\u3059\u3002");
     } catch (err) {
       console.error("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557:", err);
       alert("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557\u3057\u307E\u3057\u305F");

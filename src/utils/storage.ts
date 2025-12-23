@@ -16,8 +16,8 @@ export const generateId = (): string => {
 export const getStorageData = async (): Promise<StorageData> => {
   const result = await chrome.storage.sync.get(["pageMemoTrees", "settings"]);
   return {
-    pageMemoTrees: result.pageMemoTrees || [],
-    settings: result.settings || DEFAULT_SETTINGS,
+    pageMemoTrees: (result.pageMemoTrees as PageMemoTree[] | undefined) || [],
+    settings: (result.settings as Settings | undefined) || DEFAULT_SETTINGS,
   };
 };
 

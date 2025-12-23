@@ -151,6 +151,51 @@ export const App = () => {
     setShowExportMenu(false);
   };
 
+  // NotebookLM Web Importer拡張機能のID
+  const NOTEBOOKLM_IMPORTER_ID = "ijdefdijdmghafocfmmdojfghnpelnfn";
+
+  // NotebookLM Web Importerに送信を試みる
+  const tryNotebookLMImporter = async (content: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      try {
+        if (!chrome.runtime?.sendMessage) {
+          resolve(false);
+          return;
+        }
+
+        // 外部拡張機能にメッセージを送信
+        chrome.runtime.sendMessage(
+          NOTEBOOKLM_IMPORTER_ID,
+          {
+            type: "IMPORT_TEXT",
+            action: "importText",
+            text: content,
+            title: currentTree?.title || "メモツリー",
+            source: "個人メモツリー拡張機能"
+          },
+          (response) => {
+            // エラーチェック（拡張機能が存在しない場合など）
+            if (chrome.runtime.lastError) {
+              console.log("NotebookLM Web Importer not available:", chrome.runtime.lastError.message);
+              resolve(false);
+              return;
+            }
+            if (response?.success) {
+              resolve(true);
+            } else {
+              resolve(false);
+            }
+          }
+        );
+
+        // タイムアウト（2秒で応答がなければフォールバック）
+        setTimeout(() => resolve(false), 2000);
+      } catch {
+        resolve(false);
+      }
+    });
+  };
+
   // NotebookLMに直接エクスポート
   const handleExportToNotebookLM = async () => {
     let content: string;
@@ -160,11 +205,19 @@ export const App = () => {
       content = exportAllTrees(allTrees, "notebooklm");
     }
 
+    // まずNotebookLM Web Importerへの送信を試みる
+    const importerSuccess = await tryNotebookLMImporter(content);
+
+    if (importerSuccess) {
+      alert("NotebookLM Web Importerにメモを送信しました！\n\nNotebookLMでインポートを完了してください。");
+      setShowExportMenu(false);
+      return;
+    }
+
+    // フォールバック：クリップボード + 新しいタブ
     try {
-      // クリップボードにコピー
       await navigator.clipboard.writeText(content);
 
-      // NotebookLMを新しいタブで開く
       const notebookLMUrl = "https://notebooklm.google.com/";
       if (chrome.tabs) {
         chrome.tabs.create({ url: notebookLMUrl });
@@ -172,7 +225,7 @@ export const App = () => {
         window.open(notebookLMUrl, "_blank");
       }
 
-      alert("メモをクリップボードにコピーしました！\n\nNotebookLMで:\n1.「ソースを追加」→「コピーしたテキスト」\n2. Ctrl+V で貼り付け");
+      alert("メモをクリップボードにコピーしました！\n\nNotebookLMで:\n1.「ソースを追加」→「コピーしたテキスト」\n2. Ctrl+V で貼り付け\n\n💡 NotebookLM Web Importer拡張機能をインストールすると、より簡単にインポートできます。");
     } catch (err) {
       console.error("クリップボードへのコピーに失敗:", err);
       alert("クリップボードへのコピーに失敗しました");

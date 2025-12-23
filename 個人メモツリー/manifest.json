@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "個人メモツリー",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "ページ/タブごとにメモを関連づけて階層ツリー構造で管理するChrome拡張機能",
   "permissions": [
     "storage",
