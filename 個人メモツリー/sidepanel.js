@@ -26230,14 +26230,8 @@ var MemoEditor = ({ node, onUpdate }) => {
           break;
       }
       if (insertText) {
-        const textarea = textareaRef.current;
-        if (textarea) {
-          const start = textarea.selectionStart;
-          const newContent = content.substring(0, start) + insertText + content.substring(start);
-          setContent(newContent);
-        } else {
-          setContent(content + "\n" + insertText);
-        }
+        const separator = content && !content.endsWith("\n") ? "\n" : "";
+        setContent(content + separator + insertText);
       }
       chrome.storage.local.remove("draggedContent");
     }

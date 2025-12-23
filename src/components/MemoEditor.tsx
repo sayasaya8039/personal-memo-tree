@@ -85,14 +85,9 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       }
 
       if (insertText) {
-        const textarea = textareaRef.current;
-        if (textarea) {
-          const start = textarea.selectionStart;
-          const newContent = content.substring(0, start) + insertText + content.substring(start);
-          setContent(newContent);
-        } else {
-          setContent(content + "\n" + insertText);
-        }
+        // 常に末尾に追加（新しいものが下に来る）
+        const separator = content && !content.endsWith("\n") ? "\n" : "";
+        setContent(content + separator + insertText);
       }
 
       // 使用済みのドラッグコンテンツを削除
