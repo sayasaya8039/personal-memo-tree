@@ -36,6 +36,7 @@ export const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"current" | "all">("current");
   const [viewingTree, setViewingTree] = useState<PageMemoTree | null>(null);
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -377,6 +378,20 @@ export const App = () => {
             </>
           ) : (
             <div className="all-trees-panel">
+              <div className="sort-controls">
+                <button
+                  className={`sort-btn ${sortOrder === "newest" ? "active" : ""}`}
+                  onClick={() => setSortOrder("newest")}
+                >
+                  新しい順
+                </button>
+                <button
+                  className={`sort-btn ${sortOrder === "oldest" ? "active" : ""}`}
+                  onClick={() => setSortOrder("oldest")}
+                >
+                  古い順
+                </button>
+              </div>
               {allTrees.length === 0 ? (
                 <div className="empty-state">
                   <p>保存されたメモがありません</p>
@@ -388,6 +403,10 @@ export const App = () => {
                       !searchQuery ||
                       tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                       tree.url.toLowerCase().includes(searchQuery.toLowerCase())
+                  )
+                  .sort((a, b) => sortOrder === "newest" 
+                    ? b.updatedAt - a.updatedAt 
+                    : a.updatedAt - b.updatedAt
                   )
                   .map((tree) => (
                     <div

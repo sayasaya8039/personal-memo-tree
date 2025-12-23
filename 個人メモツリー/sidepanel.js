@@ -26759,6 +26759,7 @@ var App = () => {
   const [searchQuery, setSearchQuery] = (0, import_react7.useState)("");
   const [viewMode, setViewMode] = (0, import_react7.useState)("current");
   const [viewingTree, setViewingTree] = (0, import_react7.useState)(null);
+  const [sortOrder, setSortOrder] = (0, import_react7.useState)("newest");
   const [showExportMenu, setShowExportMenu] = (0, import_react7.useState)(false);
   const [showSettings, setShowSettings] = (0, import_react7.useState)(false);
   const fetchCurrentTab = (0, import_react7.useCallback)(async () => {
@@ -27058,42 +27059,64 @@ var App = () => {
           }
         }
       ) })
-    ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "all-trees-panel", children: allTrees.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "empty-state", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "\u4FDD\u5B58\u3055\u308C\u305F\u30E1\u30E2\u304C\u3042\u308A\u307E\u305B\u3093" }) }) : allTrees.filter(
-      (tree) => !searchQuery || tree.title.toLowerCase().includes(searchQuery.toLowerCase()) || tree.url.toLowerCase().includes(searchQuery.toLowerCase())
-    ).map((tree) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-      "div",
-      {
-        className: `tree-item ${tree.id === currentTree?.id ? "current" : ""}`,
-        onClick: () => {
-          setViewingTree(tree);
-          setSelectedNode(null);
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "all-trees-panel", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "sort-controls", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "button",
+          {
+            className: `sort-btn ${sortOrder === "newest" ? "active" : ""}`,
+            onClick: () => setSortOrder("newest"),
+            children: "\u65B0\u3057\u3044\u9806"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "button",
+          {
+            className: `sort-btn ${sortOrder === "oldest" ? "active" : ""}`,
+            onClick: () => setSortOrder("oldest"),
+            children: "\u53E4\u3044\u9806"
+          }
+        )
+      ] }),
+      allTrees.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "empty-state", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "\u4FDD\u5B58\u3055\u308C\u305F\u30E1\u30E2\u304C\u3042\u308A\u307E\u305B\u3093" }) }) : allTrees.filter(
+        (tree) => !searchQuery || tree.title.toLowerCase().includes(searchQuery.toLowerCase()) || tree.url.toLowerCase().includes(searchQuery.toLowerCase())
+      ).sort(
+        (a, b) => sortOrder === "newest" ? b.updatedAt - a.updatedAt : a.updatedAt - b.updatedAt
+      ).map((tree) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+        "div",
+        {
+          className: `tree-item ${tree.id === currentTree?.id ? "current" : ""}`,
+          onClick: () => {
+            setViewingTree(tree);
+            setSelectedNode(null);
+          },
+          style: { cursor: "pointer" },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tree-item-info", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tree-title", children: tree.title }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tree-url", children: tree.url }),
+              /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "tree-count", children: [
+                tree.rootNodes.length,
+                " \u30E1\u30E2"
+              ] })
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+              "button",
+              {
+                className: "delete-btn",
+                onClick: (e) => {
+                  e.stopPropagation();
+                  handleDeleteTree(tree.id);
+                },
+                title: "\u524A\u9664",
+                children: "Delete"
+              }
+            )
+          ]
         },
-        style: { cursor: "pointer" },
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tree-item-info", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tree-title", children: tree.title }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tree-url", children: tree.url }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: "tree-count", children: [
-              tree.rootNodes.length,
-              " \u30E1\u30E2"
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-            "button",
-            {
-              className: "delete-btn",
-              onClick: (e) => {
-                e.stopPropagation();
-                handleDeleteTree(tree.id);
-              },
-              title: "\u524A\u9664",
-              children: "Delete"
-            }
-          )
-        ]
-      },
-      tree.id
-    )) }) })
+        tree.id
+      ))
+    ] }) })
   ] });
 };
 
