@@ -151,6 +151,35 @@ export const App = () => {
     setShowExportMenu(false);
   };
 
+  // NotebookLMに直接エクスポート
+  const handleExportToNotebookLM = async () => {
+    let content: string;
+    if (viewMode === "current" && currentTree) {
+      content = exportTree(currentTree, "notebooklm");
+    } else {
+      content = exportAllTrees(allTrees, "notebooklm");
+    }
+
+    try {
+      // クリップボードにコピー
+      await navigator.clipboard.writeText(content);
+
+      // NotebookLMを新しいタブで開く
+      const notebookLMUrl = "https://notebooklm.google.com/";
+      if (chrome.tabs) {
+        chrome.tabs.create({ url: notebookLMUrl });
+      } else {
+        window.open(notebookLMUrl, "_blank");
+      }
+
+      alert("メモをクリップボードにコピーしました！\n\nNotebookLMで:\n1.「ソースを追加」→「コピーしたテキスト」\n2. Ctrl+V で貼り付け");
+    } catch (err) {
+      console.error("クリップボードへのコピーに失敗:", err);
+      alert("クリップボードへのコピーに失敗しました");
+    }
+    setShowExportMenu(false);
+  };
+
   // テーマ切り替え
   const handleThemeChange = async (theme: Settings["theme"]) => {
     const newSettings = { ...settings, theme };
@@ -200,9 +229,13 @@ export const App = () => {
 
       {showExportMenu && (
         <div className="dropdown-menu">
-          <button onClick={() => handleExport("json")}>JSON</button>
-          <button onClick={() => handleExport("markdown")}>Markdown</button>
-          <button onClick={() => handleExport("notebooklm")}>NotebookLM用</button>
+          <button onClick={() => handleExport("json")}>JSON形式</button>
+          <button onClick={() => handleExport("markdown")}>Markdown形式</button>
+          <div className="dropdown-divider" />
+          <button onClick={handleExportToNotebookLM} className="highlight">
+            NotebookLMに送信
+          </button>
+          <button onClick={() => handleExport("notebooklm")}>NotebookLM用(.txt)</button>
         </div>
       )}
 

@@ -22383,6 +22383,28 @@ var App = () => {
     }
     setShowExportMenu(false);
   };
+  const handleExportToNotebookLM = async () => {
+    let content;
+    if (viewMode === "current" && currentTree) {
+      content = exportTree(currentTree, "notebooklm");
+    } else {
+      content = exportAllTrees(allTrees, "notebooklm");
+    }
+    try {
+      await navigator.clipboard.writeText(content);
+      const notebookLMUrl = "https://notebooklm.google.com/";
+      if (chrome.tabs) {
+        chrome.tabs.create({ url: notebookLMUrl });
+      } else {
+        window.open(notebookLMUrl, "_blank");
+      }
+      alert("\u30E1\u30E2\u3092\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067:\n1.\u300C\u30BD\u30FC\u30B9\u3092\u8FFD\u52A0\u300D\u2192\u300C\u30B3\u30D4\u30FC\u3057\u305F\u30C6\u30AD\u30B9\u30C8\u300D\n2. Ctrl+V \u3067\u8CBC\u308A\u4ED8\u3051");
+    } catch (err) {
+      console.error("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557:", err);
+      alert("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557\u3057\u307E\u3057\u305F");
+    }
+    setShowExportMenu(false);
+  };
   const handleThemeChange = async (theme) => {
     const newSettings = { ...settings, theme };
     setSettings(newSettings);
@@ -22432,9 +22454,11 @@ var App = () => {
       ] })
     ] }),
     showExportMenu && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "dropdown-menu", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("json"), children: "JSON" }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("markdown"), children: "Markdown" }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("notebooklm"), children: "NotebookLM\u7528" })
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("json"), children: "JSON\u5F62\u5F0F" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("markdown"), children: "Markdown\u5F62\u5F0F" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dropdown-divider" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: handleExportToNotebookLM, className: "highlight", children: "NotebookLM\u306B\u9001\u4FE1" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("notebooklm"), children: "NotebookLM\u7528(.txt)" })
     ] }),
     showSettings && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "settings-panel", children: [
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("h3", { children: "\u8A2D\u5B9A" }),

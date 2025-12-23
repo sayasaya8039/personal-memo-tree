@@ -122,6 +122,22 @@ body {
   background: var(--bg-secondary);
 }
 
+.dropdown-menu button.highlight {
+  background: var(--accent-color);
+  color: white;
+  font-weight: 500;
+}
+
+.dropdown-menu button.highlight:hover {
+  background: var(--accent-hover);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 4px 0;
+}
+
 /* Settings Panel */
 .settings-panel {
   position: absolute;
