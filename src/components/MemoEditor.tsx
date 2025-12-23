@@ -267,6 +267,16 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
         <div
           className="preview"
           dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }}
+          onClick={(e) => {
+            const target = e.target as HTMLElement;
+            if (target.tagName === "A") {
+              e.preventDefault();
+              const href = (target as HTMLAnchorElement).href;
+              if (href) {
+                chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
+              }
+            }
+          }}
         />
       ) : (
         <textarea

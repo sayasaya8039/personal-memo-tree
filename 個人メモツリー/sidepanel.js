@@ -26390,7 +26390,17 @@ var MemoEditor = ({ node, onUpdate }) => {
       "div",
       {
         className: "preview",
-        dangerouslySetInnerHTML: { __html: renderMarkdown(content) }
+        dangerouslySetInnerHTML: { __html: renderMarkdown(content) },
+        onClick: (e) => {
+          const target = e.target;
+          if (target.tagName === "A") {
+            e.preventDefault();
+            const href = target.href;
+            if (href) {
+              chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
+            }
+          }
+        }
       }
     ) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "textarea",
