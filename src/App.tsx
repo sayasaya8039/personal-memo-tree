@@ -11,6 +11,7 @@ import {
   getAllPageMemoTrees,
   deletePageMemoTree,
   updateSettings,
+  migrateToLocalStorage,
 } from "./utils/storage";
 import { exportTree, downloadExport, exportAllTrees } from "./utils/export";
 import "./styles/app.css";
@@ -72,6 +73,11 @@ export const App = () => {
       setCurrentTree(tree);
     }
   }, [currentTab]);
+
+  // 起動時にsync→localへのデータ移行を実行
+  useEffect(() => {
+    migrateToLocalStorage();
+  }, []);
 
   useEffect(() => {
     fetchCurrentTab();

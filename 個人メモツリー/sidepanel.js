@@ -26437,14 +26437,20 @@ var generateId = () => {
   return crypto.randomUUID();
 };
 var getStorageData = async () => {
-  const result = await chrome.storage.sync.get(["pageMemoTrees", "settings"]);
+  const [localResult, syncResult] = await Promise.all([
+    chrome.storage.local.get(["pageMemoTrees"]),
+    chrome.storage.sync.get(["settings"])
+  ]);
   return {
-    pageMemoTrees: result.pageMemoTrees || [],
-    settings: result.settings || DEFAULT_SETTINGS
+    pageMemoTrees: localResult.pageMemoTrees || [],
+    settings: syncResult.settings || DEFAULT_SETTINGS
   };
 };
 var saveStorageData = async (data) => {
-  await chrome.storage.sync.set(data);
+  await Promise.all([
+    chrome.storage.local.set({ pageMemoTrees: data.pageMemoTrees }),
+    chrome.storage.sync.set({ settings: data.settings })
+  ]);
 };
 var getPageMemoTree = async (url) => {
   const data = await getStorageData();
@@ -26493,6 +26499,16 @@ var deletePageMemoTree = async (id) => {
   const data = await getStorageData();
   data.pageMemoTrees = data.pageMemoTrees.filter((tree) => tree.id !== id);
   await saveStorageData(data);
+};
+var migrateToLocalStorage = async () => {
+  const syncResult = await chrome.storage.sync.get(["pageMemoTrees"]);
+  const localResult = await chrome.storage.local.get(["pageMemoTrees"]);
+  if (syncResult.pageMemoTrees && syncResult.pageMemoTrees.length > 0 && (!localResult.pageMemoTrees || localResult.pageMemoTrees.length === 0)) {
+    console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Migrating data from sync to local storage...");
+    await chrome.storage.local.set({ pageMemoTrees: syncResult.pageMemoTrees });
+    await chrome.storage.sync.remove("pageMemoTrees");
+    console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Migration complete");
+  }
 };
 
 // src/utils/export.ts
@@ -26649,6 +26665,9 @@ var App = () => {
       setCurrentTree(tree);
     }
   }, [currentTab]);
+  (0, import_react7.useEffect)(() => {
+    migrateToLocalStorage();
+  }, []);
   (0, import_react7.useEffect)(() => {
     fetchCurrentTab();
   }, [fetchCurrentTab]);

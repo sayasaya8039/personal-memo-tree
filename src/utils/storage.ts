@@ -13,17 +13,24 @@ export const generateId = (): string => {
 };
 
 // ストレージ全体を取得
+// メモデータはlocalに保存（容量制限が緩い: 5MB+）、設定はsyncに保存
 export const getStorageData = async (): Promise<StorageData> => {
-  const result = await chrome.storage.sync.get(["pageMemoTrees", "settings"]);
+  const [localResult, syncResult] = await Promise.all([
+    chrome.storage.local.get(["pageMemoTrees"]),
+    chrome.storage.sync.get(["settings"]),
+  ]);
   return {
-    pageMemoTrees: (result.pageMemoTrees as PageMemoTree[] | undefined) || [],
-    settings: (result.settings as Settings | undefined) || DEFAULT_SETTINGS,
+    pageMemoTrees: (localResult.pageMemoTrees as PageMemoTree[] | undefined) || [],
+    settings: (syncResult.settings as Settings | undefined) || DEFAULT_SETTINGS,
   };
 };
 
 // ストレージ全体を保存
 export const saveStorageData = async (data: StorageData): Promise<void> => {
-  await chrome.storage.sync.set(data);
+  await Promise.all([
+    chrome.storage.local.set({ pageMemoTrees: data.pageMemoTrees }),
+    chrome.storage.sync.set({ settings: data.settings }),
+  ]);
 };
 
 // ページメモツリーを取得（URLで検索）
@@ -106,4 +113,20 @@ export const deletePageMemoTree = async (id: string): Promise<void> => {
   const data = await getStorageData();
   data.pageMemoTrees = data.pageMemoTrees.filter((tree) => tree.id !== id);
   await saveStorageData(data);
+};
+
+// sync から local への移行（初回起動時）
+export const migrateToLocalStorage = async (): Promise<void> => {
+  const syncResult = await chrome.storage.sync.get(["pageMemoTrees"]);
+  const localResult = await chrome.storage.local.get(["pageMemoTrees"]);
+  
+  // syncにデータがあり、localにデータがない場合は移行
+  if (syncResult.pageMemoTrees && syncResult.pageMemoTrees.length > 0 && 
+      (!localResult.pageMemoTrees || localResult.pageMemoTrees.length === 0)) {
+    console.log("個人メモツリー: Migrating data from sync to local storage...");
+    await chrome.storage.local.set({ pageMemoTrees: syncResult.pageMemoTrees });
+    // 移行後、syncからメモデータを削除（容量確保）
+    await chrome.storage.sync.remove("pageMemoTrees");
+    console.log("個人メモツリー: Migration complete");
+  }
 };
