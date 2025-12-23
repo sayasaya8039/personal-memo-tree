@@ -1,12 +1,13 @@
 // Content Script - ページからのドラッグを監視
 
-// 拡張機能コンテキストが有効かチェック
+// 拡張機能コンテキストが有効かチェック（Promiseのrejectも捕捉）
 const safeStorageSet = (data: object) => {
   try {
-    chrome.storage.local.set(data);
-  } catch (e) {
-    // Extension context invalidated - ページリロードが必要
-    console.log("個人メモツリー: Extension reloaded, please refresh the page");
+    chrome.storage.local.set(data).catch(() => {
+      // Extension context invalidated - 無視
+    });
+  } catch {
+    // 同期的なエラーも無視
   }
 };
 
@@ -26,7 +27,6 @@ document.addEventListener("dragstart", (e) => {
         timestamp: Date.now()
       }
     });
-    console.log("個人メモツリー: Image drag detected", img.src);
     return;
   }
 
@@ -43,7 +43,6 @@ document.addEventListener("dragstart", (e) => {
         timestamp: Date.now()
       }
     });
-    console.log("個人メモツリー: Link drag detected", anchor.href);
     return;
   }
 
@@ -60,7 +59,6 @@ document.addEventListener("dragstart", (e) => {
         timestamp: Date.now()
       }
     });
-    console.log("個人メモツリー: Text drag detected", selectedText.substring(0, 50));
     return;
   }
 });
@@ -96,5 +94,3 @@ document.addEventListener("drag", (e) => {
     });
   }
 });
-
-console.log("個人メモツリー: Content Script loaded");

@@ -3,9 +3,9 @@
   // src/content.ts
   var safeStorageSet = (data) => {
     try {
-      chrome.storage.local.set(data);
-    } catch (e) {
-      console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Extension reloaded, please refresh the page");
+      chrome.storage.local.set(data).catch(() => {
+      });
+    } catch {
     }
   };
   document.addEventListener("dragstart", (e) => {
@@ -22,7 +22,6 @@
           timestamp: Date.now()
         }
       });
-      console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Image drag detected", img.src);
       return;
     }
     const anchor = target.closest("a");
@@ -37,7 +36,6 @@
           timestamp: Date.now()
         }
       });
-      console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Link drag detected", anchor.href);
       return;
     }
     const selection = window.getSelection();
@@ -52,7 +50,6 @@
           timestamp: Date.now()
         }
       });
-      console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Text drag detected", selectedText.substring(0, 50));
       return;
     }
   });
@@ -82,5 +79,4 @@
       });
     }
   });
-  console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Content Script loaded");
 })();
