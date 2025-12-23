@@ -80,11 +80,38 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
     });
   };
 
-  const readFileAsDataURL = (file: File): Promise<string> => {
+  // 画像をリサイズ＆圧縮してBase64化（サムネイル用）
+  const resizeAndCompressImage = (file: File, maxWidth = 300, quality = 0.6): Promise<string> => {
     return new Promise((resolve) => {
+      const img = new Image();
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      img.onload = () => {
+        // リサイズ計算
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        // JPEG圧縮してBase64化
+        const dataUrl = canvas.toDataURL("image/jpeg", quality);
+        resolve(dataUrl);
+      };
+
+      img.onerror = () => resolve("");
+
+      // ファイルを読み込んでImage要素に設定
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = () => resolve("");
+      reader.onload = () => {
+        img.src = reader.result as string;
+      };
       reader.readAsDataURL(file);
     });
   };
@@ -101,7 +128,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       for (const file of Array.from(dt.files)) {
         if (file.type.startsWith("image/")) {
           // 画像ファイル → Base64で埋め込み
-          const dataUrl = await readFileAsDataURL(file);
+          const dataUrl = await resizeAndCompressImage(file);
           appendContent(`![${file.name}](${dataUrl})`);
         } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
           // テキストファイル → 内容を読み込み

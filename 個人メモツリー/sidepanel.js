@@ -26227,11 +26227,29 @@ var MemoEditor = ({ node, onUpdate }) => {
       reader.readAsText(file);
     });
   };
-  const readFileAsDataURL = (file) => {
+  const resizeAndCompressImage = (file, maxWidth = 300, quality = 0.6) => {
     return new Promise((resolve) => {
+      const img = new Image();
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > maxWidth) {
+          height = height * maxWidth / width;
+          width = maxWidth;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL("image/jpeg", quality);
+        resolve(dataUrl);
+      };
+      img.onerror = () => resolve("");
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = () => resolve("");
+      reader.onload = () => {
+        img.src = reader.result;
+      };
       reader.readAsDataURL(file);
     });
   };
@@ -26242,7 +26260,7 @@ var MemoEditor = ({ node, onUpdate }) => {
     if (dt.files && dt.files.length > 0) {
       for (const file of Array.from(dt.files)) {
         if (file.type.startsWith("image/")) {
-          const dataUrl = await readFileAsDataURL(file);
+          const dataUrl = await resizeAndCompressImage(file);
           appendContent(`![${file.name}](${dataUrl})`);
         } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
           const text = await readFileAsText(file);
