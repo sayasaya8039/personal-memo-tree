@@ -117,16 +117,28 @@ export const deletePageMemoTree = async (id: string): Promise<void> => {
 
 // sync から local への移行（初回起動時）
 export const migrateToLocalStorage = async (): Promise<void> => {
-  const syncResult = await chrome.storage.sync.get(["pageMemoTrees"]);
-  const localResult = await chrome.storage.local.get(["pageMemoTrees"]);
-  
-  // syncにデータがあり、localにデータがない場合は移行
-  if (syncResult.pageMemoTrees && syncResult.pageMemoTrees.length > 0 && 
-      (!localResult.pageMemoTrees || localResult.pageMemoTrees.length === 0)) {
-    console.log("個人メモツリー: Migrating data from sync to local storage...");
-    await chrome.storage.local.set({ pageMemoTrees: syncResult.pageMemoTrees });
-    // 移行後、syncからメモデータを削除（容量確保）
-    await chrome.storage.sync.remove("pageMemoTrees");
-    console.log("個人メモツリー: Migration complete");
+  try {
+    const syncResult = await chrome.storage.sync.get(["pageMemoTrees"]);
+    const localResult = await chrome.storage.local.get(["pageMemoTrees"]);
+
+    const syncTrees = (syncResult.pageMemoTrees as PageMemoTree[] | undefined) || [];
+    const localTrees = (localResult.pageMemoTrees as PageMemoTree[] | undefined) || [];
+
+    // syncにデータがある場合は移行（localにマージ）
+    if (syncTrees.length > 0) {
+      console.log("個人メモツリー: Migrating data from sync to local storage...");
+
+      // 既存のlocalデータとマージ（重複IDは除外）
+      const existingIds = new Set(localTrees.map(t => t.id));
+      const newTrees = syncTrees.filter(t => !existingIds.has(t.id));
+      const mergedTrees = [...localTrees, ...newTrees];
+
+      await chrome.storage.local.set({ pageMemoTrees: mergedTrees });
+      // 移行後、syncからメモデータを削除（容量確保）
+      await chrome.storage.sync.remove("pageMemoTrees");
+      console.log(`個人メモツリー: Migration complete (${newTrees.length} trees migrated)`);
+    }
+  } catch (error) {
+    console.error("個人メモツリー: Migration error", error);
   }
 };
