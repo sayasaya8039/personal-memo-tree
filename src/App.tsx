@@ -151,51 +151,6 @@ export const App = () => {
     setShowExportMenu(false);
   };
 
-  // NotebookLM Web Importer拡張機能のID
-  const NOTEBOOKLM_IMPORTER_ID = "ijdefdijdmghafocfmmdojfghnpelnfn";
-
-  // NotebookLM Web Importerに送信を試みる
-  const tryNotebookLMImporter = async (content: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-      try {
-        if (!chrome.runtime?.sendMessage) {
-          resolve(false);
-          return;
-        }
-
-        // 外部拡張機能にメッセージを送信
-        chrome.runtime.sendMessage(
-          NOTEBOOKLM_IMPORTER_ID,
-          {
-            type: "IMPORT_TEXT",
-            action: "importText",
-            text: content,
-            title: currentTree?.title || "メモツリー",
-            source: "個人メモツリー拡張機能"
-          },
-          (response) => {
-            // エラーチェック（拡張機能が存在しない場合など）
-            if (chrome.runtime.lastError) {
-              console.log("NotebookLM Web Importer not available:", chrome.runtime.lastError.message);
-              resolve(false);
-              return;
-            }
-            if (response?.success) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
-          }
-        );
-
-        // タイムアウト（2秒で応答がなければフォールバック）
-        setTimeout(() => resolve(false), 2000);
-      } catch {
-        resolve(false);
-      }
-    });
-  };
-
   // NotebookLMにクリップボード経由でエクスポート
   const handleExportToNotebookLM = async () => {
     let content: string;
@@ -223,7 +178,7 @@ export const App = () => {
     setShowExportMenu(false);
   };
 
-  // Web Importer拡張機能経由でエクスポート
+  // Web Importer拡張機能の使い方案内
   const handleExportViaWebImporter = async () => {
     let content: string;
     if (viewMode === "current" && currentTree) {
@@ -232,17 +187,16 @@ export const App = () => {
       content = exportAllTrees(allTrees, "notebooklm");
     }
 
-    const success = await tryNotebookLMImporter(content);
-
-    if (success) {
-      alert("NotebookLM Web Importerにメモを送信しました！\n\nNotebookLMでインポートを完了してください。");
-    } else {
-      alert("NotebookLM Web Importer拡張機能が見つかりません。\n\n拡張機能をインストールしてください。");
+    try {
+      await navigator.clipboard.writeText(content);
+      alert("メモをクリップボードにコピーしました!\n\n【Web Importerでの取り込み方】\n1. NotebookLMを開く\n2. Web Importerアイコンをクリック\n3. Import Textタブを選択\n4. Ctrl+V で貼り付け");
+    } catch {
+      alert("クリップボードへのコピーに失敗しました");
     }
     setShowExportMenu(false);
   };
 
-  // テーマ切り替え
+    // テーマ切り替え
   const handleThemeChange = async (theme: Settings["theme"]) => {
     const newSettings = { ...settings, theme };
     setSettings(newSettings);
