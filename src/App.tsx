@@ -439,6 +439,12 @@ export const App = () => {
           )
         )}
       </div>
+      <footer className="app-footer">
+        <div className="footer-content">
+          <span className="company-name">CityRiver LLC</span>
+          <img src="icons/company-logo.png" alt="CityRiver LLC" className="company-logo" />
+        </div>
+      </footer>
     </div>
   );
 };

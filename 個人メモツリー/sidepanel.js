@@ -27145,6 +27145,10 @@ var App = () => {
         },
         tree.id
       ))
+    ] }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("footer", { className: "app-footer", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "footer-content", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "company-name", children: "CityRiver LLC" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("img", { src: "icons/company-logo.png", alt: "CityRiver LLC", className: "company-logo" })
     ] }) })
   ] });
 };
