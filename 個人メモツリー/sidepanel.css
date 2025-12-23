@@ -786,3 +786,13 @@ body {
   outline: none;
   border-color: var(--accent-color);
 }
+
+/* Save Status */
+.save-status {
+  margin-right: auto;
+}
+
+.save-indicator {
+  font-size: 11px;
+  color: var(--success-color);
+}

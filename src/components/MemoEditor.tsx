@@ -45,6 +45,16 @@ const generateImageId = (): string => {
   return `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
 
+// 相対時間表示
+const getRelativeTime = (timestamp: number | null): string => {
+  if (!timestamp) return "";
+  const diff = Math.floor((Date.now() - timestamp) / 1000);
+  if (diff < 5) return "保存済み";
+  if (diff < 60) return `${diff}秒前に保存`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}分前に保存`;
+  return `${Math.floor(diff / 3600)}時間前に保存`;
+};
+
 // シンプルなMarkdownプレビュー（画像参照を実際のBase64に変換）
 const renderMarkdown = (text: string, images: Record<string, string>): string => {
   if (!text) return "";
@@ -86,6 +96,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
   const [isPreview, setIsPreview] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const [images, setImages] = useState<Record<string, string>>({});
+  const [lastSaved, setLastSaved] = useState<number | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // 初期化時に画像ストレージを読み込み
@@ -249,6 +260,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       content,
       updatedAt: Date.now(),
     });
+    setLastSaved(Date.now());
   };
 
   // 自動保存（デバウンス）
@@ -343,6 +355,9 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
         placeholder="メモタイトル"
       />
       <div className="editor-toolbar">
+        <div className="save-status">
+          {lastSaved && <span className="save-indicator">{getRelativeTime(lastSaved)}</span>}
+        </div>
         <div className="tab-buttons">
           <button
             className={`tab-btn ${!isPreview ? "active" : ""}`}

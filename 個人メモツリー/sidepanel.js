@@ -26215,6 +26215,14 @@ var saveImage = async (id, dataUrl) => {
 var generateImageId = () => {
   return `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 };
+var getRelativeTime = (timestamp) => {
+  if (!timestamp) return "";
+  const diff = Math.floor((Date.now() - timestamp) / 1e3);
+  if (diff < 5) return "\u4FDD\u5B58\u6E08\u307F";
+  if (diff < 60) return `${diff}\u79D2\u524D\u306B\u4FDD\u5B58`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}\u5206\u524D\u306B\u4FDD\u5B58`;
+  return `${Math.floor(diff / 3600)}\u6642\u9593\u524D\u306B\u4FDD\u5B58`;
+};
 var renderMarkdown = (text, images) => {
   if (!text) return "";
   return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>").replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/!\[([^\]]*)\]\(memo-img:([^)]+)\)/g, (_, alt, id) => {
@@ -26228,6 +26236,7 @@ var MemoEditor = ({ node, onUpdate }) => {
   const [isPreview, setIsPreview] = (0, import_react6.useState)(false);
   const [isDragOver, setIsDragOver] = (0, import_react6.useState)(false);
   const [images, setImages] = (0, import_react6.useState)({});
+  const [lastSaved, setLastSaved] = (0, import_react6.useState)(null);
   const textareaRef = (0, import_react6.useRef)(null);
   (0, import_react6.useEffect)(() => {
     loadImageStore().then(setImages);
@@ -26351,6 +26360,7 @@ var MemoEditor = ({ node, onUpdate }) => {
       content,
       updatedAt: Date.now()
     });
+    setLastSaved(Date.now());
   };
   (0, import_react6.useEffect)(() => {
     const timer = setTimeout(() => {
@@ -26412,6 +26422,7 @@ var MemoEditor = ({ node, onUpdate }) => {
       }
     ),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "editor-toolbar", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "save-status", children: lastSaved && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "save-indicator", children: getRelativeTime(lastSaved) }) }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "tab-buttons", children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
           "button",
