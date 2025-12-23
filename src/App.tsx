@@ -1,0 +1,316 @@
+import { useState, useEffect, useCallback } from "react";
+import { MemoTree } from "./components/MemoTree";
+import { MemoEditor } from "./components/MemoEditor";
+import type { PageMemoTree, MemoNode, Settings, ExportFormat } from "./types";
+import {
+  getStorageData,
+  getPageMemoTree,
+  createPageMemoTree,
+  updatePageMemoTree,
+  createMemoNode,
+  getAllPageMemoTrees,
+  deletePageMemoTree,
+  updateSettings,
+} from "./utils/storage";
+import { exportTree, downloadExport, exportAllTrees } from "./utils/export";
+import "./styles/app.css";
+
+interface TabInfo {
+  url: string;
+  title: string;
+  favicon?: string;
+}
+
+export const App = () => {
+  const [currentTab, setCurrentTab] = useState<TabInfo | null>(null);
+  const [currentTree, setCurrentTree] = useState<PageMemoTree | null>(null);
+  const [allTrees, setAllTrees] = useState<PageMemoTree[]>([]);
+  const [selectedNode, setSelectedNode] = useState<MemoNode | null>(null);
+  const [settings, setSettings] = useState<Settings>({
+    theme: "system",
+    autoSave: true,
+    syncEnabled: true,
+    defaultExpanded: true,
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState<"current" | "all">("current");
+  const [showExportMenu, setShowExportMenu] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // 現在のタブ情報を取得
+  const fetchCurrentTab = useCallback(async () => {
+    try {
+      const response = await chrome.runtime.sendMessage({ type: "GET_CURRENT_TAB" });
+      if (response?.url) {
+        setCurrentTab(response);
+      }
+    } catch {
+      // 開発環境用のフォールバック
+      setCurrentTab({
+        url: window.location.href,
+        title: document.title,
+      });
+    }
+  }, []);
+
+  // ストレージからデータ読み込み
+  const loadData = useCallback(async () => {
+    const data = await getStorageData();
+    setSettings(data.settings);
+    setAllTrees(data.pageMemoTrees);
+
+    if (currentTab?.url) {
+      let tree = await getPageMemoTree(currentTab.url);
+      if (!tree) {
+        tree = await createPageMemoTree(
+          currentTab.url,
+          currentTab.title,
+          currentTab.favicon
+        );
+        setAllTrees((prev) => [...prev, tree!]);
+      }
+      setCurrentTree(tree);
+    }
+  }, [currentTab]);
+
+  useEffect(() => {
+    fetchCurrentTab();
+  }, [fetchCurrentTab]);
+
+  useEffect(() => {
+    if (currentTab) {
+      loadData();
+    }
+  }, [currentTab, loadData]);
+
+  // タブ変更リスナー
+  useEffect(() => {
+    const handleMessage = (message: { type: string; data: TabInfo }) => {
+      if (message.type === "TAB_CHANGED" || message.type === "TAB_UPDATED") {
+        setCurrentTab(message.data);
+      }
+    };
+    chrome.runtime?.onMessage?.addListener(handleMessage);
+    return () => chrome.runtime?.onMessage?.removeListener(handleMessage);
+  }, []);
+
+  // テーマ適用
+  useEffect(() => {
+    const root = document.documentElement;
+    if (settings.theme === "system") {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.setAttribute("data-theme", isDark ? "dark" : "light");
+    } else {
+      root.setAttribute("data-theme", settings.theme);
+    }
+  }, [settings.theme]);
+
+  // ノード更新
+  const handleNodeUpdate = async (nodes: MemoNode[]) => {
+    if (!currentTree) return;
+    const updatedTree = { ...currentTree, rootNodes: nodes };
+    setCurrentTree(updatedTree);
+    await updatePageMemoTree(updatedTree);
+  };
+
+  // 選択ノード更新
+  const handleSelectedNodeUpdate = async (node: MemoNode) => {
+    if (!currentTree) return;
+
+    const updateNode = (nodeList: MemoNode[]): MemoNode[] => {
+      return nodeList.map((n) => {
+        if (n.id === node.id) return node;
+        if (n.children) return { ...n, children: updateNode(n.children) };
+        return n;
+      });
+    };
+
+    const updatedNodes = updateNode(currentTree.rootNodes);
+    await handleNodeUpdate(updatedNodes);
+    setSelectedNode(node);
+  };
+
+  // 新規ルートノード追加
+  const handleAddRootNode = async () => {
+    if (!currentTree) return;
+    const newNode = createMemoNode("新しいメモ");
+    const updatedNodes = [...currentTree.rootNodes, newNode];
+    await handleNodeUpdate(updatedNodes);
+    setSelectedNode(newNode);
+  };
+
+  // エクスポート
+  const handleExport = (format: ExportFormat) => {
+    if (viewMode === "current" && currentTree) {
+      const content = exportTree(currentTree, format);
+      downloadExport(content, currentTree.title || "memo", format);
+    } else if (viewMode === "all") {
+      const content = exportAllTrees(allTrees, format);
+      downloadExport(content, "all-memos", format);
+    }
+    setShowExportMenu(false);
+  };
+
+  // テーマ切り替え
+  const handleThemeChange = async (theme: Settings["theme"]) => {
+    const newSettings = { ...settings, theme };
+    setSettings(newSettings);
+    await updateSettings(newSettings);
+  };
+
+  // ツリー削除
+  const handleDeleteTree = async (id: string) => {
+    if (!confirm("このメモツリーを削除しますか？")) return;
+    await deletePageMemoTree(id);
+    setAllTrees((prev) => prev.filter((t) => t.id !== id));
+    if (currentTree?.id === id) {
+      setCurrentTree(null);
+      setSelectedNode(null);
+    }
+  };
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1>メモツリー</h1>
+        <div className="header-actions">
+          <input
+            type="text"
+            className="search-input"
+            placeholder="検索..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            className="icon-btn"
+            onClick={() => setShowExportMenu(!showExportMenu)}
+            title="エクスポート"
+          >
+            Export
+          </button>
+          <button
+            className="icon-btn"
+            onClick={() => setShowSettings(!showSettings)}
+            title="設定"
+          >
+            Settings
+          </button>
+        </div>
+      </header>
+
+      {showExportMenu && (
+        <div className="dropdown-menu">
+          <button onClick={() => handleExport("json")}>JSON</button>
+          <button onClick={() => handleExport("markdown")}>Markdown</button>
+          <button onClick={() => handleExport("notebooklm")}>NotebookLM用</button>
+        </div>
+      )}
+
+      {showSettings && (
+        <div className="settings-panel">
+          <h3>設定</h3>
+          <div className="setting-item">
+            <label>テーマ</label>
+            <select
+              value={settings.theme}
+              onChange={(e) => handleThemeChange(e.target.value as Settings["theme"])}
+            >
+              <option value="light">ライト</option>
+              <option value="dark">ダーク</option>
+              <option value="system">システム</option>
+            </select>
+          </div>
+          <button className="close-btn" onClick={() => setShowSettings(false)}>
+            閉じる
+          </button>
+        </div>
+      )}
+
+      <div className="view-tabs">
+        <button
+          className={`view-tab ${viewMode === "current" ? "active" : ""}`}
+          onClick={() => setViewMode("current")}
+        >
+          このページ
+        </button>
+        <button
+          className={`view-tab ${viewMode === "all" ? "active" : ""}`}
+          onClick={() => setViewMode("all")}
+        >
+          すべて
+        </button>
+      </div>
+
+      {currentTab && viewMode === "current" && (
+        <div className="current-page-info">
+          {currentTab.favicon && (
+            <img src={currentTab.favicon} alt="" className="favicon" />
+          )}
+          <span className="page-title">{currentTab.title}</span>
+        </div>
+      )}
+
+      <div className="main-content">
+        {viewMode === "current" ? (
+          <>
+            <div className="tree-panel">
+              <div className="panel-header">
+                <span>メモ一覧</span>
+                <button className="add-btn" onClick={handleAddRootNode}>
+                  + 追加
+                </button>
+              </div>
+              <MemoTree
+                nodes={currentTree?.rootNodes || []}
+                onNodeSelect={setSelectedNode}
+                onNodeUpdate={handleNodeUpdate}
+                selectedNodeId={selectedNode?.id}
+                searchQuery={searchQuery}
+              />
+            </div>
+            <div className="editor-panel">
+              <MemoEditor node={selectedNode} onUpdate={handleSelectedNodeUpdate} />
+            </div>
+          </>
+        ) : (
+          <div className="all-trees-panel">
+            {allTrees.length === 0 ? (
+              <div className="empty-state">
+                <p>保存されたメモがありません</p>
+              </div>
+            ) : (
+              allTrees
+                .filter(
+                  (tree) =>
+                    !searchQuery ||
+                    tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    tree.url.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map((tree) => (
+                  <div
+                    key={tree.id}
+                    className={`tree-item ${tree.id === currentTree?.id ? "current" : ""}`}
+                  >
+                    <div className="tree-item-info">
+                      <span className="tree-title">{tree.title}</span>
+                      <span className="tree-url">{tree.url}</span>
+                      <span className="tree-count">
+                        {tree.rootNodes.length} メモ
+                      </span>
+                    </div>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteTree(tree.id)}
+                      title="削除"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
