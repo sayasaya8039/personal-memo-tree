@@ -29,6 +29,8 @@ const renderMarkdown = (text: string): string => {
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     // 斜体
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    // 画像（リンクより先に処理）
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="memo-image" loading="lazy" />')
     // リンク
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
     // リスト
