@@ -26195,16 +26195,43 @@ var MemoTree = ({
 // src/components/MemoEditor.tsx
 var import_react6 = __toESM(require_react(), 1);
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
-var renderMarkdown = (text) => {
+var imageCache = {};
+var loadImageStore = async () => {
+  try {
+    const result = await chrome.storage.local.get("memoImages");
+    imageCache = result.memoImages || {};
+    return imageCache;
+  } catch {
+    return {};
+  }
+};
+var saveImage = async (id, dataUrl) => {
+  try {
+    imageCache[id] = dataUrl;
+    await chrome.storage.local.set({ memoImages: imageCache });
+  } catch {
+  }
+};
+var generateImageId = () => {
+  return `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+};
+var renderMarkdown = (text, images) => {
   if (!text) return "";
-  return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>").replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="memo-image" loading="lazy" />').replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>').replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s<>"]+)/g, '<a href="$1" target="_blank">$1</a>').replace(/^- (.+)$/gm, "<li>$1</li>").replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>").replace(/^### (.+)$/gm, "<h3>$1</h3>").replace(/^## (.+)$/gm, "<h2>$1</h2>").replace(/^# (.+)$/gm, "<h1>$1</h1>").replace(/\n/g, "<br>");
+  return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>").replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/!\[([^\]]*)\]\(memo-img:([^)]+)\)/g, (_, alt, id) => {
+    const src = images[id] || "";
+    return src ? `<img src="${src}" alt="${alt}" class="memo-image" loading="lazy" />` : `[\u{1F4F7} ${alt}]`;
+  }).replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="memo-image" loading="lazy" />').replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>').replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s<>"]+)/g, '<a href="$1" target="_blank">$1</a>').replace(/^- (.+)$/gm, "<li>$1</li>").replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>").replace(/^### (.+)$/gm, "<h3>$1</h3>").replace(/^## (.+)$/gm, "<h2>$1</h2>").replace(/^# (.+)$/gm, "<h1>$1</h1>").replace(/\n/g, "<br>");
 };
 var MemoEditor = ({ node, onUpdate }) => {
   const [name, setName] = (0, import_react6.useState)("");
   const [content, setContent] = (0, import_react6.useState)("");
   const [isPreview, setIsPreview] = (0, import_react6.useState)(false);
   const [isDragOver, setIsDragOver] = (0, import_react6.useState)(false);
+  const [images, setImages] = (0, import_react6.useState)({});
   const textareaRef = (0, import_react6.useRef)(null);
+  (0, import_react6.useEffect)(() => {
+    loadImageStore().then(setImages);
+  }, []);
   (0, import_react6.useEffect)(() => {
     if (node) {
       setName(node.name);
@@ -26253,6 +26280,12 @@ var MemoEditor = ({ node, onUpdate }) => {
       reader.readAsDataURL(file);
     });
   };
+  const storeImage = async (dataUrl, altText) => {
+    const id = generateImageId();
+    await saveImage(id, dataUrl);
+    setImages((prev) => ({ ...prev, [id]: dataUrl }));
+    return `![${altText}](memo-img:${id})`;
+  };
   const handleDrop = async (e) => {
     e.preventDefault();
     setIsDragOver(false);
@@ -26261,7 +26294,8 @@ var MemoEditor = ({ node, onUpdate }) => {
       for (const file of Array.from(dt.files)) {
         if (file.type.startsWith("image/")) {
           const dataUrl = await resizeAndCompressImage(file);
-          appendContent(`![${file.name}](${dataUrl})`);
+          const markdown = await storeImage(dataUrl, file.name);
+          appendContent(markdown);
         } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
           const text = await readFileAsText(file);
           appendContent(text);
@@ -26457,7 +26491,7 @@ var MemoEditor = ({ node, onUpdate }) => {
       "div",
       {
         className: "preview",
-        dangerouslySetInnerHTML: { __html: renderMarkdown(content) },
+        dangerouslySetInnerHTML: { __html: renderMarkdown(content, images) },
         onClick: (e) => {
           const target = e.target;
           if (target.tagName === "A") {

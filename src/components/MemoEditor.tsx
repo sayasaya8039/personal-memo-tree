@@ -16,8 +16,37 @@ interface MemoEditorProps {
   onUpdate: (node: MemoNode) => void;
 }
 
-// シンプルなMarkdownプレビュー
-const renderMarkdown = (text: string): string => {
+// 画像ストレージのキャッシュ
+let imageCache: Record<string, string> = {};
+
+// 画像ストレージから読み込み
+const loadImageStore = async (): Promise<Record<string, string>> => {
+  try {
+    const result = await chrome.storage.local.get("memoImages");
+    imageCache = result.memoImages || {};
+    return imageCache;
+  } catch {
+    return {};
+  }
+};
+
+// 画像をストレージに保存
+const saveImage = async (id: string, dataUrl: string): Promise<void> => {
+  try {
+    imageCache[id] = dataUrl;
+    await chrome.storage.local.set({ memoImages: imageCache });
+  } catch {
+    // Storage error
+  }
+};
+
+// UUID生成
+const generateImageId = (): string => {
+  return `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+};
+
+// シンプルなMarkdownプレビュー（画像参照を実際のBase64に変換）
+const renderMarkdown = (text: string, images: Record<string, string>): string => {
   if (!text) return "";
 
   return text
@@ -29,7 +58,12 @@ const renderMarkdown = (text: string): string => {
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     // 斜体
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    // 画像（リンクより先に処理）
+    // 画像（memo-img参照を実際のBase64に変換）
+    .replace(/!\[([^\]]*)\]\(memo-img:([^)]+)\)/g, (_, alt, id) => {
+      const src = images[id] || "";
+      return src ? `<img src="${src}" alt="${alt}" class="memo-image" loading="lazy" />` : `[📷 ${alt}]`;
+    })
+    // 通常の画像
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="memo-image" loading="lazy" />')
     // リンク
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
@@ -51,7 +85,13 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
   const [content, setContent] = useState("");
   const [isPreview, setIsPreview] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [images, setImages] = useState<Record<string, string>>({});
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // 初期化時に画像ストレージを読み込み
+  useEffect(() => {
+    loadImageStore().then(setImages);
+  }, []);
 
   useEffect(() => {
     if (node) {
@@ -116,6 +156,14 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
     });
   };
 
+  // 画像を保存してMarkdown参照を返す
+  const storeImage = async (dataUrl: string, altText: string): Promise<string> => {
+    const id = generateImageId();
+    await saveImage(id, dataUrl);
+    setImages(prev => ({ ...prev, [id]: dataUrl }));
+    return `![${altText}](memo-img:${id})`;
+  };
+
   // ドロップを処理（外部 + 内部ページ両対応）
   const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
@@ -127,9 +175,10 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
     if (dt.files && dt.files.length > 0) {
       for (const file of Array.from(dt.files)) {
         if (file.type.startsWith("image/")) {
-          // 画像ファイル → Base64で埋め込み
+          // 画像ファイル → 圧縮して別ストレージに保存
           const dataUrl = await resizeAndCompressImage(file);
-          appendContent(`![${file.name}](${dataUrl})`);
+          const markdown = await storeImage(dataUrl, file.name);
+          appendContent(markdown);
         } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
           // テキストファイル → 内容を読み込み
           const text = await readFileAsText(file);
@@ -358,7 +407,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       {isPreview ? (
         <div
           className="preview"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(content) }}
+          dangerouslySetInnerHTML={{ __html: renderMarkdown(content, images) }}
           onClick={(e) => {
             const target = e.target as HTMLElement;
             if (target.tagName === "A") {
