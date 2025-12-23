@@ -26254,7 +26254,7 @@ var MemoEditor = ({ node, onUpdate }) => {
       reader.readAsText(file);
     });
   };
-  const resizeAndCompressImage = (file, maxWidth = 300, quality = 0.6) => {
+  const resizeAndCompressImage = (file, maxWidth = 400, quality = 0.75) => {
     return new Promise((resolve) => {
       const img = new Image();
       const canvas = document.createElement("canvas");

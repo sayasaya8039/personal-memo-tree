@@ -121,7 +121,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
   };
 
   // 画像をリサイズ＆圧縮してBase64化（サムネイル用）
-  const resizeAndCompressImage = (file: File, maxWidth = 300, quality = 0.6): Promise<string> => {
+  const resizeAndCompressImage = (file: File, maxWidth = 400, quality = 0.75): Promise<string> => {
     return new Promise((resolve) => {
       const img = new Image();
       const canvas = document.createElement("canvas");
