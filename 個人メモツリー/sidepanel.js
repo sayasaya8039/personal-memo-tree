@@ -26826,6 +26826,7 @@ var App = () => {
     const updatedTree = { ...currentTree, rootNodes: nodes };
     setCurrentTree(updatedTree);
     await updatePageMemoTree(updatedTree);
+    setAllTrees((prev) => prev.map((t) => t.id === updatedTree.id ? updatedTree : t));
   };
   const handleSelectedNodeUpdate = async (node) => {
     if (!currentTree) return;

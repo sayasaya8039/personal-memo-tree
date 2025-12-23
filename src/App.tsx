@@ -119,6 +119,8 @@ export const App = () => {
     const updatedTree = { ...currentTree, rootNodes: nodes };
     setCurrentTree(updatedTree);
     await updatePageMemoTree(updatedTree);
+    // allTreesも更新
+    setAllTrees(prev => prev.map(t => t.id === updatedTree.id ? updatedTree : t));
   };
 
   // 選択ノード更新
