@@ -438,13 +438,39 @@ body {
   border-color: var(--accent-color);
 }
 
-.format-hints {
-  width: 100%;
-  font-size: 11px;
-  color: var(--text-secondary);
-  padding: 4px 0;
-  border-top: 1px solid var(--border-color);
-  margin-top: 2px;
+.format-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.format-btn {
+  width: 32px;
+  height: 28px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.format-btn:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.format-btn b {
+  font-weight: 700;
+}
+
+.format-btn i {
+  font-style: italic;
 }
 
 .content-textarea {

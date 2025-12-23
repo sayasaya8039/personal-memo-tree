@@ -21937,6 +21937,43 @@ var MemoEditor = ({ node, onUpdate }) => {
     }, 500);
     return () => clearTimeout(timer);
   }, [name, content]);
+  const applyFormat = (prefix, suffix, linePrefix) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+    let newText;
+    let newCursorPos;
+    if (linePrefix) {
+      const beforeSelection = content.substring(0, start);
+      const lastNewline = beforeSelection.lastIndexOf("\n");
+      const lineStart = lastNewline + 1;
+      newText = content.substring(0, lineStart) + linePrefix + content.substring(lineStart);
+      newCursorPos = end + linePrefix.length;
+    } else if (selectedText) {
+      newText = content.substring(0, start) + prefix + selectedText + suffix + content.substring(end);
+      newCursorPos = end + prefix.length + suffix.length;
+    } else {
+      const placeholder = "\u30C6\u30AD\u30B9\u30C8";
+      newText = content.substring(0, start) + prefix + placeholder + suffix + content.substring(end);
+      newCursorPos = start + prefix.length;
+      setTimeout(() => {
+        textarea.setSelectionRange(
+          start + prefix.length,
+          start + prefix.length + placeholder.length
+        );
+        textarea.focus();
+      }, 0);
+      setContent(newText);
+      return;
+    }
+    setContent(newText);
+    setTimeout(() => {
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+      textarea.focus();
+    }, 0);
+  };
   if (!node) {
     return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "memo-editor empty", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: "\u30E1\u30E2\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044" }) });
   }
@@ -21970,7 +22007,62 @@ var MemoEditor = ({ node, onUpdate }) => {
           }
         )
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "format-hints", children: "**\u592A\u5B57** | *\u659C\u4F53* | `\u30B3\u30FC\u30C9` | - \u30EA\u30B9\u30C8" })
+      !isPreview && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "format-buttons", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("**", "**"),
+            title: "\u592A\u5B57 (Ctrl+B)",
+            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("b", { children: "B" })
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("*", "*"),
+            title: "\u659C\u4F53 (Ctrl+I)",
+            children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("i", { children: "I" })
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("`", "`"),
+            title: "\u30B3\u30FC\u30C9",
+            children: "</>"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("", "", "- "),
+            title: "\u30EA\u30B9\u30C8",
+            children: "\u25CF"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("", "", "# "),
+            title: "\u898B\u51FA\u3057",
+            children: "H"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+          "button",
+          {
+            className: "format-btn",
+            onClick: () => applyFormat("[", "](url)"),
+            title: "\u30EA\u30F3\u30AF",
+            children: "\u{1F517}"
+          }
+        )
+      ] })
     ] }),
     isPreview ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "div",
@@ -21985,7 +22077,18 @@ var MemoEditor = ({ node, onUpdate }) => {
         className: "content-textarea",
         value: content,
         onChange: (e) => setContent(e.target.value),
-        placeholder: "\u30E1\u30E2\u5185\u5BB9\u3092\u5165\u529B... (Markdown\u5BFE\u5FDC)"
+        placeholder: "\u30E1\u30E2\u5185\u5BB9\u3092\u5165\u529B...",
+        onKeyDown: (e) => {
+          if (e.ctrlKey || e.metaKey) {
+            if (e.key === "b") {
+              e.preventDefault();
+              applyFormat("**", "**");
+            } else if (e.key === "i") {
+              e.preventDefault();
+              applyFormat("*", "*");
+            }
+          }
+        }
       }
     ),
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "editor-footer", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "timestamp", children: [

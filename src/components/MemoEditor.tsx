@@ -9,7 +9,7 @@ interface MemoEditorProps {
 // シンプルなMarkdownプレビュー
 const renderMarkdown = (text: string): string => {
   if (!text) return "";
-  
+
   return text
     // コードブロック
     .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
@@ -65,6 +65,70 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
     return () => clearTimeout(timer);
   }, [name, content]);
 
+  // 選択範囲にフォーマットを適用
+  const applyFormat = (prefix: string, suffix: string, linePrefix?: string) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = content.substring(start, end);
+
+    let newText: string;
+    let newCursorPos: number;
+
+    if (linePrefix) {
+      // 行頭に追加（リスト、見出し）
+      const beforeSelection = content.substring(0, start);
+      const lastNewline = beforeSelection.lastIndexOf("\n");
+      const lineStart = lastNewline + 1;
+
+      newText =
+        content.substring(0, lineStart) +
+        linePrefix +
+        content.substring(lineStart);
+      newCursorPos = end + linePrefix.length;
+    } else if (selectedText) {
+      // 選択範囲を囲む
+      newText =
+        content.substring(0, start) +
+        prefix +
+        selectedText +
+        suffix +
+        content.substring(end);
+      newCursorPos = end + prefix.length + suffix.length;
+    } else {
+      // 選択なしの場合、プレースホルダーを挿入
+      const placeholder = "テキスト";
+      newText =
+        content.substring(0, start) +
+        prefix +
+        placeholder +
+        suffix +
+        content.substring(end);
+      newCursorPos = start + prefix.length;
+
+      // プレースホルダーを選択状態にする
+      setTimeout(() => {
+        textarea.setSelectionRange(
+          start + prefix.length,
+          start + prefix.length + placeholder.length
+        );
+        textarea.focus();
+      }, 0);
+      setContent(newText);
+      return;
+    }
+
+    setContent(newText);
+
+    // カーソル位置を復元
+    setTimeout(() => {
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+      textarea.focus();
+    }, 0);
+  };
+
   if (!node) {
     return (
       <div className="memo-editor empty">
@@ -97,9 +161,52 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
             プレビュー
           </button>
         </div>
-        <div className="format-hints">
-          **太字** | *斜体* | `コード` | - リスト
-        </div>
+        {!isPreview && (
+          <div className="format-buttons">
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("**", "**")}
+              title="太字 (Ctrl+B)"
+            >
+              <b>B</b>
+            </button>
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("*", "*")}
+              title="斜体 (Ctrl+I)"
+            >
+              <i>I</i>
+            </button>
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("`", "`")}
+              title="コード"
+            >
+              &lt;/&gt;
+            </button>
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("", "", "- ")}
+              title="リスト"
+            >
+              ●
+            </button>
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("", "", "# ")}
+              title="見出し"
+            >
+              H
+            </button>
+            <button
+              className="format-btn"
+              onClick={() => applyFormat("[", "](url)")}
+              title="リンク"
+            >
+              🔗
+            </button>
+          </div>
+        )}
       </div>
       {isPreview ? (
         <div
@@ -112,7 +219,19 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
           className="content-textarea"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="メモ内容を入力... (Markdown対応)"
+          placeholder="メモ内容を入力..."
+          onKeyDown={(e) => {
+            // キーボードショートカット
+            if (e.ctrlKey || e.metaKey) {
+              if (e.key === "b") {
+                e.preventDefault();
+                applyFormat("**", "**");
+              } else if (e.key === "i") {
+                e.preventDefault();
+                applyFormat("*", "*");
+              }
+            }
+          }}
         />
       )}
       <div className="editor-footer">
