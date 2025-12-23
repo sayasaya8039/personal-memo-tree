@@ -22426,12 +22426,6 @@ var App = () => {
     } else {
       content = exportAllTrees(allTrees, "notebooklm");
     }
-    const importerSuccess = await tryNotebookLMImporter(content);
-    if (importerSuccess) {
-      alert("NotebookLM Web Importer\u306B\u30E1\u30E2\u3092\u9001\u4FE1\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067\u30A4\u30F3\u30DD\u30FC\u30C8\u3092\u5B8C\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
-      setShowExportMenu(false);
-      return;
-    }
     try {
       await navigator.clipboard.writeText(content);
       const notebookLMUrl = "https://notebooklm.google.com/";
@@ -22440,10 +22434,25 @@ var App = () => {
       } else {
         window.open(notebookLMUrl, "_blank");
       }
-      alert("\u30E1\u30E2\u3092\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067:\n1.\u300C\u30BD\u30FC\u30B9\u3092\u8FFD\u52A0\u300D\u2192\u300C\u30B3\u30D4\u30FC\u3057\u305F\u30C6\u30AD\u30B9\u30C8\u300D\n2. Ctrl+V \u3067\u8CBC\u308A\u4ED8\u3051\n\n\u{1F4A1} NotebookLM Web Importer\u62E1\u5F35\u6A5F\u80FD\u3092\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u3059\u308B\u3068\u3001\u3088\u308A\u7C21\u5358\u306B\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u304D\u307E\u3059\u3002");
+      alert("\u30E1\u30E2\u3092\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u306B\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067:\n1.\u300C\u30BD\u30FC\u30B9\u3092\u8FFD\u52A0\u300D\u2192\u300C\u30B3\u30D4\u30FC\u3057\u305F\u30C6\u30AD\u30B9\u30C8\u300D\n2. Ctrl+V \u3067\u8CBC\u308A\u4ED8\u3051");
     } catch (err) {
       console.error("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557:", err);
       alert("\u30AF\u30EA\u30C3\u30D7\u30DC\u30FC\u30C9\u3078\u306E\u30B3\u30D4\u30FC\u306B\u5931\u6557\u3057\u307E\u3057\u305F");
+    }
+    setShowExportMenu(false);
+  };
+  const handleExportViaWebImporter = async () => {
+    let content;
+    if (viewMode === "current" && currentTree) {
+      content = exportTree(currentTree, "notebooklm");
+    } else {
+      content = exportAllTrees(allTrees, "notebooklm");
+    }
+    const success = await tryNotebookLMImporter(content);
+    if (success) {
+      alert("NotebookLM Web Importer\u306B\u30E1\u30E2\u3092\u9001\u4FE1\u3057\u307E\u3057\u305F\uFF01\n\nNotebookLM\u3067\u30A4\u30F3\u30DD\u30FC\u30C8\u3092\u5B8C\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
+    } else {
+      alert("NotebookLM Web Importer\u62E1\u5F35\u6A5F\u80FD\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002\n\n\u62E1\u5F35\u6A5F\u80FD\u3092\u30A4\u30F3\u30B9\u30C8\u30FC\u30EB\u3057\u3066\u304F\u3060\u3055\u3044\u3002");
     }
     setShowExportMenu(false);
   };
@@ -22499,7 +22508,8 @@ var App = () => {
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("json"), children: "JSON\u5F62\u5F0F" }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("markdown"), children: "Markdown\u5F62\u5F0F" }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dropdown-divider" }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: handleExportToNotebookLM, className: "highlight", children: "NotebookLM\u306B\u9001\u4FE1" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: handleExportViaWebImporter, className: "highlight", children: "Web Importer\u3067\u9001\u4FE1" }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: handleExportToNotebookLM, children: "NotebookLM\u306B\u9001\u4FE1" }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { onClick: () => handleExport("notebooklm"), children: "NotebookLM\u7528(.txt)" })
     ] }),
     showSettings && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "settings-panel", children: [

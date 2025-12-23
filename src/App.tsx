@@ -196,7 +196,7 @@ export const App = () => {
     });
   };
 
-  // NotebookLMに直接エクスポート
+  // NotebookLMにクリップボード経由でエクスポート
   const handleExportToNotebookLM = async () => {
     let content: string;
     if (viewMode === "current" && currentTree) {
@@ -205,16 +205,6 @@ export const App = () => {
       content = exportAllTrees(allTrees, "notebooklm");
     }
 
-    // まずNotebookLM Web Importerへの送信を試みる
-    const importerSuccess = await tryNotebookLMImporter(content);
-
-    if (importerSuccess) {
-      alert("NotebookLM Web Importerにメモを送信しました！\n\nNotebookLMでインポートを完了してください。");
-      setShowExportMenu(false);
-      return;
-    }
-
-    // フォールバック：クリップボード + 新しいタブ
     try {
       await navigator.clipboard.writeText(content);
 
@@ -225,10 +215,29 @@ export const App = () => {
         window.open(notebookLMUrl, "_blank");
       }
 
-      alert("メモをクリップボードにコピーしました！\n\nNotebookLMで:\n1.「ソースを追加」→「コピーしたテキスト」\n2. Ctrl+V で貼り付け\n\n💡 NotebookLM Web Importer拡張機能をインストールすると、より簡単にインポートできます。");
+      alert("メモをクリップボードにコピーしました！\n\nNotebookLMで:\n1.「ソースを追加」→「コピーしたテキスト」\n2. Ctrl+V で貼り付け");
     } catch (err) {
       console.error("クリップボードへのコピーに失敗:", err);
       alert("クリップボードへのコピーに失敗しました");
+    }
+    setShowExportMenu(false);
+  };
+
+  // Web Importer拡張機能経由でエクスポート
+  const handleExportViaWebImporter = async () => {
+    let content: string;
+    if (viewMode === "current" && currentTree) {
+      content = exportTree(currentTree, "notebooklm");
+    } else {
+      content = exportAllTrees(allTrees, "notebooklm");
+    }
+
+    const success = await tryNotebookLMImporter(content);
+
+    if (success) {
+      alert("NotebookLM Web Importerにメモを送信しました！\n\nNotebookLMでインポートを完了してください。");
+    } else {
+      alert("NotebookLM Web Importer拡張機能が見つかりません。\n\n拡張機能をインストールしてください。");
     }
     setShowExportMenu(false);
   };
@@ -285,7 +294,10 @@ export const App = () => {
           <button onClick={() => handleExport("json")}>JSON形式</button>
           <button onClick={() => handleExport("markdown")}>Markdown形式</button>
           <div className="dropdown-divider" />
-          <button onClick={handleExportToNotebookLM} className="highlight">
+          <button onClick={handleExportViaWebImporter} className="highlight">
+            Web Importerで送信
+          </button>
+          <button onClick={handleExportToNotebookLM}>
             NotebookLMに送信
           </button>
           <button onClick={() => handleExport("notebooklm")}>NotebookLM用(.txt)</button>
