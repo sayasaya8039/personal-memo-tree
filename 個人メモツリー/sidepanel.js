@@ -26399,6 +26399,11 @@ var MemoEditor = ({ node, onUpdate }) => {
             if (href) {
               chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
             }
+          } else if (target.tagName === "IMG") {
+            const src = target.src;
+            if (src) {
+              chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+            }
           }
         }
       }

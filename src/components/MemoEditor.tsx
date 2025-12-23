@@ -275,6 +275,11 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
               if (href) {
                 chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
               }
+            } else if (target.tagName === "IMG") {
+              const src = (target as HTMLImageElement).src;
+              if (src) {
+                chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+              }
             }
           }}
         />
