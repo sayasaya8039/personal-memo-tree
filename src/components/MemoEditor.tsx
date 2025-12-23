@@ -405,25 +405,38 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
         )}
       </div>
       {isPreview ? (
-        <div
-          className="preview"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(content, images) }}
-          onClick={(e) => {
-            const target = e.target as HTMLElement;
-            if (target.tagName === "A") {
-              e.preventDefault();
-              const href = (target as HTMLAnchorElement).href;
-              if (href) {
-                chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
+        <div className="preview-container">
+          <div
+            className="preview"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(content, images) }}
+            onClick={(e) => {
+              const target = e.target as HTMLElement;
+              if (target.tagName === "A") {
+                e.preventDefault();
+                const href = (target as HTMLAnchorElement).href;
+                if (href) {
+                  chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
+                }
+              } else if (target.tagName === "IMG") {
+                const src = (target as HTMLImageElement).src;
+                if (src) {
+                  chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+                }
               }
-            } else if (target.tagName === "IMG") {
-              const src = (target as HTMLImageElement).src;
-              if (src) {
-                chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+            }}
+          />
+          <input
+            type="text"
+            className="preview-input"
+            placeholder="テキストを追加... (Enterで確定)"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.currentTarget.value.trim()) {
+                appendContent(e.currentTarget.value);
+                e.currentTarget.value = "";
               }
-            }
-          }}
-        />
+            }}
+          />
+        </div>
       ) : (
         <textarea
           ref={textareaRef}

@@ -26487,28 +26487,44 @@ var MemoEditor = ({ node, onUpdate }) => {
         )
       ] })
     ] }),
-    isPreview ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-      "div",
-      {
-        className: "preview",
-        dangerouslySetInnerHTML: { __html: renderMarkdown(content, images) },
-        onClick: (e) => {
-          const target = e.target;
-          if (target.tagName === "A") {
-            e.preventDefault();
-            const href = target.href;
-            if (href) {
-              chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
-            }
-          } else if (target.tagName === "IMG") {
-            const src = target.src;
-            if (src) {
-              chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+    isPreview ? /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "preview-container", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        "div",
+        {
+          className: "preview",
+          dangerouslySetInnerHTML: { __html: renderMarkdown(content, images) },
+          onClick: (e) => {
+            const target = e.target;
+            if (target.tagName === "A") {
+              e.preventDefault();
+              const href = target.href;
+              if (href) {
+                chrome.tabs?.create({ url: href }) || window.open(href, "_blank");
+              }
+            } else if (target.tagName === "IMG") {
+              const src = target.src;
+              if (src) {
+                chrome.tabs?.create({ url: src }) || window.open(src, "_blank");
+              }
             }
           }
         }
-      }
-    ) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        "input",
+        {
+          type: "text",
+          className: "preview-input",
+          placeholder: "\u30C6\u30AD\u30B9\u30C8\u3092\u8FFD\u52A0... (Enter\u3067\u78BA\u5B9A)",
+          onKeyDown: (e) => {
+            if (e.key === "Enter" && e.currentTarget.value.trim()) {
+              appendContent(e.currentTarget.value);
+              e.currentTarget.value = "";
+            }
+          }
+        }
+      )
+    ] }) : /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
       "textarea",
       {
         ref: textareaRef,
