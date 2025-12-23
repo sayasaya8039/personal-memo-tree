@@ -1,11 +1,18 @@
 "use strict";
 (() => {
   // src/content.ts
+  var safeStorageSet = (data) => {
+    try {
+      chrome.storage.local.set(data);
+    } catch (e) {
+      console.log("\u500B\u4EBA\u30E1\u30E2\u30C4\u30EA\u30FC: Extension reloaded, please refresh the page");
+    }
+  };
   document.addEventListener("dragstart", (e) => {
     const target = e.target;
     if (target.tagName === "IMG") {
       const img = target;
-      chrome.storage.local.set({
+      safeStorageSet({
         draggedContent: {
           type: "image",
           content: img.src,
@@ -20,7 +27,7 @@
     }
     const anchor = target.closest("a");
     if (anchor?.href && !anchor.href.startsWith("javascript:")) {
-      chrome.storage.local.set({
+      safeStorageSet({
         draggedContent: {
           type: "link",
           content: anchor.href,
@@ -36,7 +43,7 @@
     const selection = window.getSelection();
     const selectedText = selection?.toString().trim();
     if (selectedText) {
-      chrome.storage.local.set({
+      safeStorageSet({
         draggedContent: {
           type: "text",
           content: selectedText,
@@ -63,7 +70,7 @@
   });
   document.addEventListener("drag", (e) => {
     if (lastMouseDownImage && e.target === lastMouseDownImage) {
-      chrome.storage.local.set({
+      safeStorageSet({
         draggedContent: {
           type: "image",
           content: lastMouseDownImage.src,

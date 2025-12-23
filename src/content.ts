@@ -1,12 +1,22 @@
 // Content Script - ページからのドラッグを監視
 
+// 拡張機能コンテキストが有効かチェック
+const safeStorageSet = (data: object) => {
+  try {
+    chrome.storage.local.set(data);
+  } catch (e) {
+    // Extension context invalidated - ページリロードが必要
+    console.log("個人メモツリー: Extension reloaded, please refresh the page");
+  }
+};
+
 document.addEventListener("dragstart", (e) => {
   const target = e.target as HTMLElement;
 
   // 1. 画像のドラッグ（最優先）
   if (target.tagName === "IMG") {
     const img = target as HTMLImageElement;
-    chrome.storage.local.set({
+    safeStorageSet({
       draggedContent: {
         type: "image",
         content: img.src,
@@ -23,7 +33,7 @@ document.addEventListener("dragstart", (e) => {
   // 2. リンクのドラッグ
   const anchor = target.closest("a") as HTMLAnchorElement | null;
   if (anchor?.href && !anchor.href.startsWith("javascript:")) {
-    chrome.storage.local.set({
+    safeStorageSet({
       draggedContent: {
         type: "link",
         content: anchor.href,
@@ -41,7 +51,7 @@ document.addEventListener("dragstart", (e) => {
   const selection = window.getSelection();
   const selectedText = selection?.toString().trim();
   if (selectedText) {
-    chrome.storage.local.set({
+    safeStorageSet({
       draggedContent: {
         type: "text",
         content: selectedText,
@@ -74,7 +84,7 @@ document.addEventListener("dragend", () => {
 // ドラッグ中の画像を検出（dragstartが発火しない場合の対策）
 document.addEventListener("drag", (e) => {
   if (lastMouseDownImage && e.target === lastMouseDownImage) {
-    chrome.storage.local.set({
+    safeStorageSet({
       draggedContent: {
         type: "image",
         content: lastMouseDownImage.src,
