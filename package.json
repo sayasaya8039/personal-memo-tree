@@ -6,7 +6,7 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@vitejs/plugin-react": "^5.1.2",
-    "vite": "^7.3.0"
+    "vite": "6"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
@@ -21,7 +21,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "bunx esbuild src/sidepanel.tsx --bundle --outfile=個人メモツリー/sidepanel.js --format=esm --loader:.tsx=tsx --jsx=automatic --external:chrome && bunx esbuild src/background.ts --bundle --outfile=個人メモツリー/background.js --format=esm --external:chrome && cp src/styles/app.css 個人メモツリー/sidepanel.css",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   }

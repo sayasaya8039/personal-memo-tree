@@ -83,20 +83,22 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
         placeholder="メモタイトル"
       />
       <div className="editor-toolbar">
-        <button
-          className={`tab-btn ${!isPreview ? "active" : ""}`}
-          onClick={() => setIsPreview(false)}
-        >
-          編集
-        </button>
-        <button
-          className={`tab-btn ${isPreview ? "active" : ""}`}
-          onClick={() => setIsPreview(true)}
-        >
-          プレビュー
-        </button>
+        <div className="tab-buttons">
+          <button
+            className={`tab-btn ${!isPreview ? "active" : ""}`}
+            onClick={() => setIsPreview(false)}
+          >
+            編集
+          </button>
+          <button
+            className={`tab-btn ${isPreview ? "active" : ""}`}
+            onClick={() => setIsPreview(true)}
+          >
+            プレビュー
+          </button>
+        </div>
         <div className="format-hints">
-          **太字** *斜体* `コード` - リスト
+          **太字** | *斜体* | `コード` | - リスト
         </div>
       </div>
       {isPreview ? (

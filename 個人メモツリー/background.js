@@ -1,1 +1,35 @@
-chrome.sidePanel.setPanelBehavior({openPanelOnActionClick:!0});chrome.tabs.onActivated.addListener(async r=>{const e=await chrome.tabs.get(r.tabId);e.url&&chrome.runtime.sendMessage({type:"TAB_CHANGED",data:{url:e.url,title:e.title,favicon:e.favIconUrl}}).catch(()=>{})});chrome.tabs.onUpdated.addListener((r,e,t)=>{e.status==="complete"&&t.url&&chrome.runtime.sendMessage({type:"TAB_UPDATED",data:{url:t.url,title:t.title,favicon:t.favIconUrl}}).catch(()=>{})});chrome.runtime.onMessage.addListener((r,e,t)=>{if(r.type==="GET_CURRENT_TAB")return chrome.tabs.query({active:!0,currentWindow:!0}).then(a=>{a[0]&&t({url:a[0].url,title:a[0].title,favicon:a[0].favIconUrl})}),!0});
+// src/background.ts
+chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  const tab = await chrome.tabs.get(activeInfo.tabId);
+  if (tab.url) {
+    chrome.runtime.sendMessage({
+      type: "TAB_CHANGED",
+      data: { url: tab.url, title: tab.title, favicon: tab.favIconUrl }
+    }).catch(() => {
+    });
+  }
+});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === "complete" && tab.url) {
+    chrome.runtime.sendMessage({
+      type: "TAB_UPDATED",
+      data: { url: tab.url, title: tab.title, favicon: tab.favIconUrl }
+    }).catch(() => {
+    });
+  }
+});
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "GET_CURRENT_TAB") {
+    chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+      if (tabs[0]) {
+        sendResponse({
+          url: tabs[0].url,
+          title: tabs[0].title,
+          favicon: tabs[0].favIconUrl
+        });
+      }
+    });
+    return true;
+  }
+});

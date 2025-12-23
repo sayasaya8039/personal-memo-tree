@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: '個人メモツリー',
+    minify: false,
     rollupOptions: {
       input: {
         sidepanel: resolve(__dirname, 'sidepanel.html'),
