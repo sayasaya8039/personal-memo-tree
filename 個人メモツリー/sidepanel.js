@@ -26211,31 +26211,84 @@ var MemoEditor = ({ node, onUpdate }) => {
       setContent(node.content);
     }
   }, [node?.id]);
+  const appendContent = (insertText) => {
+    if (insertText) {
+      setContent((prevContent) => {
+        const separator = prevContent && !prevContent.endsWith("\n") ? "\n" : "";
+        return prevContent + separator + insertText;
+      });
+    }
+  };
+  const readFileAsText = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve("");
+      reader.readAsText(file);
+    });
+  };
+  const readFileAsDataURL = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(file);
+    });
+  };
   const handleDrop = async (e) => {
     e.preventDefault();
     setIsDragOver(false);
-    const result = await chrome.storage.local.get("draggedContent");
-    const draggedContent = result.draggedContent;
-    if (draggedContent && Date.now() - draggedContent.timestamp < 5e3) {
-      let insertText = "";
-      switch (draggedContent.type) {
-        case "text":
-          insertText = draggedContent.content;
-          break;
-        case "image":
-          insertText = `![${draggedContent.alt || "\u753B\u50CF"}](${draggedContent.content})`;
-          break;
-        case "link":
-          insertText = `[${draggedContent.text}](${draggedContent.content})`;
-          break;
+    const dt = e.dataTransfer;
+    if (dt.files && dt.files.length > 0) {
+      for (const file of Array.from(dt.files)) {
+        if (file.type.startsWith("image/")) {
+          const dataUrl = await readFileAsDataURL(file);
+          appendContent(`![${file.name}](${dataUrl})`);
+        } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
+          const text = await readFileAsText(file);
+          appendContent(text);
+        }
       }
-      if (insertText) {
-        setContent((prevContent) => {
-          const separator = prevContent && !prevContent.endsWith("\n") ? "\n" : "";
-          return prevContent + separator + insertText;
-        });
+      return;
+    }
+    const droppedText = dt.getData("text/plain");
+    const droppedUrl = dt.getData("text/uri-list");
+    const droppedHtml = dt.getData("text/html");
+    if (droppedUrl && droppedUrl.startsWith("http")) {
+      if (droppedHtml && droppedHtml.includes("<img")) {
+        const match = droppedHtml.match(/src="([^"]+)"/);
+        if (match) {
+          appendContent(`![\u753B\u50CF](${match[1]})`);
+          return;
+        }
       }
-      chrome.storage.local.remove("draggedContent");
+      appendContent(`[${droppedText || droppedUrl}](${droppedUrl})`);
+      return;
+    }
+    if (droppedText && !droppedText.startsWith("http")) {
+      appendContent(droppedText);
+      return;
+    }
+    try {
+      const result = await chrome.storage.local.get("draggedContent");
+      const draggedContent = result.draggedContent;
+      if (draggedContent && Date.now() - draggedContent.timestamp < 5e3) {
+        let insertText = "";
+        switch (draggedContent.type) {
+          case "text":
+            insertText = draggedContent.content;
+            break;
+          case "image":
+            insertText = `![${draggedContent.alt || "\u753B\u50CF"}](${draggedContent.content})`;
+            break;
+          case "link":
+            insertText = `[${draggedContent.text}](${draggedContent.content})`;
+            break;
+        }
+        appendContent(insertText);
+        chrome.storage.local.remove("draggedContent");
+      }
+    } catch {
     }
   };
   const handleSave = () => {

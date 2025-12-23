@@ -60,40 +60,108 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
     }
   }, [node?.id]);
 
-  // ページからのドロップを処理
+  // コンテンツを末尾に追加するヘルパー
+  const appendContent = (insertText: string) => {
+    if (insertText) {
+      setContent(prevContent => {
+        const separator = prevContent && !prevContent.endsWith("\n") ? "\n" : "";
+        return prevContent + separator + insertText;
+      });
+    }
+  };
+
+  // ファイルを読み込んでテキストまたはBase64として返す
+  const readFileAsText = (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => resolve("");
+      reader.readAsText(file);
+    });
+  };
+
+  const readFileAsDataURL = (file: File): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // ドロップを処理（外部 + 内部ページ両対応）
   const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
 
-    // chrome.storage.local からドラッグされたコンテンツを取得
-    const result = await chrome.storage.local.get("draggedContent");
-    const draggedContent = result.draggedContent as DraggedContent | undefined;
+    const dt = e.dataTransfer;
 
-    if (draggedContent && Date.now() - draggedContent.timestamp < 5000) {
-      let insertText = "";
-
-      switch (draggedContent.type) {
-        case "text":
-          insertText = draggedContent.content;
-          break;
-        case "image":
-          insertText = `![${draggedContent.alt || "画像"}](${draggedContent.content})`;
-          break;
-        case "link":
-          insertText = `[${draggedContent.text}](${draggedContent.content})`;
-          break;
+    // 1. 外部からのファイルドロップ
+    if (dt.files && dt.files.length > 0) {
+      for (const file of Array.from(dt.files)) {
+        if (file.type.startsWith("image/")) {
+          // 画像ファイル → Base64で埋め込み
+          const dataUrl = await readFileAsDataURL(file);
+          appendContent(`![${file.name}](${dataUrl})`);
+        } else if (file.type.startsWith("text/") || file.name.endsWith(".txt") || file.name.endsWith(".md")) {
+          // テキストファイル → 内容を読み込み
+          const text = await readFileAsText(file);
+          appendContent(text);
+        }
       }
+      return;
+    }
 
-      if (insertText) {
-        // 常に末尾に追加（新しいものが下に来る）- 関数形式でstale closure回避
-        setContent(prevContent => {
-          const separator = prevContent && !prevContent.endsWith("\n") ? "\n" : "";
-          return prevContent + separator + insertText;
-        });
+    // 2. 外部からのテキスト/URLドロップ
+    const droppedText = dt.getData("text/plain");
+    const droppedUrl = dt.getData("text/uri-list");
+    const droppedHtml = dt.getData("text/html");
+
+    if (droppedUrl && droppedUrl.startsWith("http")) {
+      // URLがドロップされた
+      // HTMLから画像かどうか判定
+      if (droppedHtml && droppedHtml.includes("<img")) {
+        const match = droppedHtml.match(/src="([^"]+)"/);
+        if (match) {
+          appendContent(`![画像](${match[1]})`);
+          return;
+        }
       }
+      appendContent(`[${droppedText || droppedUrl}](${droppedUrl})`);
+      return;
+    }
 
-      // 使用済みのドラッグコンテンツを削除
-      chrome.storage.local.remove("draggedContent");
+    if (droppedText && !droppedText.startsWith("http")) {
+      // 純粋なテキスト
+      appendContent(droppedText);
+      return;
+    }
+
+    // 3. 内部ページからのドロップ（Content Script経由）
+    try {
+      const result = await chrome.storage.local.get("draggedContent");
+      const draggedContent = result.draggedContent as DraggedContent | undefined;
+
+      if (draggedContent && Date.now() - draggedContent.timestamp < 5000) {
+        let insertText = "";
+
+        switch (draggedContent.type) {
+          case "text":
+            insertText = draggedContent.content;
+            break;
+          case "image":
+            insertText = `![${draggedContent.alt || "画像"}](${draggedContent.content})`;
+            break;
+          case "link":
+            insertText = `[${draggedContent.text}](${draggedContent.content})`;
+            break;
+        }
+
+        appendContent(insertText);
+        chrome.storage.local.remove("draggedContent");
+      }
+    } catch {
+      // chrome.storage unavailable (development mode)
     }
   };
 
