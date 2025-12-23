@@ -115,7 +115,8 @@ body {
   color: var(--text-primary);
   text-align: left;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
 }
 
 .dropdown-menu button:hover {
@@ -165,7 +166,8 @@ body {
 }
 
 .setting-item label {
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
 }
 
 .setting-item select {
@@ -200,7 +202,8 @@ body {
   background: var(--bg-secondary);
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
   transition: all 0.2s;
 }
 
@@ -333,7 +336,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
 }
 
 .node-actions {
@@ -468,7 +472,8 @@ body {
   background: var(--bg-secondary);
   color: var(--text-primary);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -497,7 +502,8 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
   line-height: 1.6;
   resize: none;
 }
@@ -514,7 +520,8 @@ body {
   border-radius: 4px;
   background: var(--bg-secondary);
   overflow-y: auto;
-  font-size: 13px;
+  font-size: 12px;
+  min-width: 0;
   line-height: 1.6;
 }
 
