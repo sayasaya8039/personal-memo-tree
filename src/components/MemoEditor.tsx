@@ -33,6 +33,8 @@ const renderMarkdown = (text: string): string => {
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="memo-image" loading="lazy" />')
     // リンク
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>')
+    // 生のURL（既にリンク化されていないもの）
+    .replace(/(?<!href=")(?<!src=")(https?:\/\/[^\s<>"]+)/g, '<a href="$1" target="_blank">$1</a>')
     // リスト
     .replace(/^- (.+)$/gm, "<li>$1</li>")
     .replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>")
