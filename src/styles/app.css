@@ -641,3 +641,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
 }
+
+/* Drag & Drop */
+.node-item.dragging {
+  opacity: 0.5;
+  background: var(--bg-tertiary);
+}
+
+.node-item.drop-target {
+  background: var(--accent-color);
+  color: white;
+  outline: 2px dashed var(--accent-hover);
+  outline-offset: -2px;
+}
+
+.node-item.drop-target .toggle-btn,
+.node-item.drop-target .node-name {
+  color: white;
+}
+
+.dragging-overlay {
+  background: var(--bg-primary);
+  border: 1px solid var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}

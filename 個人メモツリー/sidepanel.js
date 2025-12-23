@@ -9,9 +9,9 @@ var __commonJS = (cb, mod) => function __require() {
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    for (let key2 of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key2) && key2 !== except)
+        __defProp(to, key2, { get: () => from[key2], enumerable: !(desc = __getOwnPropDesc(from, key2)) || desc.enumerable });
   }
   return to;
 };
@@ -340,7 +340,7 @@ var require_react_development = __commonJS({
         this.refs = emptyObject;
         this.updater = updater || ReactNoopUpdateQueue;
       }
-      function noop() {
+      function noop2() {
       }
       function testStringCoercion(value) {
         return "" + value;
@@ -456,12 +456,12 @@ var require_react_development = __commonJS({
         componentName = this.props.ref;
         return void 0 !== componentName ? componentName : null;
       }
-      function ReactElement(type, key, props, owner, debugStack, debugTask) {
+      function ReactElement(type, key2, props, owner, debugStack, debugTask) {
         var refProp = props.ref;
         type = {
           $$typeof: REACT_ELEMENT_TYPE,
           type,
-          key,
+          key: key2,
           props,
           _owner: owner
         };
@@ -515,9 +515,9 @@ var require_react_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      function escape(key) {
+      function escape(key2) {
         var escaperLookup = { "=": "=0", ":": "=2" };
-        return "$" + key.replace(/[=:]/g, function(match) {
+        return "$" + key2.replace(/[=:]/g, function(match) {
           return escaperLookup[match];
         });
       }
@@ -531,7 +531,7 @@ var require_react_development = __commonJS({
           case "rejected":
             throw thenable.reason;
           default:
-            switch ("string" === typeof thenable.status ? thenable.then(noop, noop) : (thenable.status = "pending", thenable.then(
+            switch ("string" === typeof thenable.status ? thenable.then(noop2, noop2) : (thenable.status = "pending", thenable.then(
               function(fulfilledValue) {
                 "pending" === thenable.status && (thenable.status = "fulfilled", thenable.value = fulfilledValue);
               },
@@ -995,7 +995,7 @@ var require_react_development = __commonJS({
           throw Error(
             "The argument must be a React element, but you passed " + element + "."
           );
-        var props = assign({}, element.props), key = element.key, owner = element._owner;
+        var props = assign({}, element.props), key2 = element.key, owner = element._owner;
         if (null != config) {
           var JSCompiler_inline_result;
           a: {
@@ -1009,7 +1009,7 @@ var require_react_development = __commonJS({
             JSCompiler_inline_result = void 0 !== config.ref;
           }
           JSCompiler_inline_result && (owner = getOwner());
-          hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key);
+          hasValidKey(config) && (checkKeyStringCoercion(config.key), key2 = "" + config.key);
           for (propName in config)
             !hasOwnProperty.call(config, propName) || "key" === propName || "__self" === propName || "__source" === propName || "ref" === propName && void 0 === config.ref || (props[propName] = config[propName]);
         }
@@ -1023,43 +1023,43 @@ var require_react_development = __commonJS({
         }
         props = ReactElement(
           element.type,
-          key,
+          key2,
           props,
           owner,
           element._debugStack,
           element._debugTask
         );
-        for (key = 2; key < arguments.length; key++)
-          validateChildKeys(arguments[key]);
+        for (key2 = 2; key2 < arguments.length; key2++)
+          validateChildKeys(arguments[key2]);
         return props;
       };
-      exports.createContext = function(defaultValue) {
-        defaultValue = {
+      exports.createContext = function(defaultValue2) {
+        defaultValue2 = {
           $$typeof: REACT_CONTEXT_TYPE,
-          _currentValue: defaultValue,
-          _currentValue2: defaultValue,
+          _currentValue: defaultValue2,
+          _currentValue2: defaultValue2,
           _threadCount: 0,
           Provider: null,
           Consumer: null
         };
-        defaultValue.Provider = defaultValue;
-        defaultValue.Consumer = {
+        defaultValue2.Provider = defaultValue2;
+        defaultValue2.Consumer = {
           $$typeof: REACT_CONSUMER_TYPE,
-          _context: defaultValue
+          _context: defaultValue2
         };
-        defaultValue._currentRenderer = null;
-        defaultValue._currentRenderer2 = null;
-        return defaultValue;
+        defaultValue2._currentRenderer = null;
+        defaultValue2._currentRenderer2 = null;
+        return defaultValue2;
       };
       exports.createElement = function(type, config, children) {
         for (var i = 2; i < arguments.length; i++)
           validateChildKeys(arguments[i]);
         i = {};
-        var key = null;
+        var key2 = null;
         if (null != config)
           for (propName in didWarnAboutOldJSXRuntime || !("__self" in config) || "key" in config || (didWarnAboutOldJSXRuntime = true, console.warn(
             "Your app (or one of its dependencies) is using an outdated JSX transform. Update to the modern JSX transform for faster performance: https://react.dev/link/new-jsx-transform"
-          )), hasValidKey(config) && (checkKeyStringCoercion(config.key), key = "" + config.key), config)
+          )), hasValidKey(config) && (checkKeyStringCoercion(config.key), key2 = "" + config.key), config)
             hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (i[propName] = config[propName]);
         var childrenLength = arguments.length - 2;
         if (1 === childrenLength) i.children = children;
@@ -1072,14 +1072,14 @@ var require_react_development = __commonJS({
         if (type && type.defaultProps)
           for (propName in childrenLength = type.defaultProps, childrenLength)
             void 0 === i[propName] && (i[propName] = childrenLength[propName]);
-        key && defineKeyPropWarningGetter(
+        key2 && defineKeyPropWarningGetter(
           i,
           "function" === typeof type ? type.displayName || type.name || "Unknown" : type
         );
         var propName = 1e4 > ReactSharedInternals.recentlyCreatedOwnerStacks++;
         return ReactElement(
           type,
-          key,
+          key2,
           i,
           getOwner(),
           propName ? Error("react-stack-top-frame") : unknownOwnerDebugStack,
@@ -1169,7 +1169,7 @@ var require_react_development = __commonJS({
         try {
           var returnValue = scope(), onStartTransitionFinish = ReactSharedInternals.S;
           null !== onStartTransitionFinish && onStartTransitionFinish(currentTransition, returnValue);
-          "object" === typeof returnValue && null !== returnValue && "function" === typeof returnValue.then && (ReactSharedInternals.asyncTransitions++, returnValue.then(releaseAsyncTransition, releaseAsyncTransition), returnValue.then(noop, reportGlobalError));
+          "object" === typeof returnValue && null !== returnValue && "function" === typeof returnValue.then && (ReactSharedInternals.asyncTransitions++, returnValue.then(releaseAsyncTransition, releaseAsyncTransition), returnValue.then(noop2, reportGlobalError));
         } catch (error) {
           reportGlobalError(error);
         } finally {
@@ -1196,12 +1196,12 @@ var require_react_development = __commonJS({
       exports.useCallback = function(callback, deps) {
         return resolveDispatcher().useCallback(callback, deps);
       };
-      exports.useContext = function(Context) {
+      exports.useContext = function(Context2) {
         var dispatcher = resolveDispatcher();
-        Context.$$typeof === REACT_CONSUMER_TYPE && console.error(
+        Context2.$$typeof === REACT_CONSUMER_TYPE && console.error(
           "Calling useContext(Context.Consumer) is not supported and will cause bugs. Did you mean to call useContext(Context) instead?"
         );
-        return dispatcher.useContext(Context);
+        return dispatcher.useContext(Context2);
       };
       exports.useDebugValue = function(value, formatterFn) {
         return resolveDispatcher().useDebugValue(value, formatterFn);
@@ -1239,11 +1239,11 @@ var require_react_development = __commonJS({
       exports.useMemo = function(create, deps) {
         return resolveDispatcher().useMemo(create, deps);
       };
-      exports.useOptimistic = function(passthrough, reducer) {
-        return resolveDispatcher().useOptimistic(passthrough, reducer);
+      exports.useOptimistic = function(passthrough, reducer2) {
+        return resolveDispatcher().useOptimistic(passthrough, reducer2);
       };
-      exports.useReducer = function(reducer, initialArg, init) {
-        return resolveDispatcher().useReducer(reducer, initialArg, init);
+      exports.useReducer = function(reducer2, initialArg, init) {
+        return resolveDispatcher().useReducer(reducer2, initialArg, init);
       };
       exports.useRef = function(initialValue) {
         return resolveDispatcher().useRef(initialValue);
@@ -1284,26 +1284,26 @@ var require_react_dom_development = __commonJS({
   "node_modules/react-dom/cjs/react-dom.development.js"(exports) {
     "use strict";
     (function() {
-      function noop() {
+      function noop2() {
       }
       function testStringCoercion(value) {
         return "" + value;
       }
       function createPortal$1(children, containerInfo, implementation) {
-        var key = 3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
+        var key2 = 3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
         try {
-          testStringCoercion(key);
+          testStringCoercion(key2);
           var JSCompiler_inline_result = false;
         } catch (e) {
           JSCompiler_inline_result = true;
         }
         JSCompiler_inline_result && (console.error(
           "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
-          "function" === typeof Symbol && Symbol.toStringTag && key[Symbol.toStringTag] || key.constructor.name || "Object"
-        ), testStringCoercion(key));
+          "function" === typeof Symbol && Symbol.toStringTag && key2[Symbol.toStringTag] || key2.constructor.name || "Object"
+        ), testStringCoercion(key2));
         return {
           $$typeof: REACT_PORTAL_TYPE,
-          key: null == key ? null : "" + key,
+          key: null == key2 ? null : "" + key2,
           children,
           containerInfo,
           implementation
@@ -1328,34 +1328,34 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React = require_react(), Internals = {
+      var React4 = require_react(), Internals = {
         d: {
-          f: noop,
+          f: noop2,
           r: function() {
             throw Error(
               "Invalid form element. requestFormReset must be passed a form that was rendered by React."
             );
           },
-          D: noop,
-          C: noop,
-          L: noop,
-          m: noop,
-          X: noop,
-          S: noop,
-          M: noop
+          D: noop2,
+          C: noop2,
+          L: noop2,
+          m: noop2,
+          X: noop2,
+          S: noop2,
+          M: noop2
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
       exports.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE = Internals;
       exports.createPortal = function(children, container) {
-        var key = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
+        var key2 = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : null;
         if (!container || 1 !== container.nodeType && 9 !== container.nodeType && 11 !== container.nodeType)
           throw Error("Target container is not a DOM element.");
-        return createPortal$1(children, container, null, key);
+        return createPortal$1(children, container, null, key2);
       };
       exports.flushSync = function(fn) {
         var previousTransition = ReactSharedInternals.T, previousUpdatePriority = Internals.p;
@@ -1548,8 +1548,8 @@ var require_react_dom_client_development = __commonJS({
       }
       function copyWithSetImpl(obj, path, index, value) {
         if (index >= path.length) return value;
-        var key = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
-        updated[key] = copyWithSetImpl(obj[key], path, index + 1, value);
+        var key2 = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
+        updated[key2] = copyWithSetImpl(obj[key2], path, index + 1, value);
         return updated;
       }
       function copyWithRename(obj, oldPath, newPath) {
@@ -1577,10 +1577,10 @@ var require_react_dom_client_development = __commonJS({
         return updated;
       }
       function copyWithDeleteImpl(obj, path, index) {
-        var key = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
+        var key2 = path[index], updated = isArrayImpl(obj) ? obj.slice() : assign({}, obj);
         if (index + 1 === path.length)
-          return isArrayImpl(updated) ? updated.splice(key, 1) : delete updated[key], updated;
-        updated[key] = copyWithDeleteImpl(obj[key], path, index + 1);
+          return isArrayImpl(updated) ? updated.splice(key2, 1) : delete updated[key2], updated;
+        updated[key2] = copyWithDeleteImpl(obj[key2], path, index + 1);
         return updated;
       }
       function shouldSuspendImpl() {
@@ -1599,7 +1599,7 @@ var require_react_dom_client_development = __commonJS({
           "Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo()."
         );
       }
-      function noop() {
+      function noop2() {
       }
       function warnForMissingKey() {
       }
@@ -1610,8 +1610,8 @@ var require_react_dom_client_development = __commonJS({
         });
         return array.sort().join(", ");
       }
-      function createFiber(tag, pendingProps, key, mode) {
-        return new FiberNode(tag, pendingProps, key, mode);
+      function createFiber(tag, pendingProps, key2, mode) {
+        return new FiberNode(tag, pendingProps, key2, mode);
       }
       function scheduleRoot(root3, element) {
         root3.context === emptyContextObject && (updateContainerImpl(root3.current, 2, element, root3, null, null), flushSyncWork$1());
@@ -1869,8 +1869,8 @@ var require_react_dom_client_development = __commonJS({
         }
         return null;
       }
-      function createCursor(defaultValue) {
-        return { current: defaultValue };
+      function createCursor(defaultValue2) {
+        return { current: defaultValue2 };
       }
       function pop(cursor, fiber) {
         0 > index$jscomp$0 ? console.error("Unexpected pop.") : (fiber !== fiberStack[index$jscomp$0] && console.error("Unexpected Fiber popped."), cursor.current = valueStack[index$jscomp$0], valueStack[index$jscomp$0] = null, fiberStack[index$jscomp$0] = null, index$jscomp$0--);
@@ -2842,7 +2842,7 @@ var require_react_dom_client_development = __commonJS({
           props.type
         ), didWarnValueDefaultValue$1 = true);
       }
-      function updateInput(element, value, defaultValue, lastDefaultValue, checked, defaultChecked, type, name) {
+      function updateInput(element, value, defaultValue2, lastDefaultValue, checked, defaultChecked, type, name) {
         element.name = "";
         null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type ? (checkAttributeStringCoercion(type, "type"), element.type = type) : element.removeAttribute("type");
         if (null != value)
@@ -2853,20 +2853,20 @@ var require_react_dom_client_development = __commonJS({
             element.value !== "" + getToStringValue(value) && (element.value = "" + getToStringValue(value));
         else
           "submit" !== type && "reset" !== type || element.removeAttribute("value");
-        null != value ? setDefaultValue(element, type, getToStringValue(value)) : null != defaultValue ? setDefaultValue(element, type, getToStringValue(defaultValue)) : null != lastDefaultValue && element.removeAttribute("value");
+        null != value ? setDefaultValue(element, type, getToStringValue(value)) : null != defaultValue2 ? setDefaultValue(element, type, getToStringValue(defaultValue2)) : null != lastDefaultValue && element.removeAttribute("value");
         null == checked && null != defaultChecked && (element.defaultChecked = !!defaultChecked);
         null != checked && (element.checked = checked && "function" !== typeof checked && "symbol" !== typeof checked);
         null != name && "function" !== typeof name && "symbol" !== typeof name && "boolean" !== typeof name ? (checkAttributeStringCoercion(name, "name"), element.name = "" + getToStringValue(name)) : element.removeAttribute("name");
       }
-      function initInput(element, value, defaultValue, checked, defaultChecked, type, name, isHydrating2) {
+      function initInput(element, value, defaultValue2, checked, defaultChecked, type, name, isHydrating2) {
         null != type && "function" !== typeof type && "symbol" !== typeof type && "boolean" !== typeof type && (checkAttributeStringCoercion(type, "type"), element.type = type);
-        if (null != value || null != defaultValue) {
+        if (null != value || null != defaultValue2) {
           if (!("submit" !== type && "reset" !== type || void 0 !== value && null !== value)) {
             track(element);
             return;
           }
-          defaultValue = null != defaultValue ? "" + getToStringValue(defaultValue) : "";
-          value = null != value ? "" + getToStringValue(value) : defaultValue;
+          defaultValue2 = null != defaultValue2 ? "" + getToStringValue(defaultValue2) : "";
+          value = null != value ? "" + getToStringValue(value) : defaultValue2;
           isHydrating2 || value === element.value || (element.value = value);
           element.defaultValue = value;
         }
@@ -2881,7 +2881,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React4.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -2947,17 +2947,17 @@ var require_react_dom_client_development = __commonJS({
           "Use the `defaultValue` or `value` props instead of setting children on <textarea>."
         );
       }
-      function updateTextarea(element, value, defaultValue) {
-        if (null != value && (value = "" + getToStringValue(value), value !== element.value && (element.value = value), null == defaultValue)) {
+      function updateTextarea(element, value, defaultValue2) {
+        if (null != value && (value = "" + getToStringValue(value), value !== element.value && (element.value = value), null == defaultValue2)) {
           element.defaultValue !== value && (element.defaultValue = value);
           return;
         }
-        element.defaultValue = null != defaultValue ? "" + getToStringValue(defaultValue) : "";
+        element.defaultValue = null != defaultValue2 ? "" + getToStringValue(defaultValue2) : "";
       }
-      function initTextarea(element, value, defaultValue, children) {
+      function initTextarea(element, value, defaultValue2, children) {
         if (null == value) {
           if (null != children) {
-            if (null != defaultValue)
+            if (null != defaultValue2)
               throw Error(
                 "If you supply `defaultValue` on a <textarea>, do not pass children."
               );
@@ -2966,15 +2966,15 @@ var require_react_dom_client_development = __commonJS({
                 throw Error("<textarea> can only have at most one child.");
               children = children[0];
             }
-            defaultValue = children;
+            defaultValue2 = children;
           }
-          null == defaultValue && (defaultValue = "");
-          value = defaultValue;
+          null == defaultValue2 && (defaultValue2 = "");
+          value = defaultValue2;
         }
-        defaultValue = getToStringValue(value);
-        element.defaultValue = defaultValue;
+        defaultValue2 = getToStringValue(value);
+        element.defaultValue = defaultValue2;
         children = element.textContent;
-        children === defaultValue && "" !== children && null !== children && (element.value = children);
+        children === defaultValue2 && "" !== children && null !== children && (element.value = children);
         track(element);
       }
       function findNotableNode(node, indent) {
@@ -3075,7 +3075,7 @@ var require_react_dom_client_development = __commonJS({
         return "string" !== typeof value || needsEscaping.test(value) ? "{" + describeValue(value, maxLength - 2) + "}" : value.length > maxLength - 2 ? 5 > maxLength ? '"..."' : '"' + value.slice(0, maxLength - 5) + '..."' : '"' + value + '"';
       }
       function describeExpandedElement(type, props, rowPrefix) {
-        var remainingRowLength = 120 - rowPrefix.length - type.length, properties = [], propName;
+        var remainingRowLength = 120 - rowPrefix.length - type.length, properties2 = [], propName;
         for (propName in props)
           if (props.hasOwnProperty(propName) && "children" !== propName) {
             var propValue = describePropValue(
@@ -3083,24 +3083,24 @@ var require_react_dom_client_development = __commonJS({
               120 - rowPrefix.length - propName.length - 1
             );
             remainingRowLength -= propName.length + propValue.length + 2;
-            properties.push(propName + "=" + propValue);
+            properties2.push(propName + "=" + propValue);
           }
-        return 0 === properties.length ? rowPrefix + "<" + type + ">\n" : 0 < remainingRowLength ? rowPrefix + "<" + type + " " + properties.join(" ") + ">\n" : rowPrefix + "<" + type + "\n" + rowPrefix + "  " + properties.join("\n" + rowPrefix + "  ") + "\n" + rowPrefix + ">\n";
+        return 0 === properties2.length ? rowPrefix + "<" + type + ">\n" : 0 < remainingRowLength ? rowPrefix + "<" + type + " " + properties2.join(" ") + ">\n" : rowPrefix + "<" + type + "\n" + rowPrefix + "  " + properties2.join("\n" + rowPrefix + "  ") + "\n" + rowPrefix + ">\n";
       }
       function describePropertiesDiff(clientObject, serverObject, indent) {
-        var properties = "", remainingServerProperties = assign({}, serverObject), propName;
+        var properties2 = "", remainingServerProperties = assign({}, serverObject), propName;
         for (propName in clientObject)
           if (clientObject.hasOwnProperty(propName)) {
             delete remainingServerProperties[propName];
             var maxLength = 120 - 2 * indent - propName.length - 2, clientPropValue = describeValue(clientObject[propName], maxLength);
-            serverObject.hasOwnProperty(propName) ? (maxLength = describeValue(serverObject[propName], maxLength), properties += added(indent) + propName + ": " + clientPropValue + "\n", properties += removed(indent) + propName + ": " + maxLength + "\n") : properties += added(indent) + propName + ": " + clientPropValue + "\n";
+            serverObject.hasOwnProperty(propName) ? (maxLength = describeValue(serverObject[propName], maxLength), properties2 += added(indent) + propName + ": " + clientPropValue + "\n", properties2 += removed(indent) + propName + ": " + maxLength + "\n") : properties2 += added(indent) + propName + ": " + clientPropValue + "\n";
           }
         for (var _propName in remainingServerProperties)
           remainingServerProperties.hasOwnProperty(_propName) && (clientObject = describeValue(
             remainingServerProperties[_propName],
             120 - 2 * indent - _propName.length - 2
-          ), properties += removed(indent) + _propName + ": " + clientObject + "\n");
-        return properties;
+          ), properties2 += removed(indent) + _propName + ": " + clientObject + "\n");
+        return properties2;
       }
       function describeElementDiff(type, clientProps, serverProps, indent) {
         var content = "", serverPropNames = /* @__PURE__ */ new Map();
@@ -3497,30 +3497,30 @@ var require_react_dom_client_development = __commonJS({
           if (styles) {
             var expandedUpdates = {};
             if (prevStyles) {
-              for (var key in prevStyles)
-                if (prevStyles.hasOwnProperty(key) && !styles.hasOwnProperty(key))
-                  for (var longhands = shorthandToLonghand[key] || [key], i = 0; i < longhands.length; i++)
-                    expandedUpdates[longhands[i]] = key;
+              for (var key2 in prevStyles)
+                if (prevStyles.hasOwnProperty(key2) && !styles.hasOwnProperty(key2))
+                  for (var longhands = shorthandToLonghand[key2] || [key2], i = 0; i < longhands.length; i++)
+                    expandedUpdates[longhands[i]] = key2;
             }
             for (var _key in styles)
               if (styles.hasOwnProperty(_key) && (!prevStyles || prevStyles[_key] !== styles[_key]))
-                for (key = shorthandToLonghand[_key] || [_key], longhands = 0; longhands < key.length; longhands++)
-                  expandedUpdates[key[longhands]] = _key;
+                for (key2 = shorthandToLonghand[_key] || [_key], longhands = 0; longhands < key2.length; longhands++)
+                  expandedUpdates[key2[longhands]] = _key;
             _key = {};
             for (var key$jscomp$0 in styles)
-              for (key = shorthandToLonghand[key$jscomp$0] || [key$jscomp$0], longhands = 0; longhands < key.length; longhands++)
-                _key[key[longhands]] = key$jscomp$0;
+              for (key2 = shorthandToLonghand[key$jscomp$0] || [key$jscomp$0], longhands = 0; longhands < key2.length; longhands++)
+                _key[key2[longhands]] = key$jscomp$0;
             key$jscomp$0 = {};
             for (var _key2 in expandedUpdates)
-              if (key = expandedUpdates[_key2], (longhands = _key[_key2]) && key !== longhands && (i = key + "," + longhands, !key$jscomp$0[i])) {
+              if (key2 = expandedUpdates[_key2], (longhands = _key[_key2]) && key2 !== longhands && (i = key2 + "," + longhands, !key$jscomp$0[i])) {
                 key$jscomp$0[i] = true;
                 i = console;
-                var value = styles[key];
+                var value = styles[key2];
                 i.error.call(
                   i,
                   "%s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.",
                   null == value || "boolean" === typeof value || "" === value ? "Removing" : "Updating",
-                  key,
+                  key2,
                   longhands
                 );
               }
@@ -3583,9 +3583,9 @@ var require_react_dom_client_development = __commonJS({
         return true;
       }
       function validateProperties$2(type, props) {
-        var invalidProps = [], key;
-        for (key in props)
-          validateProperty$1(type, key) || invalidProps.push(key);
+        var invalidProps = [], key2;
+        for (key2 in props)
+          validateProperty$1(type, key2) || invalidProps.push(key2);
         props = invalidProps.map(function(prop) {
           return "`" + prop + "`";
         }).join(", ");
@@ -3793,9 +3793,9 @@ var require_react_dom_client_development = __commonJS({
         return true;
       }
       function warnUnknownProperties(type, props, eventRegistry) {
-        var unknownProps = [], key;
-        for (key in props)
-          validateProperty(type, key, props[key], eventRegistry) || unknownProps.push(key);
+        var unknownProps = [], key2;
+        for (key2 in props)
+          validateProperty(type, key2, props[key2], eventRegistry) || unknownProps.push(key2);
         props = unknownProps.map(function(prop) {
           return "`" + prop + "`";
         }).join(", ");
@@ -4034,7 +4034,7 @@ var require_react_dom_client_development = __commonJS({
         return "input" === nodeName ? !!supportedInputTypes[elem.type] : "textarea" === nodeName ? true : false;
       }
       function isEventSupported(eventNameSuffix) {
-        if (!canUseDOM) return false;
+        if (!canUseDOM2) return false;
         eventNameSuffix = "on" + eventNameSuffix;
         var isSupported = eventNameSuffix in document;
         isSupported || (isSupported = document.createElement("div"), isSupported.setAttribute(eventNameSuffix, "return;"), isSupported = "function" === typeof isSupported[eventNameSuffix]);
@@ -4206,11 +4206,11 @@ var require_react_dom_client_development = __commonJS({
         }
         return kind;
       }
-      function addObjectToProperties(object, properties, indent, prefix2) {
-        for (var key in object)
-          hasOwnProperty.call(object, key) && "_" !== key[0] && addValueToProperties(key, object[key], properties, indent, prefix2);
+      function addObjectToProperties(object, properties2, indent, prefix2) {
+        for (var key2 in object)
+          hasOwnProperty.call(object, key2) && "_" !== key2[0] && addValueToProperties(key2, object[key2], properties2, indent, prefix2);
       }
-      function addValueToProperties(propertyName, value, properties, indent, prefix2) {
+      function addValueToProperties(propertyName, value, properties2, indent, prefix2) {
         switch (typeof value) {
           case "object":
             if (null === value) {
@@ -4218,25 +4218,25 @@ var require_react_dom_client_development = __commonJS({
               break;
             } else {
               if (value.$$typeof === REACT_ELEMENT_TYPE) {
-                var typeName2 = getComponentNameFromType(value.type) || "\u2026", key = value.key;
+                var typeName2 = getComponentNameFromType(value.type) || "\u2026", key2 = value.key;
                 value = value.props;
                 var propsKeys = Object.keys(value), propsLength = propsKeys.length;
-                if (null == key && 0 === propsLength) {
+                if (null == key2 && 0 === propsLength) {
                   value = "<" + typeName2 + " />";
                   break;
                 }
-                if (3 > indent || 1 === propsLength && "children" === propsKeys[0] && null == key) {
+                if (3 > indent || 1 === propsLength && "children" === propsKeys[0] && null == key2) {
                   value = "<" + typeName2 + " \u2026 />";
                   break;
                 }
-                properties.push([
+                properties2.push([
                   prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
                   "<" + typeName2
                 ]);
-                null !== key && addValueToProperties(
+                null !== key2 && addValueToProperties(
                   "key",
-                  key,
-                  properties,
+                  key2,
+                  properties2,
                   indent + 1,
                   prefix2
                 );
@@ -4245,11 +4245,11 @@ var require_react_dom_client_development = __commonJS({
                   "children" === propKey ? null != value.children && (!isArrayImpl(value.children) || 0 < value.children.length) && (propertyName = true) : hasOwnProperty.call(value, propKey) && "_" !== propKey[0] && addValueToProperties(
                     propKey,
                     value[propKey],
-                    properties,
+                    properties2,
                     indent + 1,
                     prefix2
                   );
-                properties.push([
+                properties2.push([
                   "",
                   propertyName ? ">\u2026</" + typeName2 + ">" : "/>"
                 ]);
@@ -4262,7 +4262,7 @@ var require_react_dom_client_development = __commonJS({
                   value = JSON.stringify(value);
                   break;
                 } else if (propKey === ENTRIES_ARRAY) {
-                  properties.push([
+                  properties2.push([
                     prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
                     ""
                   ]);
@@ -4270,7 +4270,7 @@ var require_react_dom_client_development = __commonJS({
                     typeName2 = value[propertyName], addValueToProperties(
                       typeName2[0],
                       typeName2[1],
-                      properties,
+                      properties2,
                       indent + 1,
                       prefix2
                     );
@@ -4279,40 +4279,40 @@ var require_react_dom_client_development = __commonJS({
               }
               if ("Promise" === typeName2) {
                 if ("fulfilled" === value.status) {
-                  if (typeName2 = properties.length, addValueToProperties(
+                  if (typeName2 = properties2.length, addValueToProperties(
                     propertyName,
                     value.value,
-                    properties,
+                    properties2,
                     indent,
                     prefix2
-                  ), properties.length > typeName2) {
-                    properties = properties[typeName2];
-                    properties[1] = "Promise<" + (properties[1] || "Object") + ">";
+                  ), properties2.length > typeName2) {
+                    properties2 = properties2[typeName2];
+                    properties2[1] = "Promise<" + (properties2[1] || "Object") + ">";
                     return;
                   }
-                } else if ("rejected" === value.status && (typeName2 = properties.length, addValueToProperties(
+                } else if ("rejected" === value.status && (typeName2 = properties2.length, addValueToProperties(
                   propertyName,
                   value.reason,
-                  properties,
+                  properties2,
                   indent,
                   prefix2
-                ), properties.length > typeName2)) {
-                  properties = properties[typeName2];
-                  properties[1] = "Rejected Promise<" + properties[1] + ">";
+                ), properties2.length > typeName2)) {
+                  properties2 = properties2[typeName2];
+                  properties2[1] = "Rejected Promise<" + properties2[1] + ">";
                   return;
                 }
-                properties.push([
+                properties2.push([
                   "\xA0\xA0".repeat(indent) + propertyName,
                   "Promise"
                 ]);
                 return;
               }
               "Object" === typeName2 && (propKey = Object.getPrototypeOf(value)) && "function" === typeof propKey.constructor && (typeName2 = propKey.constructor.name);
-              properties.push([
+              properties2.push([
                 prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
                 "Object" === typeName2 ? 3 > indent ? "" : "\u2026" : typeName2
               ]);
-              3 > indent && addObjectToProperties(value, properties, indent + 1, prefix2);
+              3 > indent && addObjectToProperties(value, properties2, indent + 1, prefix2);
               return;
             }
           case "function":
@@ -4330,77 +4330,77 @@ var require_react_dom_client_development = __commonJS({
           default:
             value = String(value);
         }
-        properties.push([
+        properties2.push([
           prefix2 + "\xA0\xA0".repeat(indent) + propertyName,
           value
         ]);
       }
-      function addObjectDiffToProperties(prev, next, properties, indent) {
+      function addObjectDiffToProperties(prev, next, properties2, indent) {
         var isDeeplyEqual = true;
-        for (key in prev)
-          key in next || (properties.push([
-            REMOVED + "\xA0\xA0".repeat(indent) + key,
+        for (key2 in prev)
+          key2 in next || (properties2.push([
+            REMOVED + "\xA0\xA0".repeat(indent) + key2,
             "\u2026"
           ]), isDeeplyEqual = false);
         for (var _key in next)
           if (_key in prev) {
-            var key = prev[_key];
+            var key2 = prev[_key];
             var nextValue = next[_key];
-            if (key !== nextValue) {
+            if (key2 !== nextValue) {
               if (0 === indent && "children" === _key)
-                isDeeplyEqual = "\xA0\xA0".repeat(indent) + _key, properties.push(
+                isDeeplyEqual = "\xA0\xA0".repeat(indent) + _key, properties2.push(
                   [REMOVED + isDeeplyEqual, "\u2026"],
                   [ADDED + isDeeplyEqual, "\u2026"]
                 );
               else {
                 if (!(3 <= indent)) {
-                  if ("object" === typeof key && "object" === typeof nextValue && null !== key && null !== nextValue && key.$$typeof === nextValue.$$typeof)
+                  if ("object" === typeof key2 && "object" === typeof nextValue && null !== key2 && null !== nextValue && key2.$$typeof === nextValue.$$typeof)
                     if (nextValue.$$typeof === REACT_ELEMENT_TYPE) {
-                      if (key.type === nextValue.type && key.key === nextValue.key) {
-                        key = getComponentNameFromType(nextValue.type) || "\u2026";
+                      if (key2.type === nextValue.type && key2.key === nextValue.key) {
+                        key2 = getComponentNameFromType(nextValue.type) || "\u2026";
                         isDeeplyEqual = "\xA0\xA0".repeat(indent) + _key;
-                        key = "<" + key + " \u2026 />";
-                        properties.push(
-                          [REMOVED + isDeeplyEqual, key],
-                          [ADDED + isDeeplyEqual, key]
+                        key2 = "<" + key2 + " \u2026 />";
+                        properties2.push(
+                          [REMOVED + isDeeplyEqual, key2],
+                          [ADDED + isDeeplyEqual, key2]
                         );
                         isDeeplyEqual = false;
                         continue;
                       }
                     } else {
-                      var prevKind = Object.prototype.toString.call(key), nextKind = Object.prototype.toString.call(nextValue);
+                      var prevKind = Object.prototype.toString.call(key2), nextKind = Object.prototype.toString.call(nextValue);
                       if (prevKind === nextKind && ("[object Object]" === nextKind || "[object Array]" === nextKind)) {
                         prevKind = [
                           UNCHANGED + "\xA0\xA0".repeat(indent) + _key,
                           "[object Array]" === nextKind ? "Array" : ""
                         ];
-                        properties.push(prevKind);
-                        nextKind = properties.length;
+                        properties2.push(prevKind);
+                        nextKind = properties2.length;
                         addObjectDiffToProperties(
-                          key,
+                          key2,
                           nextValue,
-                          properties,
+                          properties2,
                           indent + 1
-                        ) ? nextKind === properties.length && (prevKind[1] = "Referentially unequal but deeply equal objects. Consider memoization.") : isDeeplyEqual = false;
+                        ) ? nextKind === properties2.length && (prevKind[1] = "Referentially unequal but deeply equal objects. Consider memoization.") : isDeeplyEqual = false;
                         continue;
                       }
                     }
-                  else if ("function" === typeof key && "function" === typeof nextValue && key.name === nextValue.name && key.length === nextValue.length && (prevKind = Function.prototype.toString.call(key), nextKind = Function.prototype.toString.call(nextValue), prevKind === nextKind)) {
-                    key = "" === nextValue.name ? "() => {}" : nextValue.name + "() {}";
-                    properties.push([
+                  else if ("function" === typeof key2 && "function" === typeof nextValue && key2.name === nextValue.name && key2.length === nextValue.length && (prevKind = Function.prototype.toString.call(key2), nextKind = Function.prototype.toString.call(nextValue), prevKind === nextKind)) {
+                    key2 = "" === nextValue.name ? "() => {}" : nextValue.name + "() {}";
+                    properties2.push([
                       UNCHANGED + "\xA0\xA0".repeat(indent) + _key,
-                      key + " Referentially unequal function closure. Consider memoization."
+                      key2 + " Referentially unequal function closure. Consider memoization."
                     ]);
                     continue;
                   }
                 }
-                addValueToProperties(_key, key, properties, indent, REMOVED);
-                addValueToProperties(_key, nextValue, properties, indent, ADDED);
+                addValueToProperties(_key, key2, properties2, indent, REMOVED);
+                addValueToProperties(_key, nextValue, properties2, indent, ADDED);
               }
               isDeeplyEqual = false;
             }
           } else
-            properties.push([
+            properties2.push([
               ADDED + "\xA0\xA0".repeat(indent) + _key,
               "\u2026"
             ]), isDeeplyEqual = false;
@@ -4469,17 +4469,17 @@ var require_react_dom_client_development = __commonJS({
         if (supportsUserTiming) {
           var name = getComponentNameFromFiber(fiber);
           if (null !== name) {
-            for (var debugTask = null, properties = [], i = 0; i < errors.length; i++) {
+            for (var debugTask = null, properties2 = [], i = 0; i < errors.length; i++) {
               var capturedValue = errors[i];
               null == debugTask && null !== capturedValue.source && (debugTask = capturedValue.source._debugTask);
               capturedValue = capturedValue.value;
-              properties.push([
+              properties2.push([
                 "Error",
                 "object" === typeof capturedValue && null !== capturedValue && "string" === typeof capturedValue.message ? String(capturedValue.message) : String(capturedValue)
               ]);
             }
-            null !== fiber.key && addValueToProperties("key", fiber.key, properties, 0, "");
-            null !== fiber.memoizedProps && addObjectToProperties(fiber.memoizedProps, properties, 0, "");
+            null !== fiber.key && addValueToProperties("key", fiber.key, properties2, 0, "");
+            null !== fiber.memoizedProps && addObjectToProperties(fiber.memoizedProps, properties2, 0, "");
             null == debugTask && (debugTask = fiber._debugTask);
             fiber = {
               start: startTime,
@@ -4489,7 +4489,7 @@ var require_react_dom_client_development = __commonJS({
                   color: "error",
                   track: COMPONENTS_TRACK,
                   tooltipText: 13 === fiber.tag ? "Hydration failed" : "Error boundary caught an error",
-                  properties
+                  properties: properties2
                 }
               }
             };
@@ -4689,9 +4689,9 @@ var require_react_dom_client_development = __commonJS({
       }
       function logCommitErrored(startTime, endTime, errors, passive, debugTask) {
         if (supportsUserTiming && !(endTime <= startTime)) {
-          for (var properties = [], i = 0; i < errors.length; i++) {
+          for (var properties2 = [], i = 0; i < errors.length; i++) {
             var error = errors[i].value;
-            properties.push([
+            properties2.push([
               "Error",
               "object" === typeof error && null !== error && "string" === typeof error.message ? String(error.message) : String(error)
             ]);
@@ -4705,7 +4705,7 @@ var require_react_dom_client_development = __commonJS({
                 track: currentTrack,
                 trackGroup: LANES_TRACK_GROUP,
                 tooltipText: passive ? "Remaining Effects Errored" : "Commit Errored",
-                properties
+                properties: properties2
               }
             }
           };
@@ -4860,9 +4860,9 @@ var require_react_dom_client_development = __commonJS({
           fiber = sibling;
         } while (1);
       }
-      function FiberNode(tag, pendingProps, key, mode) {
+      function FiberNode(tag, pendingProps, key2, mode) {
         this.tag = tag;
-        this.key = key;
+        this.key = key2;
         this.sibling = this.child = this.return = this.stateNode = this.type = this.elementType = null;
         this.index = 0;
         this.refCleanup = this.ref = null;
@@ -4937,7 +4937,7 @@ var require_react_dom_client_development = __commonJS({
         }, workInProgress2.selfBaseDuration = current2.selfBaseDuration, workInProgress2.treeBaseDuration = current2.treeBaseDuration);
         return workInProgress2;
       }
-      function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, lanes) {
+      function createFiberFromTypeAndProps(type, key2, pendingProps, owner, mode, lanes) {
         var fiberTag = 0, resolvedType = type;
         if ("function" === typeof type)
           shouldConstruct(type) && (fiberTag = 1), resolvedType = resolveFunctionForHotReloading(resolvedType);
@@ -4946,13 +4946,13 @@ var require_react_dom_client_development = __commonJS({
         else
           a: switch (type) {
             case REACT_ACTIVITY_TYPE:
-              return key = createFiber(31, pendingProps, key, mode), key.elementType = REACT_ACTIVITY_TYPE, key.lanes = lanes, key;
+              return key2 = createFiber(31, pendingProps, key2, mode), key2.elementType = REACT_ACTIVITY_TYPE, key2.lanes = lanes, key2;
             case REACT_FRAGMENT_TYPE:
               return createFiberFromFragment(
                 pendingProps.children,
                 mode,
                 lanes,
-                key
+                key2
               );
             case REACT_STRICT_MODE_TYPE:
               fiberTag = 8;
@@ -4963,11 +4963,11 @@ var require_react_dom_client_development = __commonJS({
               return type = pendingProps, owner = mode, "string" !== typeof type.id && console.error(
                 'Profiler must specify an "id" of type `string` as a prop. Received the type `%s` instead.',
                 typeof type.id
-              ), key = createFiber(12, type, key, owner | ProfileMode), key.elementType = REACT_PROFILER_TYPE, key.lanes = lanes, key.stateNode = { effectDuration: 0, passiveEffectDuration: 0 }, key;
+              ), key2 = createFiber(12, type, key2, owner | ProfileMode), key2.elementType = REACT_PROFILER_TYPE, key2.lanes = lanes, key2.stateNode = { effectDuration: 0, passiveEffectDuration: 0 }, key2;
             case REACT_SUSPENSE_TYPE:
-              return key = createFiber(13, pendingProps, key, mode), key.elementType = REACT_SUSPENSE_TYPE, key.lanes = lanes, key;
+              return key2 = createFiber(13, pendingProps, key2, mode), key2.elementType = REACT_SUSPENSE_TYPE, key2.lanes = lanes, key2;
             case REACT_SUSPENSE_LIST_TYPE:
-              return key = createFiber(19, pendingProps, key, mode), key.elementType = REACT_SUSPENSE_LIST_TYPE, key.lanes = lanes, key;
+              return key2 = createFiber(19, pendingProps, key2, mode), key2.elementType = REACT_SUSPENSE_LIST_TYPE, key2.lanes = lanes, key2;
             default:
               if ("object" === typeof type && null !== type)
                 switch (type.$$typeof) {
@@ -5000,12 +5000,12 @@ var require_react_dom_client_development = __commonJS({
               );
               resolvedType = null;
           }
-        key = createFiber(fiberTag, pendingProps, key, mode);
-        key.elementType = type;
-        key.type = resolvedType;
-        key.lanes = lanes;
-        key._debugOwner = owner;
-        return key;
+        key2 = createFiber(fiberTag, pendingProps, key2, mode);
+        key2.elementType = type;
+        key2.type = resolvedType;
+        key2.lanes = lanes;
+        key2._debugOwner = owner;
+        return key2;
       }
       function createFiberFromElement(element, mode, lanes) {
         mode = createFiberFromTypeAndProps(
@@ -5021,8 +5021,8 @@ var require_react_dom_client_development = __commonJS({
         mode._debugTask = element._debugTask;
         return mode;
       }
-      function createFiberFromFragment(elements, mode, lanes, key) {
-        elements = createFiber(7, elements, key, mode);
+      function createFiberFromFragment(elements, mode, lanes, key2) {
+        elements = createFiber(7, elements, key2, mode);
         elements.lanes = lanes;
         return elements;
       }
@@ -5819,8 +5819,8 @@ var require_react_dom_client_development = __commonJS({
       }
       function validateFragmentProps(element, fiber, returnFiber) {
         for (var keys = Object.keys(element.props), i = 0; i < keys.length; i++) {
-          var key = keys[i];
-          if ("children" !== key && "key" !== key) {
+          var key2 = keys[i];
+          if ("children" !== key2 && "key" !== key2) {
             null === fiber && (fiber = createFiberFromElement(element, returnFiber.mode, 0), fiber._debugInfo = currentDebugInfo, fiber.return = returnFiber);
             runWithFiberInDEV(
               fiber,
@@ -5830,7 +5830,7 @@ var require_react_dom_client_development = __commonJS({
                   erroredKey
                 );
               },
-              key
+              key2
             );
             break;
           }
@@ -5978,13 +5978,13 @@ var require_react_dom_client_development = __commonJS({
           current2._debugInfo = currentDebugInfo;
           return current2;
         }
-        function updateFragment(returnFiber, current2, fragment, lanes, key) {
+        function updateFragment(returnFiber, current2, fragment, lanes, key2) {
           if (null === current2 || 7 !== current2.tag)
             return current2 = createFiberFromFragment(
               fragment,
               returnFiber.mode,
               lanes,
-              key
+              key2
             ), current2.return = returnFiber, current2._debugOwner = returnFiber, current2._debugTask = returnFiber._debugTask, current2._debugInfo = currentDebugInfo, current2;
           current2 = useFiber(current2, fragment);
           current2.return = returnFiber;
@@ -6045,31 +6045,31 @@ var require_react_dom_client_development = __commonJS({
           return null;
         }
         function updateSlot(returnFiber, oldFiber, newChild, lanes) {
-          var key = null !== oldFiber ? oldFiber.key : null;
+          var key2 = null !== oldFiber ? oldFiber.key : null;
           if ("string" === typeof newChild && "" !== newChild || "number" === typeof newChild || "bigint" === typeof newChild)
-            return null !== key ? null : updateTextNode(returnFiber, oldFiber, "" + newChild, lanes);
+            return null !== key2 ? null : updateTextNode(returnFiber, oldFiber, "" + newChild, lanes);
           if ("object" === typeof newChild && null !== newChild) {
             switch (newChild.$$typeof) {
               case REACT_ELEMENT_TYPE:
-                return newChild.key === key ? (key = pushDebugInfo(newChild._debugInfo), returnFiber = updateElement(
+                return newChild.key === key2 ? (key2 = pushDebugInfo(newChild._debugInfo), returnFiber = updateElement(
                   returnFiber,
                   oldFiber,
                   newChild,
                   lanes
-                ), currentDebugInfo = key, returnFiber) : null;
+                ), currentDebugInfo = key2, returnFiber) : null;
               case REACT_PORTAL_TYPE:
-                return newChild.key === key ? updatePortal(returnFiber, oldFiber, newChild, lanes) : null;
+                return newChild.key === key2 ? updatePortal(returnFiber, oldFiber, newChild, lanes) : null;
               case REACT_LAZY_TYPE:
-                return key = pushDebugInfo(newChild._debugInfo), newChild = resolveLazy(newChild), returnFiber = updateSlot(
+                return key2 = pushDebugInfo(newChild._debugInfo), newChild = resolveLazy(newChild), returnFiber = updateSlot(
                   returnFiber,
                   oldFiber,
                   newChild,
                   lanes
-                ), currentDebugInfo = key, returnFiber;
+                ), currentDebugInfo = key2, returnFiber;
             }
             if (isArrayImpl(newChild) || getIteratorFn(newChild)) {
-              if (null !== key) return null;
-              key = pushDebugInfo(newChild._debugInfo);
+              if (null !== key2) return null;
+              key2 = pushDebugInfo(newChild._debugInfo);
               returnFiber = updateFragment(
                 returnFiber,
                 oldFiber,
@@ -6077,16 +6077,16 @@ var require_react_dom_client_development = __commonJS({
                 lanes,
                 null
               );
-              currentDebugInfo = key;
+              currentDebugInfo = key2;
               return returnFiber;
             }
             if ("function" === typeof newChild.then)
-              return key = pushDebugInfo(newChild._debugInfo), returnFiber = updateSlot(
+              return key2 = pushDebugInfo(newChild._debugInfo), returnFiber = updateSlot(
                 returnFiber,
                 oldFiber,
                 unwrapThenable(newChild),
                 lanes
-              ), currentDebugInfo = key, returnFiber;
+              ), currentDebugInfo = key2, returnFiber;
             if (newChild.$$typeof === REACT_CONTEXT_TYPE)
               return updateSlot(
                 returnFiber,
@@ -6167,21 +6167,21 @@ var require_react_dom_client_development = __commonJS({
             case REACT_ELEMENT_TYPE:
             case REACT_PORTAL_TYPE:
               warnForMissingKey(returnFiber, workInProgress2, child);
-              var key = child.key;
-              if ("string" !== typeof key) break;
+              var key2 = child.key;
+              if ("string" !== typeof key2) break;
               if (null === knownKeys) {
                 knownKeys = /* @__PURE__ */ new Set();
-                knownKeys.add(key);
+                knownKeys.add(key2);
                 break;
               }
-              if (!knownKeys.has(key)) {
-                knownKeys.add(key);
+              if (!knownKeys.has(key2)) {
+                knownKeys.add(key2);
                 break;
               }
               runWithFiberInDEV(workInProgress2, function() {
                 console.error(
                   "Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted \u2014 the behavior is unsupported and could change in a future version.",
-                  key
+                  key2
                 );
               });
               break;
@@ -6328,10 +6328,10 @@ var require_react_dom_client_development = __commonJS({
               case REACT_ELEMENT_TYPE:
                 var prevDebugInfo = pushDebugInfo(newChild._debugInfo);
                 a: {
-                  for (var key = newChild.key; null !== currentFirstChild; ) {
-                    if (currentFirstChild.key === key) {
-                      key = newChild.type;
-                      if (key === REACT_FRAGMENT_TYPE) {
+                  for (var key2 = newChild.key; null !== currentFirstChild; ) {
+                    if (currentFirstChild.key === key2) {
+                      key2 = newChild.type;
+                      if (key2 === REACT_FRAGMENT_TYPE) {
                         if (7 === currentFirstChild.tag) {
                           deleteRemainingChildren(
                             returnFiber,
@@ -6348,10 +6348,10 @@ var require_react_dom_client_development = __commonJS({
                           returnFiber = lanes;
                           break a;
                         }
-                      } else if (currentFirstChild.elementType === key || isCompatibleFamilyForHotReloading(
+                      } else if (currentFirstChild.elementType === key2 || isCompatibleFamilyForHotReloading(
                         currentFirstChild,
                         newChild
-                      ) || "object" === typeof key && null !== key && key.$$typeof === REACT_LAZY_TYPE && resolveLazy(key) === currentFirstChild.type) {
+                      ) || "object" === typeof key2 && null !== key2 && key2.$$typeof === REACT_LAZY_TYPE && resolveLazy(key2) === currentFirstChild.type) {
                         deleteRemainingChildren(
                           returnFiber,
                           currentFirstChild.sibling
@@ -6433,19 +6433,19 @@ var require_react_dom_client_development = __commonJS({
               ), currentDebugInfo = prevDebugInfo, returnFiber;
             if (getIteratorFn(newChild)) {
               prevDebugInfo = pushDebugInfo(newChild._debugInfo);
-              key = getIteratorFn(newChild);
-              if ("function" !== typeof key)
+              key2 = getIteratorFn(newChild);
+              if ("function" !== typeof key2)
                 throw Error(
                   "An object is not an iterable. This error is likely caused by a bug in React. Please file an issue."
                 );
-              var newChildren = key.call(newChild);
+              var newChildren = key2.call(newChild);
               if (newChildren === newChild) {
                 if (0 !== returnFiber.tag || "[object GeneratorFunction]" !== Object.prototype.toString.call(returnFiber.type) || "[object Generator]" !== Object.prototype.toString.call(newChildren))
                   didWarnAboutGenerators || console.error(
                     "Using Iterators as children is unsupported and will likely yield unexpected results because enumerating a generator mutates it. You may convert it to an array with `Array.from()` or the `[...spread]` operator before rendering. You can also use an Iterable that can iterate multiple times over the same items."
                   ), didWarnAboutGenerators = true;
               } else
-                newChild.entries !== key || didWarnAboutMaps || (console.error(
+                newChild.entries !== key2 || didWarnAboutMaps || (console.error(
                   "Using Maps as children is not supported. Use an array of keyed ReactElements instead."
                 ), didWarnAboutMaps = true);
               returnFiber = reconcileChildrenIterator(
@@ -7110,7 +7110,7 @@ var require_react_dom_client_development = __commonJS({
       function basicStateReducer(state, action) {
         return "function" === typeof action ? action(state) : action;
       }
-      function mountReducer(reducer, initialArg, init) {
+      function mountReducer(reducer2, initialArg, init) {
         var hook = mountWorkInProgressHook();
         if (void 0 !== init) {
           var initialState = init(initialArg);
@@ -7124,32 +7124,32 @@ var require_react_dom_client_development = __commonJS({
           }
         } else initialState = initialArg;
         hook.memoizedState = hook.baseState = initialState;
-        reducer = {
+        reducer2 = {
           pending: null,
           lanes: 0,
           dispatch: null,
-          lastRenderedReducer: reducer,
+          lastRenderedReducer: reducer2,
           lastRenderedState: initialState
         };
-        hook.queue = reducer;
-        reducer = reducer.dispatch = dispatchReducerAction.bind(
+        hook.queue = reducer2;
+        reducer2 = reducer2.dispatch = dispatchReducerAction.bind(
           null,
           currentlyRenderingFiber,
-          reducer
+          reducer2
         );
-        return [hook.memoizedState, reducer];
+        return [hook.memoizedState, reducer2];
       }
-      function updateReducer(reducer) {
+      function updateReducer(reducer2) {
         var hook = updateWorkInProgressHook();
-        return updateReducerImpl(hook, currentHook, reducer);
+        return updateReducerImpl(hook, currentHook, reducer2);
       }
-      function updateReducerImpl(hook, current2, reducer) {
+      function updateReducerImpl(hook, current2, reducer2) {
         var queue = hook.queue;
         if (null === queue)
           throw Error(
             "Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)"
           );
-        queue.lastRenderedReducer = reducer;
+        queue.lastRenderedReducer = reducer2;
         var baseQueue = hook.baseQueue, pendingQueue = queue.pending;
         if (null !== pendingQueue) {
           if (null !== baseQueue) {
@@ -7197,8 +7197,8 @@ var require_react_dom_client_development = __commonJS({
                   next: null
                 }, null === newBaseQueueLast ? (newBaseQueueFirst = newBaseQueueLast = updateLane, baseFirst = pendingQueue) : newBaseQueueLast = newBaseQueueLast.next = updateLane, currentlyRenderingFiber.lanes |= revertLane, workInProgressRootSkippedLanes |= revertLane;
               updateLane = update.action;
-              shouldDoubleInvokeUserFnsInHooksDEV && reducer(pendingQueue, updateLane);
-              pendingQueue = update.hasEagerState ? update.eagerState : reducer(pendingQueue, updateLane);
+              shouldDoubleInvokeUserFnsInHooksDEV && reducer2(pendingQueue, updateLane);
+              pendingQueue = update.hasEagerState ? update.eagerState : reducer2(pendingQueue, updateLane);
             } else
               revertLane = {
                 lane: updateLane,
@@ -7212,8 +7212,8 @@ var require_react_dom_client_development = __commonJS({
             update = update.next;
           } while (null !== update && update !== current2);
           null === newBaseQueueLast ? baseFirst = pendingQueue : newBaseQueueLast.next = newBaseQueueFirst;
-          if (!objectIs(pendingQueue, hook.memoizedState) && (didReceiveUpdate = true, didReadFromEntangledAsyncAction2 && (reducer = currentEntangledActionThenable, null !== reducer)))
-            throw reducer;
+          if (!objectIs(pendingQueue, hook.memoizedState) && (didReceiveUpdate = true, didReadFromEntangledAsyncAction2 && (reducer2 = currentEntangledActionThenable, null !== reducer2)))
+            throw reducer2;
           hook.memoizedState = pendingQueue;
           hook.baseState = baseFirst;
           hook.baseQueue = newBaseQueueLast;
@@ -7222,19 +7222,19 @@ var require_react_dom_client_development = __commonJS({
         null === baseQueue && (queue.lanes = 0);
         return [hook.memoizedState, queue.dispatch];
       }
-      function rerenderReducer(reducer) {
+      function rerenderReducer(reducer2) {
         var hook = updateWorkInProgressHook(), queue = hook.queue;
         if (null === queue)
           throw Error(
             "Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)"
           );
-        queue.lastRenderedReducer = reducer;
+        queue.lastRenderedReducer = reducer2;
         var dispatch = queue.dispatch, lastRenderPhaseUpdate = queue.pending, newState = hook.memoizedState;
         if (null !== lastRenderPhaseUpdate) {
           queue.pending = null;
           var update = lastRenderPhaseUpdate = lastRenderPhaseUpdate.next;
           do
-            newState = reducer(newState, update.action), update = update.next;
+            newState = reducer2(newState, update.action), update = update.next;
           while (update !== lastRenderPhaseUpdate);
           objectIs(newState, hook.memoizedState) || (didReceiveUpdate = true);
           hook.memoizedState = newState;
@@ -7411,22 +7411,22 @@ var require_react_dom_client_development = __commonJS({
         queue.dispatch = hook;
         return [passthrough, hook];
       }
-      function updateOptimistic(passthrough, reducer) {
+      function updateOptimistic(passthrough, reducer2) {
         var hook = updateWorkInProgressHook();
-        return updateOptimisticImpl(hook, currentHook, passthrough, reducer);
+        return updateOptimisticImpl(hook, currentHook, passthrough, reducer2);
       }
-      function updateOptimisticImpl(hook, current2, passthrough, reducer) {
+      function updateOptimisticImpl(hook, current2, passthrough, reducer2) {
         hook.baseState = passthrough;
         return updateReducerImpl(
           hook,
           currentHook,
-          "function" === typeof reducer ? reducer : basicStateReducer
+          "function" === typeof reducer2 ? reducer2 : basicStateReducer
         );
       }
-      function rerenderOptimistic(passthrough, reducer) {
+      function rerenderOptimistic(passthrough, reducer2) {
         var hook = updateWorkInProgressHook();
         if (null !== currentHook)
-          return updateOptimisticImpl(hook, currentHook, passthrough, reducer);
+          return updateOptimisticImpl(hook, currentHook, passthrough, reducer2);
         hook.baseState = passthrough;
         return [passthrough, hook.queue.dispatch];
       }
@@ -7687,8 +7687,8 @@ var require_react_dom_client_development = __commonJS({
         if (null === componentUpdateQueue)
           componentUpdateQueue = createFunctionComponentUpdateQueue(), currentlyRenderingFiber.updateQueue = componentUpdateQueue, componentUpdateQueue.events = [payload];
         else {
-          var events = componentUpdateQueue.events;
-          null === events ? componentUpdateQueue.events = [payload] : events.push(payload);
+          var events2 = componentUpdateQueue.events;
+          null === events2 ? componentUpdateQueue.events = [payload] : events2.push(payload);
         }
       }
       function mountEvent(callback) {
@@ -7914,7 +7914,7 @@ var require_react_dom_client_development = __commonJS({
           queue,
           pendingState,
           NotPendingTransition,
-          null === action ? noop : function() {
+          null === action ? noop2 : function() {
             requestFormReset$1(formFiber);
             return action(formData);
           }
@@ -8138,8 +8138,8 @@ var require_react_dom_client_development = __commonJS({
       }
       function warnOnInvalidCallback(callback) {
         if (null !== callback && "function" !== typeof callback) {
-          var key = String(callback);
-          didWarnOnInvalidCallback.has(key) || (didWarnOnInvalidCallback.add(key), console.error(
+          var key2 = String(callback);
+          didWarnOnInvalidCallback.has(key2) || (didWarnOnInvalidCallback.add(key2), console.error(
             "Expected the last optional `callback` argument to be a function. Instead received: %s.",
             callback
           ));
@@ -8448,8 +8448,8 @@ var require_react_dom_client_development = __commonJS({
         var ref = workInProgress2.ref;
         if ("ref" in nextProps) {
           var propsWithoutRef = {};
-          for (var key in nextProps)
-            "ref" !== key && (propsWithoutRef[key] = nextProps[key]);
+          for (var key2 in nextProps)
+            "ref" !== key2 && (propsWithoutRef[key2] = nextProps[key2]);
         } else propsWithoutRef = nextProps;
         prepareToReadContext(workInProgress2);
         nextProps = renderWithHooks(
@@ -8460,10 +8460,10 @@ var require_react_dom_client_development = __commonJS({
           ref,
           renderLanes2
         );
-        key = checkDidRenderIdHook();
+        key2 = checkDidRenderIdHook();
         if (null !== current2 && !didReceiveUpdate)
           return bailoutHooks(current2, workInProgress2, renderLanes2), bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2);
-        isHydrating && key && pushMaterializedTreeId(workInProgress2);
+        isHydrating && key2 && pushMaterializedTreeId(workInProgress2);
         workInProgress2.flags |= 1;
         reconcileChildren(current2, workInProgress2, nextProps, renderLanes2);
         return workInProgress2.child;
@@ -15427,8 +15427,8 @@ var require_react_dom_client_development = __commonJS({
         clientText = normalizeMarkupForTextOrAttribute(clientText);
         return normalizeMarkupForTextOrAttribute(serverText) === clientText ? true : false;
       }
-      function setProp(domElement, tag, key, value, props, prevValue) {
-        switch (key) {
+      function setProp(domElement, tag, key2, value, props, prevValue) {
+        switch (key2) {
           case "children":
             if ("string" === typeof value)
               validateTextNesting(value, tag, false), "body" === tag || "textarea" === tag && "" === value || setTextContent(domElement, value);
@@ -15446,7 +15446,7 @@ var require_react_dom_client_development = __commonJS({
           case "viewBox":
           case "width":
           case "height":
-            setValueForKnownAttribute(domElement, key, value);
+            setValueForKnownAttribute(domElement, key2, value);
             break;
           case "style":
             setValueForStyles(domElement, value, prevValue);
@@ -15458,36 +15458,36 @@ var require_react_dom_client_development = __commonJS({
             }
           case "src":
           case "href":
-            if ("" === value && ("a" !== tag || "href" !== key)) {
-              "src" === key ? console.error(
+            if ("" === value && ("a" !== tag || "href" !== key2)) {
+              "src" === key2 ? console.error(
                 'An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string.',
-                key,
-                key
+                key2,
+                key2
               ) : console.error(
                 'An empty string ("") was passed to the %s attribute. To fix this, either do not render the element at all or pass null to %s instead of an empty string.',
-                key,
-                key
+                key2,
+                key2
               );
-              domElement.removeAttribute(key);
+              domElement.removeAttribute(key2);
               break;
             }
             if (null == value || "function" === typeof value || "symbol" === typeof value || "boolean" === typeof value) {
-              domElement.removeAttribute(key);
+              domElement.removeAttribute(key2);
               break;
             }
-            checkAttributeStringCoercion(value, key);
+            checkAttributeStringCoercion(value, key2);
             value = sanitizeURL("" + value);
-            domElement.setAttribute(key, value);
+            domElement.setAttribute(key2, value);
             break;
           case "action":
           case "formAction":
-            null != value && ("form" === tag ? "formAction" === key ? console.error(
+            null != value && ("form" === tag ? "formAction" === key2 ? console.error(
               "You can only pass the formAction prop to <input> or <button>. Use the action prop on <form>."
             ) : "function" === typeof value && (null == props.encType && null == props.method || didWarnFormActionMethod || (didWarnFormActionMethod = true, console.error(
               "Cannot specify a encType or method for a form that specifies a function as the action. React provides those automatically. They will get overridden."
             )), null == props.target || didWarnFormActionTarget || (didWarnFormActionTarget = true, console.error(
               "Cannot specify a target for a form that specifies a function as the action. The function will always be executed in the same window."
-            ))) : "input" === tag || "button" === tag ? "action" === key ? console.error(
+            ))) : "input" === tag || "button" === tag ? "action" === key2 ? console.error(
               "You can only pass the action prop to <form>. Use the formAction prop on <input> or <button>."
             ) : "input" !== tag || "submit" === props.type || "image" === props.type || didWarnFormActionType ? "button" !== tag || null == props.type || "submit" === props.type || didWarnFormActionType ? "function" === typeof value && (null == props.name || didWarnFormActionName || (didWarnFormActionName = true, console.error(
               'Cannot specify a "name" prop for a button that specifies a function as a formAction. React needs it to encode which action should be invoked. It will get overridden.'
@@ -15499,19 +15499,19 @@ var require_react_dom_client_development = __commonJS({
               'A button can only specify a formAction along with type="submit" or no type.'
             )) : (didWarnFormActionType = true, console.error(
               'An input can only specify a formAction along with type="submit" or type="image".'
-            )) : "action" === key ? console.error(
+            )) : "action" === key2 ? console.error(
               "You can only pass the action prop to <form>."
             ) : console.error(
               "You can only pass the formAction prop to <input> or <button>."
             ));
             if ("function" === typeof value) {
               domElement.setAttribute(
-                key,
+                key2,
                 "javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
               );
               break;
             } else
-              "function" === typeof prevValue && ("formAction" === key ? ("input" !== tag && setProp(domElement, tag, "name", props.name, props, null), setProp(
+              "function" === typeof prevValue && ("formAction" === key2 ? ("input" !== tag && setProp(domElement, tag, "name", props.name, props, null), setProp(
                 domElement,
                 tag,
                 "formEncType",
@@ -15548,21 +15548,21 @@ var require_react_dom_client_development = __commonJS({
                 null
               )));
             if (null == value || "symbol" === typeof value || "boolean" === typeof value) {
-              domElement.removeAttribute(key);
+              domElement.removeAttribute(key2);
               break;
             }
-            checkAttributeStringCoercion(value, key);
+            checkAttributeStringCoercion(value, key2);
             value = sanitizeURL("" + value);
-            domElement.setAttribute(key, value);
+            domElement.setAttribute(key2, value);
             break;
           case "onClick":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), domElement.onclick = noop$1);
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), domElement.onclick = noop$1);
             break;
           case "onScroll":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), listenToNonDelegatedEvent("scroll", domElement));
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), listenToNonDelegatedEvent("scroll", domElement));
             break;
           case "onScrollEnd":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), listenToNonDelegatedEvent("scrollend", domElement));
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), listenToNonDelegatedEvent("scrollend", domElement));
             break;
           case "dangerouslySetInnerHTML":
             if (null != value) {
@@ -15570,13 +15570,13 @@ var require_react_dom_client_development = __commonJS({
                 throw Error(
                   "`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://react.dev/link/dangerously-set-inner-html for more information."
                 );
-              key = value.__html;
-              if (null != key) {
+              key2 = value.__html;
+              if (null != key2) {
                 if (null != props.children)
                   throw Error(
                     "Can only set one of `children` or `props.dangerouslySetInnerHTML`."
                   );
-                domElement.innerHTML = key;
+                domElement.innerHTML = key2;
               }
             }
             break;
@@ -15600,9 +15600,9 @@ var require_react_dom_client_development = __commonJS({
               domElement.removeAttribute("xlink:href");
               break;
             }
-            checkAttributeStringCoercion(value, key);
-            key = sanitizeURL("" + value);
-            domElement.setAttributeNS(xlinkNamespace, "xlink:href", key);
+            checkAttributeStringCoercion(value, key2);
+            key2 = sanitizeURL("" + value);
+            domElement.setAttributeNS(xlinkNamespace, "xlink:href", key2);
             break;
           case "contentEditable":
           case "spellCheck":
@@ -15612,12 +15612,12 @@ var require_react_dom_client_development = __commonJS({
           case "externalResourcesRequired":
           case "focusable":
           case "preserveAlpha":
-            null != value && "function" !== typeof value && "symbol" !== typeof value ? (checkAttributeStringCoercion(value, key), domElement.setAttribute(key, "" + value)) : domElement.removeAttribute(key);
+            null != value && "function" !== typeof value && "symbol" !== typeof value ? (checkAttributeStringCoercion(value, key2), domElement.setAttribute(key2, "" + value)) : domElement.removeAttribute(key2);
             break;
           case "inert":
-            "" !== value || didWarnForNewBooleanPropsWithEmptyValue[key] || (didWarnForNewBooleanPropsWithEmptyValue[key] = true, console.error(
+            "" !== value || didWarnForNewBooleanPropsWithEmptyValue[key2] || (didWarnForNewBooleanPropsWithEmptyValue[key2] = true, console.error(
               "Received an empty string for a boolean attribute `%s`. This will treat the attribute as if it were false. Either pass `false` to silence this warning, or pass `true` if you used an empty string in earlier versions of React to indicate this attribute is true.",
-              key
+              key2
             ));
           case "allowFullScreen":
           case "async":
@@ -15641,21 +15641,21 @@ var require_react_dom_client_development = __commonJS({
           case "scoped":
           case "seamless":
           case "itemScope":
-            value && "function" !== typeof value && "symbol" !== typeof value ? domElement.setAttribute(key, "") : domElement.removeAttribute(key);
+            value && "function" !== typeof value && "symbol" !== typeof value ? domElement.setAttribute(key2, "") : domElement.removeAttribute(key2);
             break;
           case "capture":
           case "download":
-            true === value ? domElement.setAttribute(key, "") : false !== value && null != value && "function" !== typeof value && "symbol" !== typeof value ? (checkAttributeStringCoercion(value, key), domElement.setAttribute(key, value)) : domElement.removeAttribute(key);
+            true === value ? domElement.setAttribute(key2, "") : false !== value && null != value && "function" !== typeof value && "symbol" !== typeof value ? (checkAttributeStringCoercion(value, key2), domElement.setAttribute(key2, value)) : domElement.removeAttribute(key2);
             break;
           case "cols":
           case "rows":
           case "size":
           case "span":
-            null != value && "function" !== typeof value && "symbol" !== typeof value && !isNaN(value) && 1 <= value ? (checkAttributeStringCoercion(value, key), domElement.setAttribute(key, value)) : domElement.removeAttribute(key);
+            null != value && "function" !== typeof value && "symbol" !== typeof value && !isNaN(value) && 1 <= value ? (checkAttributeStringCoercion(value, key2), domElement.setAttribute(key2, value)) : domElement.removeAttribute(key2);
             break;
           case "rowSpan":
           case "start":
-            null == value || "function" === typeof value || "symbol" === typeof value || isNaN(value) ? domElement.removeAttribute(key) : (checkAttributeStringCoercion(value, key), domElement.setAttribute(key, value));
+            null == value || "function" === typeof value || "symbol" === typeof value || isNaN(value) ? domElement.removeAttribute(key2) : (checkAttributeStringCoercion(value, key2), domElement.setAttribute(key2, value));
             break;
           case "popover":
             listenToNonDelegatedEvent("beforetoggle", domElement);
@@ -15749,11 +15749,11 @@ var require_react_dom_client_development = __commonJS({
               value
             ));
           default:
-            !(2 < key.length) || "o" !== key[0] && "O" !== key[0] || "n" !== key[1] && "N" !== key[1] ? (key = getAttributeAlias(key), setValueForAttribute(domElement, key, value)) : registrationNameDependencies.hasOwnProperty(key) && null != value && "function" !== typeof value && warnForInvalidEventListener(key, value);
+            !(2 < key2.length) || "o" !== key2[0] && "O" !== key2[0] || "n" !== key2[1] && "N" !== key2[1] ? (key2 = getAttributeAlias(key2), setValueForAttribute(domElement, key2, value)) : registrationNameDependencies.hasOwnProperty(key2) && null != value && "function" !== typeof value && warnForInvalidEventListener(key2, value);
         }
       }
-      function setPropOnCustomElement(domElement, tag, key, value, props, prevValue) {
-        switch (key) {
+      function setPropOnCustomElement(domElement, tag, key2, value, props, prevValue) {
+        switch (key2) {
           case "style":
             setValueForStyles(domElement, value, prevValue);
             break;
@@ -15763,13 +15763,13 @@ var require_react_dom_client_development = __commonJS({
                 throw Error(
                   "`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://react.dev/link/dangerously-set-inner-html for more information."
                 );
-              key = value.__html;
-              if (null != key) {
+              key2 = value.__html;
+              if (null != key2) {
                 if (null != props.children)
                   throw Error(
                     "Can only set one of `children` or `props.dangerouslySetInnerHTML`."
                   );
-                domElement.innerHTML = key;
+                domElement.innerHTML = key2;
               }
             }
             break;
@@ -15777,13 +15777,13 @@ var require_react_dom_client_development = __commonJS({
             "string" === typeof value ? setTextContent(domElement, value) : ("number" === typeof value || "bigint" === typeof value) && setTextContent(domElement, "" + value);
             break;
           case "onScroll":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), listenToNonDelegatedEvent("scroll", domElement));
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), listenToNonDelegatedEvent("scroll", domElement));
             break;
           case "onScrollEnd":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), listenToNonDelegatedEvent("scrollend", domElement));
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), listenToNonDelegatedEvent("scrollend", domElement));
             break;
           case "onClick":
-            null != value && ("function" !== typeof value && warnForInvalidEventListener(key, value), domElement.onclick = noop$1);
+            null != value && ("function" !== typeof value && warnForInvalidEventListener(key2, value), domElement.onclick = noop$1);
             break;
           case "suppressContentEditableWarning":
           case "suppressHydrationWarning":
@@ -15794,16 +15794,16 @@ var require_react_dom_client_development = __commonJS({
           case "textContent":
             break;
           default:
-            if (registrationNameDependencies.hasOwnProperty(key))
-              null != value && "function" !== typeof value && warnForInvalidEventListener(key, value);
+            if (registrationNameDependencies.hasOwnProperty(key2))
+              null != value && "function" !== typeof value && warnForInvalidEventListener(key2, value);
             else
               a: {
-                if ("o" === key[0] && "n" === key[1] && (props = key.endsWith("Capture"), tag = key.slice(2, props ? key.length - 7 : void 0), prevValue = domElement[internalPropsKey] || null, prevValue = null != prevValue ? prevValue[key] : null, "function" === typeof prevValue && domElement.removeEventListener(tag, prevValue, props), "function" === typeof value)) {
-                  "function" !== typeof prevValue && null !== prevValue && (key in domElement ? domElement[key] = null : domElement.hasAttribute(key) && domElement.removeAttribute(key));
+                if ("o" === key2[0] && "n" === key2[1] && (props = key2.endsWith("Capture"), tag = key2.slice(2, props ? key2.length - 7 : void 0), prevValue = domElement[internalPropsKey] || null, prevValue = null != prevValue ? prevValue[key2] : null, "function" === typeof prevValue && domElement.removeEventListener(tag, prevValue, props), "function" === typeof value)) {
+                  "function" !== typeof prevValue && null !== prevValue && (key2 in domElement ? domElement[key2] = null : domElement.hasAttribute(key2) && domElement.removeAttribute(key2));
                   domElement.addEventListener(tag, value, props);
                   break a;
                 }
-                key in domElement ? domElement[key] = value : true === value ? domElement.setAttribute(key, "") : setValueForAttribute(domElement, key, value);
+                key2 in domElement ? domElement[key2] = value : true === value ? domElement.setAttribute(key2, "") : setValueForAttribute(domElement, key2, value);
               }
         }
       }
@@ -15849,7 +15849,7 @@ var require_react_dom_client_development = __commonJS({
           case "input":
             checkControlledValueProps("input", props);
             listenToNonDelegatedEvent("invalid", domElement);
-            var defaultValue = propKey = propValue = hasSrcSet = null, checked = null, defaultChecked = null;
+            var defaultValue2 = propKey = propValue = hasSrcSet = null, checked = null, defaultChecked = null;
             for (hasSrc in props)
               if (props.hasOwnProperty(hasSrc)) {
                 var _propValue = props[hasSrc];
@@ -15871,7 +15871,7 @@ var require_react_dom_client_development = __commonJS({
                       propKey = _propValue;
                       break;
                     case "defaultValue":
-                      defaultValue = _propValue;
+                      defaultValue2 = _propValue;
                       break;
                     case "children":
                     case "dangerouslySetInnerHTML":
@@ -15888,7 +15888,7 @@ var require_react_dom_client_development = __commonJS({
             initInput(
               domElement,
               propKey,
-              defaultValue,
+              defaultValue2,
               checked,
               defaultChecked,
               propValue,
@@ -15901,22 +15901,22 @@ var require_react_dom_client_development = __commonJS({
             listenToNonDelegatedEvent("invalid", domElement);
             hasSrc = propValue = propKey = null;
             for (hasSrcSet in props)
-              if (props.hasOwnProperty(hasSrcSet) && (defaultValue = props[hasSrcSet], null != defaultValue))
+              if (props.hasOwnProperty(hasSrcSet) && (defaultValue2 = props[hasSrcSet], null != defaultValue2))
                 switch (hasSrcSet) {
                   case "value":
-                    propKey = defaultValue;
+                    propKey = defaultValue2;
                     break;
                   case "defaultValue":
-                    propValue = defaultValue;
+                    propValue = defaultValue2;
                     break;
                   case "multiple":
-                    hasSrc = defaultValue;
+                    hasSrc = defaultValue2;
                   default:
                     setProp(
                       domElement,
                       tag,
                       hasSrcSet,
-                      defaultValue,
+                      defaultValue2,
                       props,
                       null
                     );
@@ -15932,19 +15932,19 @@ var require_react_dom_client_development = __commonJS({
             listenToNonDelegatedEvent("invalid", domElement);
             propKey = hasSrcSet = hasSrc = null;
             for (propValue in props)
-              if (props.hasOwnProperty(propValue) && (defaultValue = props[propValue], null != defaultValue))
+              if (props.hasOwnProperty(propValue) && (defaultValue2 = props[propValue], null != defaultValue2))
                 switch (propValue) {
                   case "value":
-                    hasSrc = defaultValue;
+                    hasSrc = defaultValue2;
                     break;
                   case "defaultValue":
-                    hasSrcSet = defaultValue;
+                    hasSrcSet = defaultValue2;
                     break;
                   case "children":
-                    propKey = defaultValue;
+                    propKey = defaultValue2;
                     break;
                   case "dangerouslySetInnerHTML":
-                    if (null != defaultValue)
+                    if (null != defaultValue2)
                       throw Error(
                         "`dangerouslySetInnerHTML` does not make sense on <textarea>."
                       );
@@ -15954,7 +15954,7 @@ var require_react_dom_client_development = __commonJS({
                       domElement,
                       tag,
                       propValue,
-                      defaultValue,
+                      defaultValue2,
                       props,
                       null
                     );
@@ -16037,8 +16037,8 @@ var require_react_dom_client_development = __commonJS({
               return;
             }
         }
-        for (defaultValue in props)
-          props.hasOwnProperty(defaultValue) && (hasSrc = props[defaultValue], null != hasSrc && setProp(domElement, tag, defaultValue, hasSrc, props, null));
+        for (defaultValue2 in props)
+          props.hasOwnProperty(defaultValue2) && (hasSrc = props[defaultValue2], null != hasSrc && setProp(domElement, tag, defaultValue2, hasSrc, props, null));
       }
       function updateProperties(domElement, tag, lastProps, nextProps) {
         validatePropertiesInDevelopment(tag, nextProps);
@@ -16053,7 +16053,7 @@ var require_react_dom_client_development = __commonJS({
           case "li":
             break;
           case "input":
-            var name = null, type = null, value = null, defaultValue = null, lastDefaultValue = null, checked = null, defaultChecked = null;
+            var name = null, type = null, value = null, defaultValue2 = null, lastDefaultValue = null, checked = null, defaultChecked = null;
             for (propKey in lastProps) {
               var lastProp = lastProps[propKey];
               if (lastProps.hasOwnProperty(propKey) && null != lastProp)
@@ -16096,7 +16096,7 @@ var require_react_dom_client_development = __commonJS({
                     value = propKey;
                     break;
                   case "defaultValue":
-                    defaultValue = propKey;
+                    defaultValue2 = propKey;
                     break;
                   case "children":
                   case "dangerouslySetInnerHTML":
@@ -16127,7 +16127,7 @@ var require_react_dom_client_development = __commonJS({
             updateInput(
               domElement,
               value,
-              defaultValue,
+              defaultValue2,
               lastDefaultValue,
               checked,
               defaultChecked,
@@ -16136,7 +16136,7 @@ var require_react_dom_client_development = __commonJS({
             );
             return;
           case "select":
-            propKey = value = defaultValue = _propKey8 = null;
+            propKey = value = defaultValue2 = _propKey8 = null;
             for (type in lastProps)
               if (lastDefaultValue = lastProps[type], lastProps.hasOwnProperty(type) && null != lastDefaultValue)
                 switch (type) {
@@ -16161,7 +16161,7 @@ var require_react_dom_client_development = __commonJS({
                     _propKey8 = type;
                     break;
                   case "defaultValue":
-                    defaultValue = type;
+                    defaultValue2 = type;
                     break;
                   case "multiple":
                     value = type;
@@ -16175,22 +16175,22 @@ var require_react_dom_client_development = __commonJS({
                       lastDefaultValue
                     );
                 }
-            nextProps = defaultValue;
+            nextProps = defaultValue2;
             tag = value;
             lastProps = propKey;
             null != _propKey8 ? updateOptions(domElement, !!tag, _propKey8, false) : !!lastProps !== !!tag && (null != nextProps ? updateOptions(domElement, !!tag, nextProps, true) : updateOptions(domElement, !!tag, tag ? [] : "", false));
             return;
           case "textarea":
             propKey = _propKey8 = null;
-            for (defaultValue in lastProps)
-              if (name = lastProps[defaultValue], lastProps.hasOwnProperty(defaultValue) && null != name && !nextProps.hasOwnProperty(defaultValue))
-                switch (defaultValue) {
+            for (defaultValue2 in lastProps)
+              if (name = lastProps[defaultValue2], lastProps.hasOwnProperty(defaultValue2) && null != name && !nextProps.hasOwnProperty(defaultValue2))
+                switch (defaultValue2) {
                   case "value":
                     break;
                   case "children":
                     break;
                   default:
-                    setProp(domElement, tag, defaultValue, null, nextProps, name);
+                    setProp(domElement, tag, defaultValue2, null, nextProps, name);
                 }
             for (value in nextProps)
               if (name = nextProps[value], type = lastProps[value], nextProps.hasOwnProperty(value) && (null != name || null != type))
@@ -17572,8 +17572,8 @@ var require_react_dom_client_development = __commonJS({
       function getStyleKey(href) {
         return 'href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"';
       }
-      function getStylesheetSelectorFromKey(key) {
-        return 'link[rel="stylesheet"][' + key + "]";
+      function getStylesheetSelectorFromKey(key2) {
+        return 'link[rel="stylesheet"][' + key2 + "]";
       }
       function stylesheetPropsFromRawProps(rawProps) {
         return assign({}, rawProps, {
@@ -17581,20 +17581,20 @@ var require_react_dom_client_development = __commonJS({
           precedence: null
         });
       }
-      function preloadStylesheet(ownerDocument, key, preloadProps, state) {
+      function preloadStylesheet(ownerDocument, key2, preloadProps, state) {
         ownerDocument.querySelector(
-          'link[rel="preload"][as="style"][' + key + "]"
-        ) ? state.loading = Loaded : (key = ownerDocument.createElement("link"), state.preload = key, key.addEventListener("load", function() {
+          'link[rel="preload"][as="style"][' + key2 + "]"
+        ) ? state.loading = Loaded : (key2 = ownerDocument.createElement("link"), state.preload = key2, key2.addEventListener("load", function() {
           return state.loading |= Loaded;
-        }), key.addEventListener("error", function() {
+        }), key2.addEventListener("error", function() {
           return state.loading |= Errored;
-        }), setInitialProperties(key, "link", preloadProps), markNodeAsHoistable(key), ownerDocument.head.appendChild(key));
+        }), setInitialProperties(key2, "link", preloadProps), markNodeAsHoistable(key2), ownerDocument.head.appendChild(key2));
       }
       function getScriptKey(src) {
         return '[src="' + escapeSelectorAttributeValueInsideDoubleQuotes(src) + '"]';
       }
-      function getScriptSelectorFromKey(key) {
-        return "script[async]" + key;
+      function getScriptSelectorFromKey(key2) {
+        return "script[async]" + key2;
       }
       function acquireResource(hoistableRoot, resource, props) {
         resource.count++;
@@ -17793,8 +17793,8 @@ var require_react_dom_client_development = __commonJS({
       function suspendResource(state, hoistableRoot, resource, props) {
         if ("stylesheet" === resource.type && ("string" !== typeof props.media || false !== matchMedia(props.media).matches) && (resource.state.loading & Inserted) === NotLoaded) {
           if (null === resource.instance) {
-            var key = getStyleKey(props.href), instance = hoistableRoot.querySelector(
-              getStylesheetSelectorFromKey(key)
+            var key2 = getStyleKey(props.href), instance = hoistableRoot.querySelector(
+              getStylesheetSelectorFromKey(key2)
             );
             if (instance) {
               hoistableRoot = instance._p;
@@ -17806,7 +17806,7 @@ var require_react_dom_client_development = __commonJS({
             }
             instance = hoistableRoot.ownerDocument || hoistableRoot;
             props = stylesheetPropsFromRawProps(props);
-            (key = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(props, key);
+            (key2 = preloadPropsMap.get(key2)) && adoptPreloadPropsForStylesheet(props, key2);
             instance = instance.createElement("link");
             markNodeAsHoistable(instance);
             var linkInstance = instance;
@@ -18373,8 +18373,8 @@ var require_react_dom_client_development = __commonJS({
         }
         return true;
       }
-      function attemptReplayContinuousQueuedEventInMap(queuedEvent, key, map) {
-        attemptReplayContinuousQueuedEvent(queuedEvent) && map.delete(key);
+      function attemptReplayContinuousQueuedEventInMap(queuedEvent, key2, map) {
+        attemptReplayContinuousQueuedEvent(queuedEvent) && map.delete(key2);
       }
       function replayUnblockedEvents() {
         hasScheduledReplayAttempt = false;
@@ -18513,14 +18513,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React4 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
       Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
       Symbol.for("react.legacy_hidden");
       Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
       Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -19326,8 +19326,8 @@ var require_react_dom_client_development = __commonJS({
         "^(aria)-[:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
       ), rARIACamel = RegExp(
         "^(aria)[A-Z][:A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$"
-      ), isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, currentReplayingEvent = null, restoreTarget = null, restoreQueue = null, isInsideEventHandler = false, canUseDOM = !("undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement), passiveBrowserEventsSupported = false;
-      if (canUseDOM)
+      ), isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*:/i, currentReplayingEvent = null, restoreTarget = null, restoreQueue = null, isInsideEventHandler = false, canUseDOM2 = !("undefined" === typeof window || "undefined" === typeof window.document || "undefined" === typeof window.document.createElement), passiveBrowserEventsSupported = false;
+      if (canUseDOM2)
         try {
           var options$jscomp$0 = {};
           Object.defineProperty(options$jscomp$0, "passive", {
@@ -19442,8 +19442,8 @@ var require_react_dom_client_development = __commonJS({
       }, KeyboardEventInterface = assign({}, UIEventInterface, {
         key: function(nativeEvent) {
           if (nativeEvent.key) {
-            var key = normalizeKey[nativeEvent.key] || nativeEvent.key;
-            if ("Unidentified" !== key) return key;
+            var key2 = normalizeKey[nativeEvent.key] || nativeEvent.key;
+            if ("Unidentified" !== key2) return key2;
           }
           return "keypress" === nativeEvent.type ? (nativeEvent = getEventCharCode(nativeEvent), 13 === nativeEvent ? "Enter" : String.fromCharCode(nativeEvent)) : "keydown" === nativeEvent.type || "keyup" === nativeEvent.type ? translateToKey[nativeEvent.keyCode] || "Unidentified" : "";
         },
@@ -19501,9 +19501,9 @@ var require_react_dom_client_development = __commonJS({
       }), SyntheticWheelEvent = createSyntheticEvent(WheelEventInterface), ToggleEventInterface = assign({}, EventInterface, {
         newState: 0,
         oldState: 0
-      }), SyntheticToggleEvent = createSyntheticEvent(ToggleEventInterface), END_KEYCODES = [9, 13, 27, 32], START_KEYCODE = 229, canUseCompositionEvent = canUseDOM && "CompositionEvent" in window, documentMode = null;
-      canUseDOM && "documentMode" in document && (documentMode = document.documentMode);
-      var canUseTextInputEvent = canUseDOM && "TextEvent" in window && !documentMode, useFallbackCompositionData = canUseDOM && (!canUseCompositionEvent || documentMode && 8 < documentMode && 11 >= documentMode), SPACEBAR_CODE = 32, SPACEBAR_CHAR = String.fromCharCode(SPACEBAR_CODE), hasSpaceKeypress = false, isComposing = false, supportedInputTypes = {
+      }), SyntheticToggleEvent = createSyntheticEvent(ToggleEventInterface), END_KEYCODES = [9, 13, 27, 32], START_KEYCODE = 229, canUseCompositionEvent = canUseDOM2 && "CompositionEvent" in window, documentMode = null;
+      canUseDOM2 && "documentMode" in document && (documentMode = document.documentMode);
+      var canUseTextInputEvent = canUseDOM2 && "TextEvent" in window && !documentMode, useFallbackCompositionData = canUseDOM2 && (!canUseCompositionEvent || documentMode && 8 < documentMode && 11 >= documentMode), SPACEBAR_CODE = 32, SPACEBAR_CHAR = String.fromCharCode(SPACEBAR_CODE), hasSpaceKeypress = false, isComposing = false, supportedInputTypes = {
         color: true,
         date: true,
         datetime: true,
@@ -19520,8 +19520,8 @@ var require_react_dom_client_development = __commonJS({
         url: true,
         week: true
       }, activeElement$1 = null, activeElementInst$1 = null, isInputEventSupported = false;
-      canUseDOM && (isInputEventSupported = isEventSupported("input") && (!document.documentMode || 9 < document.documentMode));
-      var objectIs = "function" === typeof Object.is ? Object.is : is, skipSelectionChangeEvent = canUseDOM && "documentMode" in document && 11 >= document.documentMode, activeElement = null, activeElementInst = null, lastSelection = null, mouseDown = false, vendorPrefixes = {
+      canUseDOM2 && (isInputEventSupported = isEventSupported("input") && (!document.documentMode || 9 < document.documentMode));
+      var objectIs = "function" === typeof Object.is ? Object.is : is, skipSelectionChangeEvent = canUseDOM2 && "documentMode" in document && 11 >= document.documentMode, activeElement = null, activeElementInst = null, lastSelection = null, mouseDown = false, vendorPrefixes = {
         animationend: makePrefixMap("Animation", "AnimationEnd"),
         animationiteration: makePrefixMap("Animation", "AnimationIteration"),
         animationstart: makePrefixMap("Animation", "AnimationStart"),
@@ -19530,7 +19530,7 @@ var require_react_dom_client_development = __commonJS({
         transitioncancel: makePrefixMap("Transition", "TransitionCancel"),
         transitionend: makePrefixMap("Transition", "TransitionEnd")
       }, prefixedEventNames = {}, style = {};
-      canUseDOM && (style = document.createElement("div").style, "AnimationEvent" in window || (delete vendorPrefixes.animationend.animation, delete vendorPrefixes.animationiteration.animation, delete vendorPrefixes.animationstart.animation), "TransitionEvent" in window || delete vendorPrefixes.transitionend.transition);
+      canUseDOM2 && (style = document.createElement("div").style, "AnimationEvent" in window || (delete vendorPrefixes.animationend.animation, delete vendorPrefixes.animationiteration.animation, delete vendorPrefixes.animationstart.animation), "TransitionEvent" in window || delete vendorPrefixes.transitionend.transition);
       var ANIMATION_END = getVendorPrefixedEventName("animationend"), ANIMATION_ITERATION = getVendorPrefixedEventName("animationiteration"), ANIMATION_START = getVendorPrefixedEventName("animationstart"), TRANSITION_RUN = getVendorPrefixedEventName("transitionrun"), TRANSITION_START = getVendorPrefixedEventName("transitionstart"), TRANSITION_CANCEL = getVendorPrefixedEventName("transitioncancel"), TRANSITION_END = getVendorPrefixedEventName("transitionend"), topLevelEventsToReactNames = /* @__PURE__ */ new Map(), simpleEventPluginEvents = "abort auxClick beforeToggle cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(
         " "
       );
@@ -19968,13 +19968,13 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           mountHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
           try {
-            return mountReducer(reducer, initialArg, init);
+            return mountReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20098,13 +20098,13 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           updateHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
           try {
-            return mountReducer(reducer, initialArg, init);
+            return mountReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20228,13 +20228,13 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           updateHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
           try {
-            return updateReducer(reducer, initialArg, init);
+            return updateReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20294,10 +20294,10 @@ var require_react_dom_client_development = __commonJS({
           updateHookTypesDev();
           return updateActionState(action);
         },
-        useOptimistic: function(passthrough, reducer) {
+        useOptimistic: function(passthrough, reducer2) {
           currentHookNameInDev = "useOptimistic";
           updateHookTypesDev();
-          return updateOptimistic(passthrough, reducer);
+          return updateOptimistic(passthrough, reducer2);
         },
         useHostTransitionStatus,
         useMemoCache,
@@ -20358,13 +20358,13 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           updateHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnRerenderInDEV;
           try {
-            return rerenderReducer(reducer, initialArg, init);
+            return rerenderReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20424,10 +20424,10 @@ var require_react_dom_client_development = __commonJS({
           updateHookTypesDev();
           return rerenderActionState(action);
         },
-        useOptimistic: function(passthrough, reducer) {
+        useOptimistic: function(passthrough, reducer2) {
           currentHookNameInDev = "useOptimistic";
           updateHookTypesDev();
-          return rerenderOptimistic(passthrough, reducer);
+          return rerenderOptimistic(passthrough, reducer2);
         },
         useHostTransitionStatus,
         useMemoCache,
@@ -20499,14 +20499,14 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           warnInvalidHookAccess();
           mountHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnMountInDEV;
           try {
-            return mountReducer(reducer, initialArg, init);
+            return mountReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20654,14 +20654,14 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           warnInvalidHookAccess();
           updateHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
           try {
-            return updateReducer(reducer, initialArg, init);
+            return updateReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20729,11 +20729,11 @@ var require_react_dom_client_development = __commonJS({
           updateHookTypesDev();
           return updateActionState(action);
         },
-        useOptimistic: function(passthrough, reducer) {
+        useOptimistic: function(passthrough, reducer2) {
           currentHookNameInDev = "useOptimistic";
           warnInvalidHookAccess();
           updateHookTypesDev();
-          return updateOptimistic(passthrough, reducer);
+          return updateOptimistic(passthrough, reducer2);
         },
         useMemoCache: function(size) {
           warnInvalidHookAccess();
@@ -20809,14 +20809,14 @@ var require_react_dom_client_development = __commonJS({
             ReactSharedInternals.H = prevDispatcher;
           }
         },
-        useReducer: function(reducer, initialArg, init) {
+        useReducer: function(reducer2, initialArg, init) {
           currentHookNameInDev = "useReducer";
           warnInvalidHookAccess();
           updateHookTypesDev();
           var prevDispatcher = ReactSharedInternals.H;
           ReactSharedInternals.H = InvalidNestedHooksDispatcherOnUpdateInDEV;
           try {
-            return rerenderReducer(reducer, initialArg, init);
+            return rerenderReducer(reducer2, initialArg, init);
           } finally {
             ReactSharedInternals.H = prevDispatcher;
           }
@@ -20884,11 +20884,11 @@ var require_react_dom_client_development = __commonJS({
           updateHookTypesDev();
           return rerenderActionState(action);
         },
-        useOptimistic: function(passthrough, reducer) {
+        useOptimistic: function(passthrough, reducer2) {
           currentHookNameInDev = "useOptimistic";
           warnInvalidHookAccess();
           updateHookTypesDev();
-          return rerenderOptimistic(passthrough, reducer);
+          return rerenderOptimistic(passthrough, reducer2);
         },
         useMemoCache: function(size) {
           warnInvalidHookAccess();
@@ -21073,31 +21073,31 @@ var require_react_dom_client_development = __commonJS({
             ) + '"]', "string" === typeof options.imageSizes && (preloadSelector += '[imagesizes="' + escapeSelectorAttributeValueInsideDoubleQuotes(
               options.imageSizes
             ) + '"]')) : preloadSelector += '[href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]' : preloadSelector += '[href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]';
-            var key = preloadSelector;
+            var key2 = preloadSelector;
             switch (as) {
               case "style":
-                key = getStyleKey(href);
+                key2 = getStyleKey(href);
                 break;
               case "script":
-                key = getScriptKey(href);
+                key2 = getScriptKey(href);
             }
-            preloadPropsMap.has(key) || (href = assign(
+            preloadPropsMap.has(key2) || (href = assign(
               {
                 rel: "preload",
                 href: "image" === as && options && options.imageSrcSet ? void 0 : href,
                 as
               },
               options
-            ), preloadPropsMap.set(key, href), null !== ownerDocument.querySelector(preloadSelector) || "style" === as && ownerDocument.querySelector(
-              getStylesheetSelectorFromKey(key)
-            ) || "script" === as && ownerDocument.querySelector(getScriptSelectorFromKey(key)) || (as = ownerDocument.createElement("link"), setInitialProperties(as, "link", href), markNodeAsHoistable(as), ownerDocument.head.appendChild(as)));
+            ), preloadPropsMap.set(key2, href), null !== ownerDocument.querySelector(preloadSelector) || "style" === as && ownerDocument.querySelector(
+              getStylesheetSelectorFromKey(key2)
+            ) || "script" === as && ownerDocument.querySelector(getScriptSelectorFromKey(key2)) || (as = ownerDocument.createElement("link"), setInitialProperties(as, "link", href), markNodeAsHoistable(as), ownerDocument.head.appendChild(as)));
           }
         },
         m: function(href, options) {
           previousDispatcher.m(href, options);
           var ownerDocument = globalDocument;
           if (ownerDocument && href) {
-            var as = options && "string" === typeof options.as ? options.as : "script", preloadSelector = 'link[rel="modulepreload"][as="' + escapeSelectorAttributeValueInsideDoubleQuotes(as) + '"][href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]', key = preloadSelector;
+            var as = options && "string" === typeof options.as ? options.as : "script", preloadSelector = 'link[rel="modulepreload"][as="' + escapeSelectorAttributeValueInsideDoubleQuotes(as) + '"][href="' + escapeSelectorAttributeValueInsideDoubleQuotes(href) + '"]', key2 = preloadSelector;
             switch (as) {
               case "audioworklet":
               case "paintworklet":
@@ -21105,9 +21105,9 @@ var require_react_dom_client_development = __commonJS({
               case "sharedworker":
               case "worker":
               case "script":
-                key = getScriptKey(href);
+                key2 = getScriptKey(href);
             }
-            if (!preloadPropsMap.has(key) && (href = assign({ rel: "modulepreload", href }, options), preloadPropsMap.set(key, href), null === ownerDocument.querySelector(preloadSelector))) {
+            if (!preloadPropsMap.has(key2) && (href = assign({ rel: "modulepreload", href }, options), preloadPropsMap.set(key2, href), null === ownerDocument.querySelector(preloadSelector))) {
               switch (as) {
                 case "audioworklet":
                 case "paintworklet":
@@ -21115,7 +21115,7 @@ var require_react_dom_client_development = __commonJS({
                 case "sharedworker":
                 case "worker":
                 case "script":
-                  if (ownerDocument.querySelector(getScriptSelectorFromKey(key)))
+                  if (ownerDocument.querySelector(getScriptSelectorFromKey(key2)))
                     return;
               }
               as = ownerDocument.createElement("link");
@@ -21129,28 +21129,28 @@ var require_react_dom_client_development = __commonJS({
           previousDispatcher.X(src, options);
           var ownerDocument = globalDocument;
           if (ownerDocument && src) {
-            var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
+            var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key2 = getScriptKey(src), resource = scripts.get(key2);
             resource || (resource = ownerDocument.querySelector(
-              getScriptSelectorFromKey(key)
-            ), resource || (src = assign({ src, async: true }, options), (options = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+              getScriptSelectorFromKey(key2)
+            ), resource || (src = assign({ src, async: true }, options), (options = preloadPropsMap.get(key2)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
               type: "script",
               instance: resource,
               count: 1,
               state: null
-            }, scripts.set(key, resource));
+            }, scripts.set(key2, resource));
           }
         },
         S: function(href, precedence, options) {
           previousDispatcher.S(href, precedence, options);
           var ownerDocument = globalDocument;
           if (ownerDocument && href) {
-            var styles = getResourcesFromRoot(ownerDocument).hoistableStyles, key = getStyleKey(href);
+            var styles = getResourcesFromRoot(ownerDocument).hoistableStyles, key2 = getStyleKey(href);
             precedence = precedence || "default";
-            var resource = styles.get(key);
+            var resource = styles.get(key2);
             if (!resource) {
               var state = { loading: NotLoaded, preload: null };
               if (resource = ownerDocument.querySelector(
-                getStylesheetSelectorFromKey(key)
+                getStylesheetSelectorFromKey(key2)
               ))
                 state.loading = Loaded | Inserted;
               else {
@@ -21162,7 +21162,7 @@ var require_react_dom_client_development = __commonJS({
                   },
                   options
                 );
-                (options = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(href, options);
+                (options = preloadPropsMap.get(key2)) && adoptPreloadPropsForStylesheet(href, options);
                 var link = resource = ownerDocument.createElement("link");
                 markNodeAsHoistable(link);
                 setInitialProperties(link, "link", href);
@@ -21185,7 +21185,7 @@ var require_react_dom_client_development = __commonJS({
                 count: 1,
                 state
               };
-              styles.set(key, resource);
+              styles.set(key2, resource);
             }
           }
         },
@@ -21193,15 +21193,15 @@ var require_react_dom_client_development = __commonJS({
           previousDispatcher.M(src, options);
           var ownerDocument = globalDocument;
           if (ownerDocument && src) {
-            var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key = getScriptKey(src), resource = scripts.get(key);
+            var scripts = getResourcesFromRoot(ownerDocument).hoistableScripts, key2 = getScriptKey(src), resource = scripts.get(key2);
             resource || (resource = ownerDocument.querySelector(
-              getScriptSelectorFromKey(key)
-            ), resource || (src = assign({ src, async: true, type: "module" }, options), (options = preloadPropsMap.get(key)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
+              getScriptSelectorFromKey(key2)
+            ), resource || (src = assign({ src, async: true, type: "module" }, options), (options = preloadPropsMap.get(key2)) && adoptPreloadPropsForScript(src, options), resource = ownerDocument.createElement("script"), markNodeAsHoistable(resource), setInitialProperties(resource, "link", src), ownerDocument.head.appendChild(resource)), resource = {
               type: "script",
               instance: resource,
               count: 1,
               state: null
-            }, scripts.set(key, resource));
+            }, scripts.set(key2, resource));
           }
         }
       };
@@ -21308,7 +21308,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React.version;
+        var isomorphicReactPackageVersion = React4.version;
         if ("19.2.3" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.2.3\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -21355,7 +21355,7 @@ var require_react_dom_client_development = __commonJS({
         internals.setRefreshHandler = setRefreshHandler;
         internals.getCurrentFiber = getCurrentFiberForDevTools;
         return injectInternals(internals);
-      })() && canUseDOM && window.top === window.self && (-1 < navigator.userAgent.indexOf("Chrome") && -1 === navigator.userAgent.indexOf("Edge") || -1 < navigator.userAgent.indexOf("Firefox"))) {
+      })() && canUseDOM2 && window.top === window.self && (-1 < navigator.userAgent.indexOf("Chrome") && -1 === navigator.userAgent.indexOf("Edge") || -1 < navigator.userAgent.indexOf("Firefox"))) {
         var protocol = window.location.protocol;
         /^(https?|file):$/.test(protocol) && console.info(
           "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools" + ("file:" === protocol ? "\nYou might need to use a local HTTP server (instead of file://): https://react.dev/link/react-devtools-faq" : ""),
@@ -21567,12 +21567,12 @@ var require_react_jsx_runtime_development = __commonJS({
         componentName = this.props.ref;
         return void 0 !== componentName ? componentName : null;
       }
-      function ReactElement(type, key, props, owner, debugStack, debugTask) {
+      function ReactElement(type, key2, props, owner, debugStack, debugTask) {
         var refProp = props.ref;
         type = {
           $$typeof: REACT_ELEMENT_TYPE,
           type,
-          key,
+          key: key2,
           props,
           _owner: owner
         };
@@ -21662,18 +21662,18 @@ var require_react_jsx_runtime_development = __commonJS({
       function isValidElement(object) {
         return "object" === typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
       }
-      var React = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
+      var React4 = require_react(), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy"), REACT_ACTIVITY_TYPE = Symbol.for("react.activity"), REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), ReactSharedInternals = React4.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, hasOwnProperty = Object.prototype.hasOwnProperty, isArrayImpl = Array.isArray, createTask = console.createTask ? console.createTask : function() {
         return null;
       };
-      React = {
+      React4 = {
         react_stack_bottom_frame: function(callStackForError) {
           return callStackForError();
         }
       };
       var specialPropKeyWarningShown;
       var didWarnAboutElementRef = {};
-      var unknownOwnerDebugStack = React.react_stack_bottom_frame.bind(
-        React,
+      var unknownOwnerDebugStack = React4.react_stack_bottom_frame.bind(
+        React4,
         UnknownOwner
       )();
       var unknownOwnerDebugTask = createTask(getTaskName(UnknownOwner));
@@ -21721,7 +21721,4189 @@ var require_jsx_runtime = __commonJS({
 var import_client = __toESM(require_client(), 1);
 
 // src/App.tsx
-var import_react2 = __toESM(require_react(), 1);
+var import_react7 = __toESM(require_react(), 1);
+
+// src/components/MemoTree.tsx
+var import_react5 = __toESM(require_react(), 1);
+
+// node_modules/@dnd-kit/core/dist/core.esm.js
+var import_react3 = __toESM(require_react());
+var import_react_dom = __toESM(require_react_dom());
+
+// node_modules/@dnd-kit/utilities/dist/utilities.esm.js
+var import_react = __toESM(require_react());
+function useCombinedRefs() {
+  for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
+    refs[_key] = arguments[_key];
+  }
+  return (0, import_react.useMemo)(
+    () => (node) => {
+      refs.forEach((ref) => ref(node));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    refs
+  );
+}
+var canUseDOM = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
+function isWindow(element) {
+  const elementString = Object.prototype.toString.call(element);
+  return elementString === "[object Window]" || // In Electron context the Window object serializes to [object global]
+  elementString === "[object global]";
+}
+function isNode(node) {
+  return "nodeType" in node;
+}
+function getWindow(target) {
+  var _target$ownerDocument, _target$ownerDocument2;
+  if (!target) {
+    return window;
+  }
+  if (isWindow(target)) {
+    return target;
+  }
+  if (!isNode(target)) {
+    return window;
+  }
+  return (_target$ownerDocument = (_target$ownerDocument2 = target.ownerDocument) == null ? void 0 : _target$ownerDocument2.defaultView) != null ? _target$ownerDocument : window;
+}
+function isDocument(node) {
+  const {
+    Document
+  } = getWindow(node);
+  return node instanceof Document;
+}
+function isHTMLElement(node) {
+  if (isWindow(node)) {
+    return false;
+  }
+  return node instanceof getWindow(node).HTMLElement;
+}
+function isSVGElement(node) {
+  return node instanceof getWindow(node).SVGElement;
+}
+function getOwnerDocument(target) {
+  if (!target) {
+    return document;
+  }
+  if (isWindow(target)) {
+    return target.document;
+  }
+  if (!isNode(target)) {
+    return document;
+  }
+  if (isDocument(target)) {
+    return target;
+  }
+  if (isHTMLElement(target) || isSVGElement(target)) {
+    return target.ownerDocument;
+  }
+  return document;
+}
+var useIsomorphicLayoutEffect = canUseDOM ? import_react.useLayoutEffect : import_react.useEffect;
+function useEvent(handler) {
+  const handlerRef = (0, import_react.useRef)(handler);
+  useIsomorphicLayoutEffect(() => {
+    handlerRef.current = handler;
+  });
+  return (0, import_react.useCallback)(function() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    return handlerRef.current == null ? void 0 : handlerRef.current(...args);
+  }, []);
+}
+function useInterval() {
+  const intervalRef = (0, import_react.useRef)(null);
+  const set = (0, import_react.useCallback)((listener, duration) => {
+    intervalRef.current = setInterval(listener, duration);
+  }, []);
+  const clear = (0, import_react.useCallback)(() => {
+    if (intervalRef.current !== null) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+  return [set, clear];
+}
+function useLatestValue(value, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [value];
+  }
+  const valueRef = (0, import_react.useRef)(value);
+  useIsomorphicLayoutEffect(() => {
+    if (valueRef.current !== value) {
+      valueRef.current = value;
+    }
+  }, dependencies);
+  return valueRef;
+}
+function useLazyMemo(callback, dependencies) {
+  const valueRef = (0, import_react.useRef)();
+  return (0, import_react.useMemo)(
+    () => {
+      const newValue = callback(valueRef.current);
+      valueRef.current = newValue;
+      return newValue;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [...dependencies]
+  );
+}
+function useNodeRef(onChange) {
+  const onChangeHandler = useEvent(onChange);
+  const node = (0, import_react.useRef)(null);
+  const setNodeRef = (0, import_react.useCallback)(
+    (element) => {
+      if (element !== node.current) {
+        onChangeHandler == null ? void 0 : onChangeHandler(element, node.current);
+      }
+      node.current = element;
+    },
+    //eslint-disable-next-line
+    []
+  );
+  return [node, setNodeRef];
+}
+function usePrevious(value) {
+  const ref = (0, import_react.useRef)();
+  (0, import_react.useEffect)(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+var ids = {};
+function useUniqueId(prefix, value) {
+  return (0, import_react.useMemo)(() => {
+    if (value) {
+      return value;
+    }
+    const id = ids[prefix] == null ? 0 : ids[prefix] + 1;
+    ids[prefix] = id;
+    return prefix + "-" + id;
+  }, [prefix, value]);
+}
+function createAdjustmentFn(modifier) {
+  return function(object) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+    return adjustments.reduce((accumulator, adjustment) => {
+      const entries = Object.entries(adjustment);
+      for (const [key2, valueAdjustment] of entries) {
+        const value = accumulator[key2];
+        if (value != null) {
+          accumulator[key2] = value + modifier * valueAdjustment;
+        }
+      }
+      return accumulator;
+    }, {
+      ...object
+    });
+  };
+}
+var add = /* @__PURE__ */ createAdjustmentFn(1);
+var subtract = /* @__PURE__ */ createAdjustmentFn(-1);
+function hasViewportRelativeCoordinates(event) {
+  return "clientX" in event && "clientY" in event;
+}
+function isKeyboardEvent(event) {
+  if (!event) {
+    return false;
+  }
+  const {
+    KeyboardEvent
+  } = getWindow(event.target);
+  return KeyboardEvent && event instanceof KeyboardEvent;
+}
+function isTouchEvent(event) {
+  if (!event) {
+    return false;
+  }
+  const {
+    TouchEvent
+  } = getWindow(event.target);
+  return TouchEvent && event instanceof TouchEvent;
+}
+function getEventCoordinates(event) {
+  if (isTouchEvent(event)) {
+    if (event.touches && event.touches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.touches[0];
+      return {
+        x,
+        y
+      };
+    } else if (event.changedTouches && event.changedTouches.length) {
+      const {
+        clientX: x,
+        clientY: y
+      } = event.changedTouches[0];
+      return {
+        x,
+        y
+      };
+    }
+  }
+  if (hasViewportRelativeCoordinates(event)) {
+    return {
+      x: event.clientX,
+      y: event.clientY
+    };
+  }
+  return null;
+}
+var CSS = /* @__PURE__ */ Object.freeze({
+  Translate: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      const {
+        x,
+        y
+      } = transform;
+      return "translate3d(" + (x ? Math.round(x) : 0) + "px, " + (y ? Math.round(y) : 0) + "px, 0)";
+    }
+  },
+  Scale: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      const {
+        scaleX,
+        scaleY
+      } = transform;
+      return "scaleX(" + scaleX + ") scaleY(" + scaleY + ")";
+    }
+  },
+  Transform: {
+    toString(transform) {
+      if (!transform) {
+        return;
+      }
+      return [CSS.Translate.toString(transform), CSS.Scale.toString(transform)].join(" ");
+    }
+  },
+  Transition: {
+    toString(_ref) {
+      let {
+        property,
+        duration,
+        easing
+      } = _ref;
+      return property + " " + duration + "ms " + easing;
+    }
+  }
+});
+var SELECTOR = "a,frame,iframe,input:not([type=hidden]):not(:disabled),select:not(:disabled),textarea:not(:disabled),button:not(:disabled),*[tabindex]";
+function findFirstFocusableNode(element) {
+  if (element.matches(SELECTOR)) {
+    return element;
+  }
+  return element.querySelector(SELECTOR);
+}
+
+// node_modules/@dnd-kit/accessibility/dist/accessibility.esm.js
+var import_react2 = __toESM(require_react());
+var hiddenStyles = {
+  display: "none"
+};
+function HiddenText(_ref) {
+  let {
+    id,
+    value
+  } = _ref;
+  return import_react2.default.createElement("div", {
+    id,
+    style: hiddenStyles
+  }, value);
+}
+function LiveRegion(_ref) {
+  let {
+    id,
+    announcement,
+    ariaLiveType = "assertive"
+  } = _ref;
+  const visuallyHidden = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: 1,
+    height: 1,
+    margin: -1,
+    border: 0,
+    padding: 0,
+    overflow: "hidden",
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(100%)",
+    whiteSpace: "nowrap"
+  };
+  return import_react2.default.createElement("div", {
+    id,
+    style: visuallyHidden,
+    role: "status",
+    "aria-live": ariaLiveType,
+    "aria-atomic": true
+  }, announcement);
+}
+function useAnnouncement() {
+  const [announcement, setAnnouncement] = (0, import_react2.useState)("");
+  const announce = (0, import_react2.useCallback)((value) => {
+    if (value != null) {
+      setAnnouncement(value);
+    }
+  }, []);
+  return {
+    announce,
+    announcement
+  };
+}
+
+// node_modules/@dnd-kit/core/dist/core.esm.js
+var DndMonitorContext = /* @__PURE__ */ (0, import_react3.createContext)(null);
+function useDndMonitor(listener) {
+  const registerListener = (0, import_react3.useContext)(DndMonitorContext);
+  (0, import_react3.useEffect)(() => {
+    if (!registerListener) {
+      throw new Error("useDndMonitor must be used within a children of <DndContext>");
+    }
+    const unsubscribe = registerListener(listener);
+    return unsubscribe;
+  }, [listener, registerListener]);
+}
+function useDndMonitorProvider() {
+  const [listeners] = (0, import_react3.useState)(() => /* @__PURE__ */ new Set());
+  const registerListener = (0, import_react3.useCallback)((listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }, [listeners]);
+  const dispatch = (0, import_react3.useCallback)((_ref) => {
+    let {
+      type,
+      event
+    } = _ref;
+    listeners.forEach((listener) => {
+      var _listener$type;
+      return (_listener$type = listener[type]) == null ? void 0 : _listener$type.call(listener, event);
+    });
+  }, [listeners]);
+  return [dispatch, registerListener];
+}
+var defaultScreenReaderInstructions = {
+  draggable: "\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to cancel.\n  "
+};
+var defaultAnnouncements = {
+  onDragStart(_ref) {
+    let {
+      active
+    } = _ref;
+    return "Picked up draggable item " + active.id + ".";
+  },
+  onDragOver(_ref2) {
+    let {
+      active,
+      over
+    } = _ref2;
+    if (over) {
+      return "Draggable item " + active.id + " was moved over droppable area " + over.id + ".";
+    }
+    return "Draggable item " + active.id + " is no longer over a droppable area.";
+  },
+  onDragEnd(_ref3) {
+    let {
+      active,
+      over
+    } = _ref3;
+    if (over) {
+      return "Draggable item " + active.id + " was dropped over droppable area " + over.id;
+    }
+    return "Draggable item " + active.id + " was dropped.";
+  },
+  onDragCancel(_ref4) {
+    let {
+      active
+    } = _ref4;
+    return "Dragging was cancelled. Draggable item " + active.id + " was dropped.";
+  }
+};
+function Accessibility(_ref) {
+  let {
+    announcements = defaultAnnouncements,
+    container,
+    hiddenTextDescribedById,
+    screenReaderInstructions = defaultScreenReaderInstructions
+  } = _ref;
+  const {
+    announce,
+    announcement
+  } = useAnnouncement();
+  const liveRegionId = useUniqueId("DndLiveRegion");
+  const [mounted, setMounted] = (0, import_react3.useState)(false);
+  (0, import_react3.useEffect)(() => {
+    setMounted(true);
+  }, []);
+  useDndMonitor((0, import_react3.useMemo)(() => ({
+    onDragStart(_ref2) {
+      let {
+        active
+      } = _ref2;
+      announce(announcements.onDragStart({
+        active
+      }));
+    },
+    onDragMove(_ref3) {
+      let {
+        active,
+        over
+      } = _ref3;
+      if (announcements.onDragMove) {
+        announce(announcements.onDragMove({
+          active,
+          over
+        }));
+      }
+    },
+    onDragOver(_ref4) {
+      let {
+        active,
+        over
+      } = _ref4;
+      announce(announcements.onDragOver({
+        active,
+        over
+      }));
+    },
+    onDragEnd(_ref5) {
+      let {
+        active,
+        over
+      } = _ref5;
+      announce(announcements.onDragEnd({
+        active,
+        over
+      }));
+    },
+    onDragCancel(_ref6) {
+      let {
+        active,
+        over
+      } = _ref6;
+      announce(announcements.onDragCancel({
+        active,
+        over
+      }));
+    }
+  }), [announce, announcements]));
+  if (!mounted) {
+    return null;
+  }
+  const markup = import_react3.default.createElement(import_react3.default.Fragment, null, import_react3.default.createElement(HiddenText, {
+    id: hiddenTextDescribedById,
+    value: screenReaderInstructions.draggable
+  }), import_react3.default.createElement(LiveRegion, {
+    id: liveRegionId,
+    announcement
+  }));
+  return container ? (0, import_react_dom.createPortal)(markup, container) : markup;
+}
+var Action;
+(function(Action2) {
+  Action2["DragStart"] = "dragStart";
+  Action2["DragMove"] = "dragMove";
+  Action2["DragEnd"] = "dragEnd";
+  Action2["DragCancel"] = "dragCancel";
+  Action2["DragOver"] = "dragOver";
+  Action2["RegisterDroppable"] = "registerDroppable";
+  Action2["SetDroppableDisabled"] = "setDroppableDisabled";
+  Action2["UnregisterDroppable"] = "unregisterDroppable";
+})(Action || (Action = {}));
+function noop() {
+}
+function useSensor(sensor, options) {
+  return (0, import_react3.useMemo)(
+    () => ({
+      sensor,
+      options: options != null ? options : {}
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [sensor, options]
+  );
+}
+function useSensors() {
+  for (var _len = arguments.length, sensors = new Array(_len), _key = 0; _key < _len; _key++) {
+    sensors[_key] = arguments[_key];
+  }
+  return (0, import_react3.useMemo)(
+    () => [...sensors].filter((sensor) => sensor != null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [...sensors]
+  );
+}
+var defaultCoordinates = /* @__PURE__ */ Object.freeze({
+  x: 0,
+  y: 0
+});
+function distanceBetween(p1, p2) {
+  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+function getRelativeTransformOrigin(event, rect) {
+  const eventCoordinates = getEventCoordinates(event);
+  if (!eventCoordinates) {
+    return "0 0";
+  }
+  const transformOrigin = {
+    x: (eventCoordinates.x - rect.left) / rect.width * 100,
+    y: (eventCoordinates.y - rect.top) / rect.height * 100
+  };
+  return transformOrigin.x + "% " + transformOrigin.y + "%";
+}
+function sortCollisionsAsc(_ref, _ref2) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref2;
+  return a - b;
+}
+function sortCollisionsDesc(_ref3, _ref4) {
+  let {
+    data: {
+      value: a
+    }
+  } = _ref3;
+  let {
+    data: {
+      value: b
+    }
+  } = _ref4;
+  return b - a;
+}
+function getFirstCollision(collisions, property) {
+  if (!collisions || collisions.length === 0) {
+    return null;
+  }
+  const [firstCollision] = collisions;
+  return property ? firstCollision[property] : firstCollision;
+}
+function centerOfRectangle(rect, left, top) {
+  if (left === void 0) {
+    left = rect.left;
+  }
+  if (top === void 0) {
+    top = rect.top;
+  }
+  return {
+    x: left + rect.width * 0.5,
+    y: top + rect.height * 0.5
+  };
+}
+var closestCenter = (_ref) => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const centerRect = centerOfRectangle(collisionRect, collisionRect.left, collisionRect.top);
+  const collisions = [];
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+    if (rect) {
+      const distBetween = distanceBetween(centerOfRectangle(rect), centerRect);
+      collisions.push({
+        id,
+        data: {
+          droppableContainer,
+          value: distBetween
+        }
+      });
+    }
+  }
+  return collisions.sort(sortCollisionsAsc);
+};
+function getIntersectionRatio(entry, target) {
+  const top = Math.max(target.top, entry.top);
+  const left = Math.max(target.left, entry.left);
+  const right = Math.min(target.left + target.width, entry.left + entry.width);
+  const bottom = Math.min(target.top + target.height, entry.top + entry.height);
+  const width = right - left;
+  const height = bottom - top;
+  if (left < right && top < bottom) {
+    const targetArea = target.width * target.height;
+    const entryArea = entry.width * entry.height;
+    const intersectionArea = width * height;
+    const intersectionRatio = intersectionArea / (targetArea + entryArea - intersectionArea);
+    return Number(intersectionRatio.toFixed(4));
+  }
+  return 0;
+}
+var rectIntersection = (_ref) => {
+  let {
+    collisionRect,
+    droppableRects,
+    droppableContainers
+  } = _ref;
+  const collisions = [];
+  for (const droppableContainer of droppableContainers) {
+    const {
+      id
+    } = droppableContainer;
+    const rect = droppableRects.get(id);
+    if (rect) {
+      const intersectionRatio = getIntersectionRatio(rect, collisionRect);
+      if (intersectionRatio > 0) {
+        collisions.push({
+          id,
+          data: {
+            droppableContainer,
+            value: intersectionRatio
+          }
+        });
+      }
+    }
+  }
+  return collisions.sort(sortCollisionsDesc);
+};
+function adjustScale(transform, rect1, rect2) {
+  return {
+    ...transform,
+    scaleX: rect1 && rect2 ? rect1.width / rect2.width : 1,
+    scaleY: rect1 && rect2 ? rect1.height / rect2.height : 1
+  };
+}
+function getRectDelta(rect1, rect2) {
+  return rect1 && rect2 ? {
+    x: rect1.left - rect2.left,
+    y: rect1.top - rect2.top
+  } : defaultCoordinates;
+}
+function createRectAdjustmentFn(modifier) {
+  return function adjustClientRect(rect) {
+    for (var _len = arguments.length, adjustments = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      adjustments[_key - 1] = arguments[_key];
+    }
+    return adjustments.reduce((acc, adjustment) => ({
+      ...acc,
+      top: acc.top + modifier * adjustment.y,
+      bottom: acc.bottom + modifier * adjustment.y,
+      left: acc.left + modifier * adjustment.x,
+      right: acc.right + modifier * adjustment.x
+    }), {
+      ...rect
+    });
+  };
+}
+var getAdjustedRect = /* @__PURE__ */ createRectAdjustmentFn(1);
+function parseTransform(transform) {
+  if (transform.startsWith("matrix3d(")) {
+    const transformArray = transform.slice(9, -1).split(/, /);
+    return {
+      x: +transformArray[12],
+      y: +transformArray[13],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[5]
+    };
+  } else if (transform.startsWith("matrix(")) {
+    const transformArray = transform.slice(7, -1).split(/, /);
+    return {
+      x: +transformArray[4],
+      y: +transformArray[5],
+      scaleX: +transformArray[0],
+      scaleY: +transformArray[3]
+    };
+  }
+  return null;
+}
+function inverseTransform(rect, transform, transformOrigin) {
+  const parsedTransform = parseTransform(transform);
+  if (!parsedTransform) {
+    return rect;
+  }
+  const {
+    scaleX,
+    scaleY,
+    x: translateX,
+    y: translateY
+  } = parsedTransform;
+  const x = rect.left - translateX - (1 - scaleX) * parseFloat(transformOrigin);
+  const y = rect.top - translateY - (1 - scaleY) * parseFloat(transformOrigin.slice(transformOrigin.indexOf(" ") + 1));
+  const w = scaleX ? rect.width / scaleX : rect.width;
+  const h = scaleY ? rect.height / scaleY : rect.height;
+  return {
+    width: w,
+    height: h,
+    top: y,
+    right: x + w,
+    bottom: y + h,
+    left: x
+  };
+}
+var defaultOptions = {
+  ignoreTransform: false
+};
+function getClientRect(element, options) {
+  if (options === void 0) {
+    options = defaultOptions;
+  }
+  let rect = element.getBoundingClientRect();
+  if (options.ignoreTransform) {
+    const {
+      transform,
+      transformOrigin
+    } = getWindow(element).getComputedStyle(element);
+    if (transform) {
+      rect = inverseTransform(rect, transform, transformOrigin);
+    }
+  }
+  const {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  } = rect;
+  return {
+    top,
+    left,
+    width,
+    height,
+    bottom,
+    right
+  };
+}
+function getTransformAgnosticClientRect(element) {
+  return getClientRect(element, {
+    ignoreTransform: true
+  });
+}
+function getWindowClientRect(element) {
+  const width = element.innerWidth;
+  const height = element.innerHeight;
+  return {
+    top: 0,
+    left: 0,
+    right: width,
+    bottom: height,
+    width,
+    height
+  };
+}
+function isFixed(node, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = getWindow(node).getComputedStyle(node);
+  }
+  return computedStyle.position === "fixed";
+}
+function isScrollable(element, computedStyle) {
+  if (computedStyle === void 0) {
+    computedStyle = getWindow(element).getComputedStyle(element);
+  }
+  const overflowRegex = /(auto|scroll|overlay)/;
+  const properties2 = ["overflow", "overflowX", "overflowY"];
+  return properties2.some((property) => {
+    const value = computedStyle[property];
+    return typeof value === "string" ? overflowRegex.test(value) : false;
+  });
+}
+function getScrollableAncestors(element, limit) {
+  const scrollParents = [];
+  function findScrollableAncestors(node) {
+    if (limit != null && scrollParents.length >= limit) {
+      return scrollParents;
+    }
+    if (!node) {
+      return scrollParents;
+    }
+    if (isDocument(node) && node.scrollingElement != null && !scrollParents.includes(node.scrollingElement)) {
+      scrollParents.push(node.scrollingElement);
+      return scrollParents;
+    }
+    if (!isHTMLElement(node) || isSVGElement(node)) {
+      return scrollParents;
+    }
+    if (scrollParents.includes(node)) {
+      return scrollParents;
+    }
+    const computedStyle = getWindow(element).getComputedStyle(node);
+    if (node !== element) {
+      if (isScrollable(node, computedStyle)) {
+        scrollParents.push(node);
+      }
+    }
+    if (isFixed(node, computedStyle)) {
+      return scrollParents;
+    }
+    return findScrollableAncestors(node.parentNode);
+  }
+  if (!element) {
+    return scrollParents;
+  }
+  return findScrollableAncestors(element);
+}
+function getFirstScrollableAncestor(node) {
+  const [firstScrollableAncestor] = getScrollableAncestors(node, 1);
+  return firstScrollableAncestor != null ? firstScrollableAncestor : null;
+}
+function getScrollableElement(element) {
+  if (!canUseDOM || !element) {
+    return null;
+  }
+  if (isWindow(element)) {
+    return element;
+  }
+  if (!isNode(element)) {
+    return null;
+  }
+  if (isDocument(element) || element === getOwnerDocument(element).scrollingElement) {
+    return window;
+  }
+  if (isHTMLElement(element)) {
+    return element;
+  }
+  return null;
+}
+function getScrollXCoordinate(element) {
+  if (isWindow(element)) {
+    return element.scrollX;
+  }
+  return element.scrollLeft;
+}
+function getScrollYCoordinate(element) {
+  if (isWindow(element)) {
+    return element.scrollY;
+  }
+  return element.scrollTop;
+}
+function getScrollCoordinates(element) {
+  return {
+    x: getScrollXCoordinate(element),
+    y: getScrollYCoordinate(element)
+  };
+}
+var Direction;
+(function(Direction2) {
+  Direction2[Direction2["Forward"] = 1] = "Forward";
+  Direction2[Direction2["Backward"] = -1] = "Backward";
+})(Direction || (Direction = {}));
+function isDocumentScrollingElement(element) {
+  if (!canUseDOM || !element) {
+    return false;
+  }
+  return element === document.scrollingElement;
+}
+function getScrollPosition(scrollingContainer) {
+  const minScroll = {
+    x: 0,
+    y: 0
+  };
+  const dimensions = isDocumentScrollingElement(scrollingContainer) ? {
+    height: window.innerHeight,
+    width: window.innerWidth
+  } : {
+    height: scrollingContainer.clientHeight,
+    width: scrollingContainer.clientWidth
+  };
+  const maxScroll = {
+    x: scrollingContainer.scrollWidth - dimensions.width,
+    y: scrollingContainer.scrollHeight - dimensions.height
+  };
+  const isTop = scrollingContainer.scrollTop <= minScroll.y;
+  const isLeft = scrollingContainer.scrollLeft <= minScroll.x;
+  const isBottom = scrollingContainer.scrollTop >= maxScroll.y;
+  const isRight = scrollingContainer.scrollLeft >= maxScroll.x;
+  return {
+    isTop,
+    isLeft,
+    isBottom,
+    isRight,
+    maxScroll,
+    minScroll
+  };
+}
+var defaultThreshold = {
+  x: 0.2,
+  y: 0.2
+};
+function getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, _ref, acceleration, thresholdPercentage) {
+  let {
+    top,
+    left,
+    right,
+    bottom
+  } = _ref;
+  if (acceleration === void 0) {
+    acceleration = 10;
+  }
+  if (thresholdPercentage === void 0) {
+    thresholdPercentage = defaultThreshold;
+  }
+  const {
+    isTop,
+    isBottom,
+    isLeft,
+    isRight
+  } = getScrollPosition(scrollContainer);
+  const direction = {
+    x: 0,
+    y: 0
+  };
+  const speed = {
+    x: 0,
+    y: 0
+  };
+  const threshold = {
+    height: scrollContainerRect.height * thresholdPercentage.y,
+    width: scrollContainerRect.width * thresholdPercentage.x
+  };
+  if (!isTop && top <= scrollContainerRect.top + threshold.height) {
+    direction.y = Direction.Backward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.top + threshold.height - top) / threshold.height);
+  } else if (!isBottom && bottom >= scrollContainerRect.bottom - threshold.height) {
+    direction.y = Direction.Forward;
+    speed.y = acceleration * Math.abs((scrollContainerRect.bottom - threshold.height - bottom) / threshold.height);
+  }
+  if (!isRight && right >= scrollContainerRect.right - threshold.width) {
+    direction.x = Direction.Forward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.right - threshold.width - right) / threshold.width);
+  } else if (!isLeft && left <= scrollContainerRect.left + threshold.width) {
+    direction.x = Direction.Backward;
+    speed.x = acceleration * Math.abs((scrollContainerRect.left + threshold.width - left) / threshold.width);
+  }
+  return {
+    direction,
+    speed
+  };
+}
+function getScrollElementRect(element) {
+  if (element === document.scrollingElement) {
+    const {
+      innerWidth,
+      innerHeight
+    } = window;
+    return {
+      top: 0,
+      left: 0,
+      right: innerWidth,
+      bottom: innerHeight,
+      width: innerWidth,
+      height: innerHeight
+    };
+  }
+  const {
+    top,
+    left,
+    right,
+    bottom
+  } = element.getBoundingClientRect();
+  return {
+    top,
+    left,
+    right,
+    bottom,
+    width: element.clientWidth,
+    height: element.clientHeight
+  };
+}
+function getScrollOffsets(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return add(acc, getScrollCoordinates(node));
+  }, defaultCoordinates);
+}
+function getScrollXOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollXCoordinate(node);
+  }, 0);
+}
+function getScrollYOffset(scrollableAncestors) {
+  return scrollableAncestors.reduce((acc, node) => {
+    return acc + getScrollYCoordinate(node);
+  }, 0);
+}
+function scrollIntoViewIfNeeded(element, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+  if (!element) {
+    return;
+  }
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = measure(element);
+  const firstScrollableAncestor = getFirstScrollableAncestor(element);
+  if (!firstScrollableAncestor) {
+    return;
+  }
+  if (bottom <= 0 || right <= 0 || top >= window.innerHeight || left >= window.innerWidth) {
+    element.scrollIntoView({
+      block: "center",
+      inline: "center"
+    });
+  }
+}
+var properties = [["x", ["left", "right"], getScrollXOffset], ["y", ["top", "bottom"], getScrollYOffset]];
+var Rect = class {
+  constructor(rect, element) {
+    this.rect = void 0;
+    this.width = void 0;
+    this.height = void 0;
+    this.top = void 0;
+    this.bottom = void 0;
+    this.right = void 0;
+    this.left = void 0;
+    const scrollableAncestors = getScrollableAncestors(element);
+    const scrollOffsets = getScrollOffsets(scrollableAncestors);
+    this.rect = {
+      ...rect
+    };
+    this.width = rect.width;
+    this.height = rect.height;
+    for (const [axis, keys, getScrollOffset] of properties) {
+      for (const key2 of keys) {
+        Object.defineProperty(this, key2, {
+          get: () => {
+            const currentOffsets = getScrollOffset(scrollableAncestors);
+            const scrollOffsetsDeltla = scrollOffsets[axis] - currentOffsets;
+            return this.rect[key2] + scrollOffsetsDeltla;
+          },
+          enumerable: true
+        });
+      }
+    }
+    Object.defineProperty(this, "rect", {
+      enumerable: false
+    });
+  }
+};
+var Listeners = class {
+  constructor(target) {
+    this.target = void 0;
+    this.listeners = [];
+    this.removeAll = () => {
+      this.listeners.forEach((listener) => {
+        var _this$target;
+        return (_this$target = this.target) == null ? void 0 : _this$target.removeEventListener(...listener);
+      });
+    };
+    this.target = target;
+  }
+  add(eventName, handler, options) {
+    var _this$target2;
+    (_this$target2 = this.target) == null ? void 0 : _this$target2.addEventListener(eventName, handler, options);
+    this.listeners.push([eventName, handler, options]);
+  }
+};
+function getEventListenerTarget(target) {
+  const {
+    EventTarget
+  } = getWindow(target);
+  return target instanceof EventTarget ? target : getOwnerDocument(target);
+}
+function hasExceededDistance(delta, measurement) {
+  const dx = Math.abs(delta.x);
+  const dy = Math.abs(delta.y);
+  if (typeof measurement === "number") {
+    return Math.sqrt(dx ** 2 + dy ** 2) > measurement;
+  }
+  if ("x" in measurement && "y" in measurement) {
+    return dx > measurement.x && dy > measurement.y;
+  }
+  if ("x" in measurement) {
+    return dx > measurement.x;
+  }
+  if ("y" in measurement) {
+    return dy > measurement.y;
+  }
+  return false;
+}
+var EventName;
+(function(EventName2) {
+  EventName2["Click"] = "click";
+  EventName2["DragStart"] = "dragstart";
+  EventName2["Keydown"] = "keydown";
+  EventName2["ContextMenu"] = "contextmenu";
+  EventName2["Resize"] = "resize";
+  EventName2["SelectionChange"] = "selectionchange";
+  EventName2["VisibilityChange"] = "visibilitychange";
+})(EventName || (EventName = {}));
+function preventDefault(event) {
+  event.preventDefault();
+}
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+var KeyboardCode;
+(function(KeyboardCode2) {
+  KeyboardCode2["Space"] = "Space";
+  KeyboardCode2["Down"] = "ArrowDown";
+  KeyboardCode2["Right"] = "ArrowRight";
+  KeyboardCode2["Left"] = "ArrowLeft";
+  KeyboardCode2["Up"] = "ArrowUp";
+  KeyboardCode2["Esc"] = "Escape";
+  KeyboardCode2["Enter"] = "Enter";
+  KeyboardCode2["Tab"] = "Tab";
+})(KeyboardCode || (KeyboardCode = {}));
+var defaultKeyboardCodes = {
+  start: [KeyboardCode.Space, KeyboardCode.Enter],
+  cancel: [KeyboardCode.Esc],
+  end: [KeyboardCode.Space, KeyboardCode.Enter, KeyboardCode.Tab]
+};
+var defaultKeyboardCoordinateGetter = (event, _ref) => {
+  let {
+    currentCoordinates
+  } = _ref;
+  switch (event.code) {
+    case KeyboardCode.Right:
+      return {
+        ...currentCoordinates,
+        x: currentCoordinates.x + 25
+      };
+    case KeyboardCode.Left:
+      return {
+        ...currentCoordinates,
+        x: currentCoordinates.x - 25
+      };
+    case KeyboardCode.Down:
+      return {
+        ...currentCoordinates,
+        y: currentCoordinates.y + 25
+      };
+    case KeyboardCode.Up:
+      return {
+        ...currentCoordinates,
+        y: currentCoordinates.y - 25
+      };
+  }
+  return void 0;
+};
+var KeyboardSensor = class {
+  constructor(props) {
+    this.props = void 0;
+    this.autoScrollEnabled = false;
+    this.referenceCoordinates = void 0;
+    this.listeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    const {
+      event: {
+        target
+      }
+    } = props;
+    this.props = props;
+    this.listeners = new Listeners(getOwnerDocument(target));
+    this.windowListeners = new Listeners(getWindow(target));
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.attach();
+  }
+  attach() {
+    this.handleStart();
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    setTimeout(() => this.listeners.add(EventName.Keydown, this.handleKeyDown));
+  }
+  handleStart() {
+    const {
+      activeNode,
+      onStart
+    } = this.props;
+    const node = activeNode.node.current;
+    if (node) {
+      scrollIntoViewIfNeeded(node);
+    }
+    onStart(defaultCoordinates);
+  }
+  handleKeyDown(event) {
+    if (isKeyboardEvent(event)) {
+      const {
+        active,
+        context,
+        options
+      } = this.props;
+      const {
+        keyboardCodes = defaultKeyboardCodes,
+        coordinateGetter = defaultKeyboardCoordinateGetter,
+        scrollBehavior = "smooth"
+      } = options;
+      const {
+        code
+      } = event;
+      if (keyboardCodes.end.includes(code)) {
+        this.handleEnd(event);
+        return;
+      }
+      if (keyboardCodes.cancel.includes(code)) {
+        this.handleCancel(event);
+        return;
+      }
+      const {
+        collisionRect
+      } = context.current;
+      const currentCoordinates = collisionRect ? {
+        x: collisionRect.left,
+        y: collisionRect.top
+      } : defaultCoordinates;
+      if (!this.referenceCoordinates) {
+        this.referenceCoordinates = currentCoordinates;
+      }
+      const newCoordinates = coordinateGetter(event, {
+        active,
+        context: context.current,
+        currentCoordinates
+      });
+      if (newCoordinates) {
+        const coordinatesDelta = subtract(newCoordinates, currentCoordinates);
+        const scrollDelta = {
+          x: 0,
+          y: 0
+        };
+        const {
+          scrollableAncestors
+        } = context.current;
+        for (const scrollContainer of scrollableAncestors) {
+          const direction = event.code;
+          const {
+            isTop,
+            isRight,
+            isLeft,
+            isBottom,
+            maxScroll,
+            minScroll
+          } = getScrollPosition(scrollContainer);
+          const scrollElementRect = getScrollElementRect(scrollContainer);
+          const clampedCoordinates = {
+            x: Math.min(direction === KeyboardCode.Right ? scrollElementRect.right - scrollElementRect.width / 2 : scrollElementRect.right, Math.max(direction === KeyboardCode.Right ? scrollElementRect.left : scrollElementRect.left + scrollElementRect.width / 2, newCoordinates.x)),
+            y: Math.min(direction === KeyboardCode.Down ? scrollElementRect.bottom - scrollElementRect.height / 2 : scrollElementRect.bottom, Math.max(direction === KeyboardCode.Down ? scrollElementRect.top : scrollElementRect.top + scrollElementRect.height / 2, newCoordinates.y))
+          };
+          const canScrollX = direction === KeyboardCode.Right && !isRight || direction === KeyboardCode.Left && !isLeft;
+          const canScrollY = direction === KeyboardCode.Down && !isBottom || direction === KeyboardCode.Up && !isTop;
+          if (canScrollX && clampedCoordinates.x !== newCoordinates.x) {
+            const newScrollCoordinates = scrollContainer.scrollLeft + coordinatesDelta.x;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Right && newScrollCoordinates <= maxScroll.x || direction === KeyboardCode.Left && newScrollCoordinates >= minScroll.x;
+            if (canScrollToNewCoordinates && !coordinatesDelta.y) {
+              scrollContainer.scrollTo({
+                left: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+            if (canScrollToNewCoordinates) {
+              scrollDelta.x = scrollContainer.scrollLeft - newScrollCoordinates;
+            } else {
+              scrollDelta.x = direction === KeyboardCode.Right ? scrollContainer.scrollLeft - maxScroll.x : scrollContainer.scrollLeft - minScroll.x;
+            }
+            if (scrollDelta.x) {
+              scrollContainer.scrollBy({
+                left: -scrollDelta.x,
+                behavior: scrollBehavior
+              });
+            }
+            break;
+          } else if (canScrollY && clampedCoordinates.y !== newCoordinates.y) {
+            const newScrollCoordinates = scrollContainer.scrollTop + coordinatesDelta.y;
+            const canScrollToNewCoordinates = direction === KeyboardCode.Down && newScrollCoordinates <= maxScroll.y || direction === KeyboardCode.Up && newScrollCoordinates >= minScroll.y;
+            if (canScrollToNewCoordinates && !coordinatesDelta.x) {
+              scrollContainer.scrollTo({
+                top: newScrollCoordinates,
+                behavior: scrollBehavior
+              });
+              return;
+            }
+            if (canScrollToNewCoordinates) {
+              scrollDelta.y = scrollContainer.scrollTop - newScrollCoordinates;
+            } else {
+              scrollDelta.y = direction === KeyboardCode.Down ? scrollContainer.scrollTop - maxScroll.y : scrollContainer.scrollTop - minScroll.y;
+            }
+            if (scrollDelta.y) {
+              scrollContainer.scrollBy({
+                top: -scrollDelta.y,
+                behavior: scrollBehavior
+              });
+            }
+            break;
+          }
+        }
+        this.handleMove(event, add(subtract(newCoordinates, this.referenceCoordinates), scrollDelta));
+      }
+    }
+  }
+  handleMove(event, coordinates) {
+    const {
+      onMove
+    } = this.props;
+    event.preventDefault();
+    onMove(coordinates);
+  }
+  handleEnd(event) {
+    const {
+      onEnd
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onEnd();
+  }
+  handleCancel(event) {
+    const {
+      onCancel
+    } = this.props;
+    event.preventDefault();
+    this.detach();
+    onCancel();
+  }
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll();
+  }
+};
+KeyboardSensor.activators = [{
+  eventName: "onKeyDown",
+  handler: (event, _ref, _ref2) => {
+    let {
+      keyboardCodes = defaultKeyboardCodes,
+      onActivation
+    } = _ref;
+    let {
+      active
+    } = _ref2;
+    const {
+      code
+    } = event.nativeEvent;
+    if (keyboardCodes.start.includes(code)) {
+      const activator = active.activatorNode.current;
+      if (activator && event.target !== activator) {
+        return false;
+      }
+      event.preventDefault();
+      onActivation == null ? void 0 : onActivation({
+        event: event.nativeEvent
+      });
+      return true;
+    }
+    return false;
+  }
+}];
+function isDistanceConstraint(constraint) {
+  return Boolean(constraint && "distance" in constraint);
+}
+function isDelayConstraint(constraint) {
+  return Boolean(constraint && "delay" in constraint);
+}
+var AbstractPointerSensor = class {
+  constructor(props, events2, listenerTarget) {
+    var _getEventCoordinates;
+    if (listenerTarget === void 0) {
+      listenerTarget = getEventListenerTarget(props.event.target);
+    }
+    this.props = void 0;
+    this.events = void 0;
+    this.autoScrollEnabled = true;
+    this.document = void 0;
+    this.activated = false;
+    this.initialCoordinates = void 0;
+    this.timeoutId = null;
+    this.listeners = void 0;
+    this.documentListeners = void 0;
+    this.windowListeners = void 0;
+    this.props = props;
+    this.events = events2;
+    const {
+      event
+    } = props;
+    const {
+      target
+    } = event;
+    this.props = props;
+    this.events = events2;
+    this.document = getOwnerDocument(target);
+    this.documentListeners = new Listeners(this.document);
+    this.listeners = new Listeners(listenerTarget);
+    this.windowListeners = new Listeners(getWindow(target));
+    this.initialCoordinates = (_getEventCoordinates = getEventCoordinates(event)) != null ? _getEventCoordinates : defaultCoordinates;
+    this.handleStart = this.handleStart.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.removeTextSelection = this.removeTextSelection.bind(this);
+    this.attach();
+  }
+  attach() {
+    const {
+      events: events2,
+      props: {
+        options: {
+          activationConstraint,
+          bypassActivationConstraint
+        }
+      }
+    } = this;
+    this.listeners.add(events2.move.name, this.handleMove, {
+      passive: false
+    });
+    this.listeners.add(events2.end.name, this.handleEnd);
+    if (events2.cancel) {
+      this.listeners.add(events2.cancel.name, this.handleCancel);
+    }
+    this.windowListeners.add(EventName.Resize, this.handleCancel);
+    this.windowListeners.add(EventName.DragStart, preventDefault);
+    this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+    this.windowListeners.add(EventName.ContextMenu, preventDefault);
+    this.documentListeners.add(EventName.Keydown, this.handleKeydown);
+    if (activationConstraint) {
+      if (bypassActivationConstraint != null && bypassActivationConstraint({
+        event: this.props.event,
+        activeNode: this.props.activeNode,
+        options: this.props.options
+      })) {
+        return this.handleStart();
+      }
+      if (isDelayConstraint(activationConstraint)) {
+        this.timeoutId = setTimeout(this.handleStart, activationConstraint.delay);
+        this.handlePending(activationConstraint);
+        return;
+      }
+      if (isDistanceConstraint(activationConstraint)) {
+        this.handlePending(activationConstraint);
+        return;
+      }
+    }
+    this.handleStart();
+  }
+  detach() {
+    this.listeners.removeAll();
+    this.windowListeners.removeAll();
+    setTimeout(this.documentListeners.removeAll, 50);
+    if (this.timeoutId !== null) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+  }
+  handlePending(constraint, offset) {
+    const {
+      active,
+      onPending
+    } = this.props;
+    onPending(active, constraint, this.initialCoordinates, offset);
+  }
+  handleStart() {
+    const {
+      initialCoordinates
+    } = this;
+    const {
+      onStart
+    } = this.props;
+    if (initialCoordinates) {
+      this.activated = true;
+      this.documentListeners.add(EventName.Click, stopPropagation, {
+        capture: true
+      });
+      this.removeTextSelection();
+      this.documentListeners.add(EventName.SelectionChange, this.removeTextSelection);
+      onStart(initialCoordinates);
+    }
+  }
+  handleMove(event) {
+    var _getEventCoordinates2;
+    const {
+      activated,
+      initialCoordinates,
+      props
+    } = this;
+    const {
+      onMove,
+      options: {
+        activationConstraint
+      }
+    } = props;
+    if (!initialCoordinates) {
+      return;
+    }
+    const coordinates = (_getEventCoordinates2 = getEventCoordinates(event)) != null ? _getEventCoordinates2 : defaultCoordinates;
+    const delta = subtract(initialCoordinates, coordinates);
+    if (!activated && activationConstraint) {
+      if (isDistanceConstraint(activationConstraint)) {
+        if (activationConstraint.tolerance != null && hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+        if (hasExceededDistance(delta, activationConstraint.distance)) {
+          return this.handleStart();
+        }
+      }
+      if (isDelayConstraint(activationConstraint)) {
+        if (hasExceededDistance(delta, activationConstraint.tolerance)) {
+          return this.handleCancel();
+        }
+      }
+      this.handlePending(activationConstraint, delta);
+      return;
+    }
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+    onMove(coordinates);
+  }
+  handleEnd() {
+    const {
+      onAbort,
+      onEnd
+    } = this.props;
+    this.detach();
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+    onEnd();
+  }
+  handleCancel() {
+    const {
+      onAbort,
+      onCancel
+    } = this.props;
+    this.detach();
+    if (!this.activated) {
+      onAbort(this.props.active);
+    }
+    onCancel();
+  }
+  handleKeydown(event) {
+    if (event.code === KeyboardCode.Esc) {
+      this.handleCancel();
+    }
+  }
+  removeTextSelection() {
+    var _this$document$getSel;
+    (_this$document$getSel = this.document.getSelection()) == null ? void 0 : _this$document$getSel.removeAllRanges();
+  }
+};
+var events = {
+  cancel: {
+    name: "pointercancel"
+  },
+  move: {
+    name: "pointermove"
+  },
+  end: {
+    name: "pointerup"
+  }
+};
+var PointerSensor = class extends AbstractPointerSensor {
+  constructor(props) {
+    const {
+      event
+    } = props;
+    const listenerTarget = getOwnerDocument(event.target);
+    super(props, events, listenerTarget);
+  }
+};
+PointerSensor.activators = [{
+  eventName: "onPointerDown",
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+    if (!event.isPrimary || event.button !== 0) {
+      return false;
+    }
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+var events$1 = {
+  move: {
+    name: "mousemove"
+  },
+  end: {
+    name: "mouseup"
+  }
+};
+var MouseButton;
+(function(MouseButton2) {
+  MouseButton2[MouseButton2["RightClick"] = 2] = "RightClick";
+})(MouseButton || (MouseButton = {}));
+var MouseSensor = class extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$1, getOwnerDocument(props.event.target));
+  }
+};
+MouseSensor.activators = [{
+  eventName: "onMouseDown",
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+    if (event.button === MouseButton.RightClick) {
+      return false;
+    }
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+var events$2 = {
+  cancel: {
+    name: "touchcancel"
+  },
+  move: {
+    name: "touchmove"
+  },
+  end: {
+    name: "touchend"
+  }
+};
+var TouchSensor = class extends AbstractPointerSensor {
+  constructor(props) {
+    super(props, events$2);
+  }
+  static setup() {
+    window.addEventListener(events$2.move.name, noop2, {
+      capture: false,
+      passive: false
+    });
+    return function teardown() {
+      window.removeEventListener(events$2.move.name, noop2);
+    };
+    function noop2() {
+    }
+  }
+};
+TouchSensor.activators = [{
+  eventName: "onTouchStart",
+  handler: (_ref, _ref2) => {
+    let {
+      nativeEvent: event
+    } = _ref;
+    let {
+      onActivation
+    } = _ref2;
+    const {
+      touches
+    } = event;
+    if (touches.length > 1) {
+      return false;
+    }
+    onActivation == null ? void 0 : onActivation({
+      event
+    });
+    return true;
+  }
+}];
+var AutoScrollActivator;
+(function(AutoScrollActivator2) {
+  AutoScrollActivator2[AutoScrollActivator2["Pointer"] = 0] = "Pointer";
+  AutoScrollActivator2[AutoScrollActivator2["DraggableRect"] = 1] = "DraggableRect";
+})(AutoScrollActivator || (AutoScrollActivator = {}));
+var TraversalOrder;
+(function(TraversalOrder2) {
+  TraversalOrder2[TraversalOrder2["TreeOrder"] = 0] = "TreeOrder";
+  TraversalOrder2[TraversalOrder2["ReversedTreeOrder"] = 1] = "ReversedTreeOrder";
+})(TraversalOrder || (TraversalOrder = {}));
+function useAutoScroller(_ref) {
+  let {
+    acceleration,
+    activator = AutoScrollActivator.Pointer,
+    canScroll,
+    draggingRect,
+    enabled,
+    interval = 5,
+    order = TraversalOrder.TreeOrder,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    delta,
+    threshold
+  } = _ref;
+  const scrollIntent = useScrollIntent({
+    delta,
+    disabled: !enabled
+  });
+  const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
+  const scrollSpeed = (0, import_react3.useRef)({
+    x: 0,
+    y: 0
+  });
+  const scrollDirection = (0, import_react3.useRef)({
+    x: 0,
+    y: 0
+  });
+  const rect = (0, import_react3.useMemo)(() => {
+    switch (activator) {
+      case AutoScrollActivator.Pointer:
+        return pointerCoordinates ? {
+          top: pointerCoordinates.y,
+          bottom: pointerCoordinates.y,
+          left: pointerCoordinates.x,
+          right: pointerCoordinates.x
+        } : null;
+      case AutoScrollActivator.DraggableRect:
+        return draggingRect;
+    }
+  }, [activator, draggingRect, pointerCoordinates]);
+  const scrollContainerRef = (0, import_react3.useRef)(null);
+  const autoScroll = (0, import_react3.useCallback)(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) {
+      return;
+    }
+    const scrollLeft = scrollSpeed.current.x * scrollDirection.current.x;
+    const scrollTop = scrollSpeed.current.y * scrollDirection.current.y;
+    scrollContainer.scrollBy(scrollLeft, scrollTop);
+  }, []);
+  const sortedScrollableAncestors = (0, import_react3.useMemo)(() => order === TraversalOrder.TreeOrder ? [...scrollableAncestors].reverse() : scrollableAncestors, [order, scrollableAncestors]);
+  (0, import_react3.useEffect)(
+    () => {
+      if (!enabled || !scrollableAncestors.length || !rect) {
+        clearAutoScrollInterval();
+        return;
+      }
+      for (const scrollContainer of sortedScrollableAncestors) {
+        if ((canScroll == null ? void 0 : canScroll(scrollContainer)) === false) {
+          continue;
+        }
+        const index = scrollableAncestors.indexOf(scrollContainer);
+        const scrollContainerRect = scrollableAncestorRects[index];
+        if (!scrollContainerRect) {
+          continue;
+        }
+        const {
+          direction,
+          speed
+        } = getScrollDirectionAndSpeed(scrollContainer, scrollContainerRect, rect, acceleration, threshold);
+        for (const axis of ["x", "y"]) {
+          if (!scrollIntent[axis][direction[axis]]) {
+            speed[axis] = 0;
+            direction[axis] = 0;
+          }
+        }
+        if (speed.x > 0 || speed.y > 0) {
+          clearAutoScrollInterval();
+          scrollContainerRef.current = scrollContainer;
+          setAutoScrollInterval(autoScroll, interval);
+          scrollSpeed.current = speed;
+          scrollDirection.current = direction;
+          return;
+        }
+      }
+      scrollSpeed.current = {
+        x: 0,
+        y: 0
+      };
+      scrollDirection.current = {
+        x: 0,
+        y: 0
+      };
+      clearAutoScrollInterval();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      acceleration,
+      autoScroll,
+      canScroll,
+      clearAutoScrollInterval,
+      enabled,
+      interval,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      JSON.stringify(rect),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      JSON.stringify(scrollIntent),
+      setAutoScrollInterval,
+      scrollableAncestors,
+      sortedScrollableAncestors,
+      scrollableAncestorRects,
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      JSON.stringify(threshold)
+    ]
+  );
+}
+var defaultScrollIntent = {
+  x: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  },
+  y: {
+    [Direction.Backward]: false,
+    [Direction.Forward]: false
+  }
+};
+function useScrollIntent(_ref2) {
+  let {
+    delta,
+    disabled
+  } = _ref2;
+  const previousDelta = usePrevious(delta);
+  return useLazyMemo((previousIntent) => {
+    if (disabled || !previousDelta || !previousIntent) {
+      return defaultScrollIntent;
+    }
+    const direction = {
+      x: Math.sign(delta.x - previousDelta.x),
+      y: Math.sign(delta.y - previousDelta.y)
+    };
+    return {
+      x: {
+        [Direction.Backward]: previousIntent.x[Direction.Backward] || direction.x === -1,
+        [Direction.Forward]: previousIntent.x[Direction.Forward] || direction.x === 1
+      },
+      y: {
+        [Direction.Backward]: previousIntent.y[Direction.Backward] || direction.y === -1,
+        [Direction.Forward]: previousIntent.y[Direction.Forward] || direction.y === 1
+      }
+    };
+  }, [disabled, delta, previousDelta]);
+}
+function useCachedNode(draggableNodes, id) {
+  const draggableNode = id != null ? draggableNodes.get(id) : void 0;
+  const node = draggableNode ? draggableNode.node.current : null;
+  return useLazyMemo((cachedNode) => {
+    var _ref;
+    if (id == null) {
+      return null;
+    }
+    return (_ref = node != null ? node : cachedNode) != null ? _ref : null;
+  }, [node, id]);
+}
+function useCombineActivators(sensors, getSyntheticHandler) {
+  return (0, import_react3.useMemo)(() => sensors.reduce((accumulator, sensor) => {
+    const {
+      sensor: Sensor
+    } = sensor;
+    const sensorActivators = Sensor.activators.map((activator) => ({
+      eventName: activator.eventName,
+      handler: getSyntheticHandler(activator.handler, sensor)
+    }));
+    return [...accumulator, ...sensorActivators];
+  }, []), [sensors, getSyntheticHandler]);
+}
+var MeasuringStrategy;
+(function(MeasuringStrategy2) {
+  MeasuringStrategy2[MeasuringStrategy2["Always"] = 0] = "Always";
+  MeasuringStrategy2[MeasuringStrategy2["BeforeDragging"] = 1] = "BeforeDragging";
+  MeasuringStrategy2[MeasuringStrategy2["WhileDragging"] = 2] = "WhileDragging";
+})(MeasuringStrategy || (MeasuringStrategy = {}));
+var MeasuringFrequency;
+(function(MeasuringFrequency2) {
+  MeasuringFrequency2["Optimized"] = "optimized";
+})(MeasuringFrequency || (MeasuringFrequency = {}));
+var defaultValue = /* @__PURE__ */ new Map();
+function useDroppableMeasuring(containers, _ref) {
+  let {
+    dragging,
+    dependencies,
+    config
+  } = _ref;
+  const [queue, setQueue] = (0, import_react3.useState)(null);
+  const {
+    frequency,
+    measure,
+    strategy
+  } = config;
+  const containersRef = (0, import_react3.useRef)(containers);
+  const disabled = isDisabled();
+  const disabledRef = useLatestValue(disabled);
+  const measureDroppableContainers = (0, import_react3.useCallback)(function(ids2) {
+    if (ids2 === void 0) {
+      ids2 = [];
+    }
+    if (disabledRef.current) {
+      return;
+    }
+    setQueue((value) => {
+      if (value === null) {
+        return ids2;
+      }
+      return value.concat(ids2.filter((id) => !value.includes(id)));
+    });
+  }, [disabledRef]);
+  const timeoutId = (0, import_react3.useRef)(null);
+  const droppableRects = useLazyMemo((previousValue) => {
+    if (disabled && !dragging) {
+      return defaultValue;
+    }
+    if (!previousValue || previousValue === defaultValue || containersRef.current !== containers || queue != null) {
+      const map = /* @__PURE__ */ new Map();
+      for (let container of containers) {
+        if (!container) {
+          continue;
+        }
+        if (queue && queue.length > 0 && !queue.includes(container.id) && container.rect.current) {
+          map.set(container.id, container.rect.current);
+          continue;
+        }
+        const node = container.node.current;
+        const rect = node ? new Rect(measure(node), node) : null;
+        container.rect.current = rect;
+        if (rect) {
+          map.set(container.id, rect);
+        }
+      }
+      return map;
+    }
+    return previousValue;
+  }, [containers, queue, dragging, disabled, measure]);
+  (0, import_react3.useEffect)(() => {
+    containersRef.current = containers;
+  }, [containers]);
+  (0, import_react3.useEffect)(
+    () => {
+      if (disabled) {
+        return;
+      }
+      measureDroppableContainers();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dragging, disabled]
+  );
+  (0, import_react3.useEffect)(
+    () => {
+      if (queue && queue.length > 0) {
+        setQueue(null);
+      }
+    },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    [JSON.stringify(queue)]
+  );
+  (0, import_react3.useEffect)(
+    () => {
+      if (disabled || typeof frequency !== "number" || timeoutId.current !== null) {
+        return;
+      }
+      timeoutId.current = setTimeout(() => {
+        measureDroppableContainers();
+        timeoutId.current = null;
+      }, frequency);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [frequency, disabled, measureDroppableContainers, ...dependencies]
+  );
+  return {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled: queue != null
+  };
+  function isDisabled() {
+    switch (strategy) {
+      case MeasuringStrategy.Always:
+        return false;
+      case MeasuringStrategy.BeforeDragging:
+        return dragging;
+      default:
+        return !dragging;
+    }
+  }
+}
+function useInitialValue(value, computeFn) {
+  return useLazyMemo((previousValue) => {
+    if (!value) {
+      return null;
+    }
+    if (previousValue) {
+      return previousValue;
+    }
+    return typeof computeFn === "function" ? computeFn(value) : value;
+  }, [computeFn, value]);
+}
+function useInitialRect(node, measure) {
+  return useInitialValue(node, measure);
+}
+function useMutationObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleMutations = useEvent(callback);
+  const mutationObserver = (0, import_react3.useMemo)(() => {
+    if (disabled || typeof window === "undefined" || typeof window.MutationObserver === "undefined") {
+      return void 0;
+    }
+    const {
+      MutationObserver
+    } = window;
+    return new MutationObserver(handleMutations);
+  }, [handleMutations, disabled]);
+  (0, import_react3.useEffect)(() => {
+    return () => mutationObserver == null ? void 0 : mutationObserver.disconnect();
+  }, [mutationObserver]);
+  return mutationObserver;
+}
+function useResizeObserver(_ref) {
+  let {
+    callback,
+    disabled
+  } = _ref;
+  const handleResize = useEvent(callback);
+  const resizeObserver = (0, import_react3.useMemo)(
+    () => {
+      if (disabled || typeof window === "undefined" || typeof window.ResizeObserver === "undefined") {
+        return void 0;
+      }
+      const {
+        ResizeObserver
+      } = window;
+      return new ResizeObserver(handleResize);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [disabled]
+  );
+  (0, import_react3.useEffect)(() => {
+    return () => resizeObserver == null ? void 0 : resizeObserver.disconnect();
+  }, [resizeObserver]);
+  return resizeObserver;
+}
+function defaultMeasure(element) {
+  return new Rect(getClientRect(element), element);
+}
+function useRect(element, measure, fallbackRect) {
+  if (measure === void 0) {
+    measure = defaultMeasure;
+  }
+  const [rect, setRect] = (0, import_react3.useState)(null);
+  function measureRect() {
+    setRect((currentRect) => {
+      if (!element) {
+        return null;
+      }
+      if (element.isConnected === false) {
+        var _ref;
+        return (_ref = currentRect != null ? currentRect : fallbackRect) != null ? _ref : null;
+      }
+      const newRect = measure(element);
+      if (JSON.stringify(currentRect) === JSON.stringify(newRect)) {
+        return currentRect;
+      }
+      return newRect;
+    });
+  }
+  const mutationObserver = useMutationObserver({
+    callback(records) {
+      if (!element) {
+        return;
+      }
+      for (const record of records) {
+        const {
+          type,
+          target
+        } = record;
+        if (type === "childList" && target instanceof HTMLElement && target.contains(element)) {
+          measureRect();
+          break;
+        }
+      }
+    }
+  });
+  const resizeObserver = useResizeObserver({
+    callback: measureRect
+  });
+  useIsomorphicLayoutEffect(() => {
+    measureRect();
+    if (element) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(element);
+      mutationObserver == null ? void 0 : mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    } else {
+      resizeObserver == null ? void 0 : resizeObserver.disconnect();
+      mutationObserver == null ? void 0 : mutationObserver.disconnect();
+    }
+  }, [element]);
+  return rect;
+}
+function useRectDelta(rect) {
+  const initialRect = useInitialValue(rect);
+  return getRectDelta(rect, initialRect);
+}
+var defaultValue$1 = [];
+function useScrollableAncestors(node) {
+  const previousNode = (0, import_react3.useRef)(node);
+  const ancestors = useLazyMemo((previousValue) => {
+    if (!node) {
+      return defaultValue$1;
+    }
+    if (previousValue && previousValue !== defaultValue$1 && node && previousNode.current && node.parentNode === previousNode.current.parentNode) {
+      return previousValue;
+    }
+    return getScrollableAncestors(node);
+  }, [node]);
+  (0, import_react3.useEffect)(() => {
+    previousNode.current = node;
+  }, [node]);
+  return ancestors;
+}
+function useScrollOffsets(elements) {
+  const [scrollCoordinates, setScrollCoordinates] = (0, import_react3.useState)(null);
+  const prevElements = (0, import_react3.useRef)(elements);
+  const handleScroll = (0, import_react3.useCallback)((event) => {
+    const scrollingElement = getScrollableElement(event.target);
+    if (!scrollingElement) {
+      return;
+    }
+    setScrollCoordinates((scrollCoordinates2) => {
+      if (!scrollCoordinates2) {
+        return null;
+      }
+      scrollCoordinates2.set(scrollingElement, getScrollCoordinates(scrollingElement));
+      return new Map(scrollCoordinates2);
+    });
+  }, []);
+  (0, import_react3.useEffect)(() => {
+    const previousElements = prevElements.current;
+    if (elements !== previousElements) {
+      cleanup(previousElements);
+      const entries = elements.map((element) => {
+        const scrollableElement = getScrollableElement(element);
+        if (scrollableElement) {
+          scrollableElement.addEventListener("scroll", handleScroll, {
+            passive: true
+          });
+          return [scrollableElement, getScrollCoordinates(scrollableElement)];
+        }
+        return null;
+      }).filter((entry) => entry != null);
+      setScrollCoordinates(entries.length ? new Map(entries) : null);
+      prevElements.current = elements;
+    }
+    return () => {
+      cleanup(elements);
+      cleanup(previousElements);
+    };
+    function cleanup(elements2) {
+      elements2.forEach((element) => {
+        const scrollableElement = getScrollableElement(element);
+        scrollableElement == null ? void 0 : scrollableElement.removeEventListener("scroll", handleScroll);
+      });
+    }
+  }, [handleScroll, elements]);
+  return (0, import_react3.useMemo)(() => {
+    if (elements.length) {
+      return scrollCoordinates ? Array.from(scrollCoordinates.values()).reduce((acc, coordinates) => add(acc, coordinates), defaultCoordinates) : getScrollOffsets(elements);
+    }
+    return defaultCoordinates;
+  }, [elements, scrollCoordinates]);
+}
+function useScrollOffsetsDelta(scrollOffsets, dependencies) {
+  if (dependencies === void 0) {
+    dependencies = [];
+  }
+  const initialScrollOffsets = (0, import_react3.useRef)(null);
+  (0, import_react3.useEffect)(
+    () => {
+      initialScrollOffsets.current = null;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dependencies
+  );
+  (0, import_react3.useEffect)(() => {
+    const hasScrollOffsets = scrollOffsets !== defaultCoordinates;
+    if (hasScrollOffsets && !initialScrollOffsets.current) {
+      initialScrollOffsets.current = scrollOffsets;
+    }
+    if (!hasScrollOffsets && initialScrollOffsets.current) {
+      initialScrollOffsets.current = null;
+    }
+  }, [scrollOffsets]);
+  return initialScrollOffsets.current ? subtract(scrollOffsets, initialScrollOffsets.current) : defaultCoordinates;
+}
+function useSensorSetup(sensors) {
+  (0, import_react3.useEffect)(
+    () => {
+      if (!canUseDOM) {
+        return;
+      }
+      const teardownFns = sensors.map((_ref) => {
+        let {
+          sensor
+        } = _ref;
+        return sensor.setup == null ? void 0 : sensor.setup();
+      });
+      return () => {
+        for (const teardown of teardownFns) {
+          teardown == null ? void 0 : teardown();
+        }
+      };
+    },
+    // TO-DO: Sensors length could theoretically change which would not be a valid dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    sensors.map((_ref2) => {
+      let {
+        sensor
+      } = _ref2;
+      return sensor;
+    })
+  );
+}
+function useSyntheticListeners(listeners, id) {
+  return (0, import_react3.useMemo)(() => {
+    return listeners.reduce((acc, _ref) => {
+      let {
+        eventName,
+        handler
+      } = _ref;
+      acc[eventName] = (event) => {
+        handler(event, id);
+      };
+      return acc;
+    }, {});
+  }, [listeners, id]);
+}
+function useWindowRect(element) {
+  return (0, import_react3.useMemo)(() => element ? getWindowClientRect(element) : null, [element]);
+}
+var defaultValue$2 = [];
+function useRects(elements, measure) {
+  if (measure === void 0) {
+    measure = getClientRect;
+  }
+  const [firstElement] = elements;
+  const windowRect = useWindowRect(firstElement ? getWindow(firstElement) : null);
+  const [rects, setRects] = (0, import_react3.useState)(defaultValue$2);
+  function measureRects() {
+    setRects(() => {
+      if (!elements.length) {
+        return defaultValue$2;
+      }
+      return elements.map((element) => isDocumentScrollingElement(element) ? windowRect : new Rect(measure(element), element));
+    });
+  }
+  const resizeObserver = useResizeObserver({
+    callback: measureRects
+  });
+  useIsomorphicLayoutEffect(() => {
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+    measureRects();
+    elements.forEach((element) => resizeObserver == null ? void 0 : resizeObserver.observe(element));
+  }, [elements]);
+  return rects;
+}
+function getMeasurableNode(node) {
+  if (!node) {
+    return null;
+  }
+  if (node.children.length > 1) {
+    return node;
+  }
+  const firstChild = node.children[0];
+  return isHTMLElement(firstChild) ? firstChild : node;
+}
+function useDragOverlayMeasuring(_ref) {
+  let {
+    measure
+  } = _ref;
+  const [rect, setRect] = (0, import_react3.useState)(null);
+  const handleResize = (0, import_react3.useCallback)((entries) => {
+    for (const {
+      target
+    } of entries) {
+      if (isHTMLElement(target)) {
+        setRect((rect2) => {
+          const newRect = measure(target);
+          return rect2 ? {
+            ...rect2,
+            width: newRect.width,
+            height: newRect.height
+          } : newRect;
+        });
+        break;
+      }
+    }
+  }, [measure]);
+  const resizeObserver = useResizeObserver({
+    callback: handleResize
+  });
+  const handleNodeChange = (0, import_react3.useCallback)((element) => {
+    const node = getMeasurableNode(element);
+    resizeObserver == null ? void 0 : resizeObserver.disconnect();
+    if (node) {
+      resizeObserver == null ? void 0 : resizeObserver.observe(node);
+    }
+    setRect(node ? measure(node) : null);
+  }, [measure, resizeObserver]);
+  const [nodeRef, setRef] = useNodeRef(handleNodeChange);
+  return (0, import_react3.useMemo)(() => ({
+    nodeRef,
+    rect,
+    setRef
+  }), [rect, nodeRef, setRef]);
+}
+var defaultSensors = [{
+  sensor: PointerSensor,
+  options: {}
+}, {
+  sensor: KeyboardSensor,
+  options: {}
+}];
+var defaultData = {
+  current: {}
+};
+var defaultMeasuringConfiguration = {
+  draggable: {
+    measure: getTransformAgnosticClientRect
+  },
+  droppable: {
+    measure: getTransformAgnosticClientRect,
+    strategy: MeasuringStrategy.WhileDragging,
+    frequency: MeasuringFrequency.Optimized
+  },
+  dragOverlay: {
+    measure: getClientRect
+  }
+};
+var DroppableContainersMap = class extends Map {
+  get(id) {
+    var _super$get;
+    return id != null ? (_super$get = super.get(id)) != null ? _super$get : void 0 : void 0;
+  }
+  toArray() {
+    return Array.from(this.values());
+  }
+  getEnabled() {
+    return this.toArray().filter((_ref) => {
+      let {
+        disabled
+      } = _ref;
+      return !disabled;
+    });
+  }
+  getNodeFor(id) {
+    var _this$get$node$curren, _this$get;
+    return (_this$get$node$curren = (_this$get = this.get(id)) == null ? void 0 : _this$get.node.current) != null ? _this$get$node$curren : void 0;
+  }
+};
+var defaultPublicContext = {
+  activatorEvent: null,
+  active: null,
+  activeNode: null,
+  activeNodeRect: null,
+  collisions: null,
+  containerNodeRect: null,
+  draggableNodes: /* @__PURE__ */ new Map(),
+  droppableRects: /* @__PURE__ */ new Map(),
+  droppableContainers: /* @__PURE__ */ new DroppableContainersMap(),
+  over: null,
+  dragOverlay: {
+    nodeRef: {
+      current: null
+    },
+    rect: null,
+    setRef: noop
+  },
+  scrollableAncestors: [],
+  scrollableAncestorRects: [],
+  measuringConfiguration: defaultMeasuringConfiguration,
+  measureDroppableContainers: noop,
+  windowRect: null,
+  measuringScheduled: false
+};
+var defaultInternalContext = {
+  activatorEvent: null,
+  activators: [],
+  active: null,
+  activeNodeRect: null,
+  ariaDescribedById: {
+    draggable: ""
+  },
+  dispatch: noop,
+  draggableNodes: /* @__PURE__ */ new Map(),
+  over: null,
+  measureDroppableContainers: noop
+};
+var InternalContext = /* @__PURE__ */ (0, import_react3.createContext)(defaultInternalContext);
+var PublicContext = /* @__PURE__ */ (0, import_react3.createContext)(defaultPublicContext);
+function getInitialState() {
+  return {
+    draggable: {
+      active: null,
+      initialCoordinates: {
+        x: 0,
+        y: 0
+      },
+      nodes: /* @__PURE__ */ new Map(),
+      translate: {
+        x: 0,
+        y: 0
+      }
+    },
+    droppable: {
+      containers: new DroppableContainersMap()
+    }
+  };
+}
+function reducer(state, action) {
+  switch (action.type) {
+    case Action.DragStart:
+      return {
+        ...state,
+        draggable: {
+          ...state.draggable,
+          initialCoordinates: action.initialCoordinates,
+          active: action.active
+        }
+      };
+    case Action.DragMove:
+      if (state.draggable.active == null) {
+        return state;
+      }
+      return {
+        ...state,
+        draggable: {
+          ...state.draggable,
+          translate: {
+            x: action.coordinates.x - state.draggable.initialCoordinates.x,
+            y: action.coordinates.y - state.draggable.initialCoordinates.y
+          }
+        }
+      };
+    case Action.DragEnd:
+    case Action.DragCancel:
+      return {
+        ...state,
+        draggable: {
+          ...state.draggable,
+          active: null,
+          initialCoordinates: {
+            x: 0,
+            y: 0
+          },
+          translate: {
+            x: 0,
+            y: 0
+          }
+        }
+      };
+    case Action.RegisterDroppable: {
+      const {
+        element
+      } = action;
+      const {
+        id
+      } = element;
+      const containers = new DroppableContainersMap(state.droppable.containers);
+      containers.set(id, element);
+      return {
+        ...state,
+        droppable: {
+          ...state.droppable,
+          containers
+        }
+      };
+    }
+    case Action.SetDroppableDisabled: {
+      const {
+        id,
+        key: key2,
+        disabled
+      } = action;
+      const element = state.droppable.containers.get(id);
+      if (!element || key2 !== element.key) {
+        return state;
+      }
+      const containers = new DroppableContainersMap(state.droppable.containers);
+      containers.set(id, {
+        ...element,
+        disabled
+      });
+      return {
+        ...state,
+        droppable: {
+          ...state.droppable,
+          containers
+        }
+      };
+    }
+    case Action.UnregisterDroppable: {
+      const {
+        id,
+        key: key2
+      } = action;
+      const element = state.droppable.containers.get(id);
+      if (!element || key2 !== element.key) {
+        return state;
+      }
+      const containers = new DroppableContainersMap(state.droppable.containers);
+      containers.delete(id);
+      return {
+        ...state,
+        droppable: {
+          ...state.droppable,
+          containers
+        }
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
+function RestoreFocus(_ref) {
+  let {
+    disabled
+  } = _ref;
+  const {
+    active,
+    activatorEvent,
+    draggableNodes
+  } = (0, import_react3.useContext)(InternalContext);
+  const previousActivatorEvent = usePrevious(activatorEvent);
+  const previousActiveId = usePrevious(active == null ? void 0 : active.id);
+  (0, import_react3.useEffect)(() => {
+    if (disabled) {
+      return;
+    }
+    if (!activatorEvent && previousActivatorEvent && previousActiveId != null) {
+      if (!isKeyboardEvent(previousActivatorEvent)) {
+        return;
+      }
+      if (document.activeElement === previousActivatorEvent.target) {
+        return;
+      }
+      const draggableNode = draggableNodes.get(previousActiveId);
+      if (!draggableNode) {
+        return;
+      }
+      const {
+        activatorNode,
+        node
+      } = draggableNode;
+      if (!activatorNode.current && !node.current) {
+        return;
+      }
+      requestAnimationFrame(() => {
+        for (const element of [activatorNode.current, node.current]) {
+          if (!element) {
+            continue;
+          }
+          const focusableNode = findFirstFocusableNode(element);
+          if (focusableNode) {
+            focusableNode.focus();
+            break;
+          }
+        }
+      });
+    }
+  }, [activatorEvent, disabled, draggableNodes, previousActiveId, previousActivatorEvent]);
+  return null;
+}
+function applyModifiers(modifiers, _ref) {
+  let {
+    transform,
+    ...args
+  } = _ref;
+  return modifiers != null && modifiers.length ? modifiers.reduce((accumulator, modifier) => {
+    return modifier({
+      transform: accumulator,
+      ...args
+    });
+  }, transform) : transform;
+}
+function useMeasuringConfiguration(config) {
+  return (0, import_react3.useMemo)(
+    () => ({
+      draggable: {
+        ...defaultMeasuringConfiguration.draggable,
+        ...config == null ? void 0 : config.draggable
+      },
+      droppable: {
+        ...defaultMeasuringConfiguration.droppable,
+        ...config == null ? void 0 : config.droppable
+      },
+      dragOverlay: {
+        ...defaultMeasuringConfiguration.dragOverlay,
+        ...config == null ? void 0 : config.dragOverlay
+      }
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [config == null ? void 0 : config.draggable, config == null ? void 0 : config.droppable, config == null ? void 0 : config.dragOverlay]
+  );
+}
+function useLayoutShiftScrollCompensation(_ref) {
+  let {
+    activeNode,
+    measure,
+    initialRect,
+    config = true
+  } = _ref;
+  const initialized = (0, import_react3.useRef)(false);
+  const {
+    x,
+    y
+  } = typeof config === "boolean" ? {
+    x: config,
+    y: config
+  } : config;
+  useIsomorphicLayoutEffect(() => {
+    const disabled = !x && !y;
+    if (disabled || !activeNode) {
+      initialized.current = false;
+      return;
+    }
+    if (initialized.current || !initialRect) {
+      return;
+    }
+    const node = activeNode == null ? void 0 : activeNode.node.current;
+    if (!node || node.isConnected === false) {
+      return;
+    }
+    const rect = measure(node);
+    const rectDelta = getRectDelta(rect, initialRect);
+    if (!x) {
+      rectDelta.x = 0;
+    }
+    if (!y) {
+      rectDelta.y = 0;
+    }
+    initialized.current = true;
+    if (Math.abs(rectDelta.x) > 0 || Math.abs(rectDelta.y) > 0) {
+      const firstScrollableAncestor = getFirstScrollableAncestor(node);
+      if (firstScrollableAncestor) {
+        firstScrollableAncestor.scrollBy({
+          top: rectDelta.y,
+          left: rectDelta.x
+        });
+      }
+    }
+  }, [activeNode, x, y, initialRect, measure]);
+}
+var ActiveDraggableContext = /* @__PURE__ */ (0, import_react3.createContext)({
+  ...defaultCoordinates,
+  scaleX: 1,
+  scaleY: 1
+});
+var Status;
+(function(Status2) {
+  Status2[Status2["Uninitialized"] = 0] = "Uninitialized";
+  Status2[Status2["Initializing"] = 1] = "Initializing";
+  Status2[Status2["Initialized"] = 2] = "Initialized";
+})(Status || (Status = {}));
+var DndContext = /* @__PURE__ */ (0, import_react3.memo)(function DndContext2(_ref) {
+  var _sensorContext$curren, _dragOverlay$nodeRef$, _dragOverlay$rect, _over$rect;
+  let {
+    id,
+    accessibility,
+    autoScroll = true,
+    children,
+    sensors = defaultSensors,
+    collisionDetection = rectIntersection,
+    measuring,
+    modifiers,
+    ...props
+  } = _ref;
+  const store = (0, import_react3.useReducer)(reducer, void 0, getInitialState);
+  const [state, dispatch] = store;
+  const [dispatchMonitorEvent, registerMonitorListener] = useDndMonitorProvider();
+  const [status, setStatus] = (0, import_react3.useState)(Status.Uninitialized);
+  const isInitialized = status === Status.Initialized;
+  const {
+    draggable: {
+      active: activeId,
+      nodes: draggableNodes,
+      translate
+    },
+    droppable: {
+      containers: droppableContainers
+    }
+  } = state;
+  const node = activeId != null ? draggableNodes.get(activeId) : null;
+  const activeRects = (0, import_react3.useRef)({
+    initial: null,
+    translated: null
+  });
+  const active = (0, import_react3.useMemo)(() => {
+    var _node$data;
+    return activeId != null ? {
+      id: activeId,
+      // It's possible for the active node to unmount while dragging
+      data: (_node$data = node == null ? void 0 : node.data) != null ? _node$data : defaultData,
+      rect: activeRects
+    } : null;
+  }, [activeId, node]);
+  const activeRef = (0, import_react3.useRef)(null);
+  const [activeSensor, setActiveSensor] = (0, import_react3.useState)(null);
+  const [activatorEvent, setActivatorEvent] = (0, import_react3.useState)(null);
+  const latestProps = useLatestValue(props, Object.values(props));
+  const draggableDescribedById = useUniqueId("DndDescribedBy", id);
+  const enabledDroppableContainers = (0, import_react3.useMemo)(() => droppableContainers.getEnabled(), [droppableContainers]);
+  const measuringConfiguration = useMeasuringConfiguration(measuring);
+  const {
+    droppableRects,
+    measureDroppableContainers,
+    measuringScheduled
+  } = useDroppableMeasuring(enabledDroppableContainers, {
+    dragging: isInitialized,
+    dependencies: [translate.x, translate.y],
+    config: measuringConfiguration.droppable
+  });
+  const activeNode = useCachedNode(draggableNodes, activeId);
+  const activationCoordinates = (0, import_react3.useMemo)(() => activatorEvent ? getEventCoordinates(activatorEvent) : null, [activatorEvent]);
+  const autoScrollOptions = getAutoScrollerOptions();
+  const initialActiveNodeRect = useInitialRect(activeNode, measuringConfiguration.draggable.measure);
+  useLayoutShiftScrollCompensation({
+    activeNode: activeId != null ? draggableNodes.get(activeId) : null,
+    config: autoScrollOptions.layoutShiftCompensation,
+    initialRect: initialActiveNodeRect,
+    measure: measuringConfiguration.draggable.measure
+  });
+  const activeNodeRect = useRect(activeNode, measuringConfiguration.draggable.measure, initialActiveNodeRect);
+  const containerNodeRect = useRect(activeNode ? activeNode.parentElement : null);
+  const sensorContext = (0, import_react3.useRef)({
+    activatorEvent: null,
+    active: null,
+    activeNode,
+    collisionRect: null,
+    collisions: null,
+    droppableRects,
+    draggableNodes,
+    draggingNode: null,
+    draggingNodeRect: null,
+    droppableContainers,
+    over: null,
+    scrollableAncestors: [],
+    scrollAdjustedTranslate: null
+  });
+  const overNode = droppableContainers.getNodeFor((_sensorContext$curren = sensorContext.current.over) == null ? void 0 : _sensorContext$curren.id);
+  const dragOverlay = useDragOverlayMeasuring({
+    measure: measuringConfiguration.dragOverlay.measure
+  });
+  const draggingNode = (_dragOverlay$nodeRef$ = dragOverlay.nodeRef.current) != null ? _dragOverlay$nodeRef$ : activeNode;
+  const draggingNodeRect = isInitialized ? (_dragOverlay$rect = dragOverlay.rect) != null ? _dragOverlay$rect : activeNodeRect : null;
+  const usesDragOverlay = Boolean(dragOverlay.nodeRef.current && dragOverlay.rect);
+  const nodeRectDelta = useRectDelta(usesDragOverlay ? null : activeNodeRect);
+  const windowRect = useWindowRect(draggingNode ? getWindow(draggingNode) : null);
+  const scrollableAncestors = useScrollableAncestors(isInitialized ? overNode != null ? overNode : activeNode : null);
+  const scrollableAncestorRects = useRects(scrollableAncestors);
+  const modifiedTranslate = applyModifiers(modifiers, {
+    transform: {
+      x: translate.x - nodeRectDelta.x,
+      y: translate.y - nodeRectDelta.y,
+      scaleX: 1,
+      scaleY: 1
+    },
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect,
+    over: sensorContext.current.over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  });
+  const pointerCoordinates = activationCoordinates ? add(activationCoordinates, translate) : null;
+  const scrollOffsets = useScrollOffsets(scrollableAncestors);
+  const scrollAdjustment = useScrollOffsetsDelta(scrollOffsets);
+  const activeNodeScrollDelta = useScrollOffsetsDelta(scrollOffsets, [activeNodeRect]);
+  const scrollAdjustedTranslate = add(modifiedTranslate, scrollAdjustment);
+  const collisionRect = draggingNodeRect ? getAdjustedRect(draggingNodeRect, modifiedTranslate) : null;
+  const collisions = active && collisionRect ? collisionDetection({
+    active,
+    collisionRect,
+    droppableRects,
+    droppableContainers: enabledDroppableContainers,
+    pointerCoordinates
+  }) : null;
+  const overId = getFirstCollision(collisions, "id");
+  const [over, setOver] = (0, import_react3.useState)(null);
+  const appliedTranslate = usesDragOverlay ? modifiedTranslate : add(modifiedTranslate, activeNodeScrollDelta);
+  const transform = adjustScale(appliedTranslate, (_over$rect = over == null ? void 0 : over.rect) != null ? _over$rect : null, activeNodeRect);
+  const activeSensorRef = (0, import_react3.useRef)(null);
+  const instantiateSensor = (0, import_react3.useCallback)(
+    (event, _ref2) => {
+      let {
+        sensor: Sensor,
+        options
+      } = _ref2;
+      if (activeRef.current == null) {
+        return;
+      }
+      const activeNode2 = draggableNodes.get(activeRef.current);
+      if (!activeNode2) {
+        return;
+      }
+      const activatorEvent2 = event.nativeEvent;
+      const sensorInstance = new Sensor({
+        active: activeRef.current,
+        activeNode: activeNode2,
+        event: activatorEvent2,
+        options,
+        // Sensors need to be instantiated with refs for arguments that change over time
+        // otherwise they are frozen in time with the stale arguments
+        context: sensorContext,
+        onAbort(id2) {
+          const draggableNode = draggableNodes.get(id2);
+          if (!draggableNode) {
+            return;
+          }
+          const {
+            onDragAbort
+          } = latestProps.current;
+          const event2 = {
+            id: id2
+          };
+          onDragAbort == null ? void 0 : onDragAbort(event2);
+          dispatchMonitorEvent({
+            type: "onDragAbort",
+            event: event2
+          });
+        },
+        onPending(id2, constraint, initialCoordinates, offset) {
+          const draggableNode = draggableNodes.get(id2);
+          if (!draggableNode) {
+            return;
+          }
+          const {
+            onDragPending
+          } = latestProps.current;
+          const event2 = {
+            id: id2,
+            constraint,
+            initialCoordinates,
+            offset
+          };
+          onDragPending == null ? void 0 : onDragPending(event2);
+          dispatchMonitorEvent({
+            type: "onDragPending",
+            event: event2
+          });
+        },
+        onStart(initialCoordinates) {
+          const id2 = activeRef.current;
+          if (id2 == null) {
+            return;
+          }
+          const draggableNode = draggableNodes.get(id2);
+          if (!draggableNode) {
+            return;
+          }
+          const {
+            onDragStart
+          } = latestProps.current;
+          const event2 = {
+            activatorEvent: activatorEvent2,
+            active: {
+              id: id2,
+              data: draggableNode.data,
+              rect: activeRects
+            }
+          };
+          (0, import_react_dom.unstable_batchedUpdates)(() => {
+            onDragStart == null ? void 0 : onDragStart(event2);
+            setStatus(Status.Initializing);
+            dispatch({
+              type: Action.DragStart,
+              initialCoordinates,
+              active: id2
+            });
+            dispatchMonitorEvent({
+              type: "onDragStart",
+              event: event2
+            });
+            setActiveSensor(activeSensorRef.current);
+            setActivatorEvent(activatorEvent2);
+          });
+        },
+        onMove(coordinates) {
+          dispatch({
+            type: Action.DragMove,
+            coordinates
+          });
+        },
+        onEnd: createHandler(Action.DragEnd),
+        onCancel: createHandler(Action.DragCancel)
+      });
+      activeSensorRef.current = sensorInstance;
+      function createHandler(type) {
+        return async function handler() {
+          const {
+            active: active2,
+            collisions: collisions2,
+            over: over2,
+            scrollAdjustedTranslate: scrollAdjustedTranslate2
+          } = sensorContext.current;
+          let event2 = null;
+          if (active2 && scrollAdjustedTranslate2) {
+            const {
+              cancelDrop
+            } = latestProps.current;
+            event2 = {
+              activatorEvent: activatorEvent2,
+              active: active2,
+              collisions: collisions2,
+              delta: scrollAdjustedTranslate2,
+              over: over2
+            };
+            if (type === Action.DragEnd && typeof cancelDrop === "function") {
+              const shouldCancel = await Promise.resolve(cancelDrop(event2));
+              if (shouldCancel) {
+                type = Action.DragCancel;
+              }
+            }
+          }
+          activeRef.current = null;
+          (0, import_react_dom.unstable_batchedUpdates)(() => {
+            dispatch({
+              type
+            });
+            setStatus(Status.Uninitialized);
+            setOver(null);
+            setActiveSensor(null);
+            setActivatorEvent(null);
+            activeSensorRef.current = null;
+            const eventName = type === Action.DragEnd ? "onDragEnd" : "onDragCancel";
+            if (event2) {
+              const handler2 = latestProps.current[eventName];
+              handler2 == null ? void 0 : handler2(event2);
+              dispatchMonitorEvent({
+                type: eventName,
+                event: event2
+              });
+            }
+          });
+        };
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [draggableNodes]
+  );
+  const bindActivatorToSensorInstantiator = (0, import_react3.useCallback)((handler, sensor) => {
+    return (event, active2) => {
+      const nativeEvent = event.nativeEvent;
+      const activeDraggableNode = draggableNodes.get(active2);
+      if (
+        // Another sensor is already instantiating
+        activeRef.current !== null || // No active draggable
+        !activeDraggableNode || // Event has already been captured
+        nativeEvent.dndKit || nativeEvent.defaultPrevented
+      ) {
+        return;
+      }
+      const activationContext = {
+        active: activeDraggableNode
+      };
+      const shouldActivate = handler(event, sensor.options, activationContext);
+      if (shouldActivate === true) {
+        nativeEvent.dndKit = {
+          capturedBy: sensor.sensor
+        };
+        activeRef.current = active2;
+        instantiateSensor(event, sensor);
+      }
+    };
+  }, [draggableNodes, instantiateSensor]);
+  const activators = useCombineActivators(sensors, bindActivatorToSensorInstantiator);
+  useSensorSetup(sensors);
+  useIsomorphicLayoutEffect(() => {
+    if (activeNodeRect && status === Status.Initializing) {
+      setStatus(Status.Initialized);
+    }
+  }, [activeNodeRect, status]);
+  (0, import_react3.useEffect)(
+    () => {
+      const {
+        onDragMove
+      } = latestProps.current;
+      const {
+        active: active2,
+        activatorEvent: activatorEvent2,
+        collisions: collisions2,
+        over: over2
+      } = sensorContext.current;
+      if (!active2 || !activatorEvent2) {
+        return;
+      }
+      const event = {
+        active: active2,
+        activatorEvent: activatorEvent2,
+        collisions: collisions2,
+        delta: {
+          x: scrollAdjustedTranslate.x,
+          y: scrollAdjustedTranslate.y
+        },
+        over: over2
+      };
+      (0, import_react_dom.unstable_batchedUpdates)(() => {
+        onDragMove == null ? void 0 : onDragMove(event);
+        dispatchMonitorEvent({
+          type: "onDragMove",
+          event
+        });
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scrollAdjustedTranslate.x, scrollAdjustedTranslate.y]
+  );
+  (0, import_react3.useEffect)(
+    () => {
+      const {
+        active: active2,
+        activatorEvent: activatorEvent2,
+        collisions: collisions2,
+        droppableContainers: droppableContainers2,
+        scrollAdjustedTranslate: scrollAdjustedTranslate2
+      } = sensorContext.current;
+      if (!active2 || activeRef.current == null || !activatorEvent2 || !scrollAdjustedTranslate2) {
+        return;
+      }
+      const {
+        onDragOver
+      } = latestProps.current;
+      const overContainer = droppableContainers2.get(overId);
+      const over2 = overContainer && overContainer.rect.current ? {
+        id: overContainer.id,
+        rect: overContainer.rect.current,
+        data: overContainer.data,
+        disabled: overContainer.disabled
+      } : null;
+      const event = {
+        active: active2,
+        activatorEvent: activatorEvent2,
+        collisions: collisions2,
+        delta: {
+          x: scrollAdjustedTranslate2.x,
+          y: scrollAdjustedTranslate2.y
+        },
+        over: over2
+      };
+      (0, import_react_dom.unstable_batchedUpdates)(() => {
+        setOver(over2);
+        onDragOver == null ? void 0 : onDragOver(event);
+        dispatchMonitorEvent({
+          type: "onDragOver",
+          event
+        });
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [overId]
+  );
+  useIsomorphicLayoutEffect(() => {
+    sensorContext.current = {
+      activatorEvent,
+      active,
+      activeNode,
+      collisionRect,
+      collisions,
+      droppableRects,
+      draggableNodes,
+      draggingNode,
+      draggingNodeRect,
+      droppableContainers,
+      over,
+      scrollableAncestors,
+      scrollAdjustedTranslate
+    };
+    activeRects.current = {
+      initial: draggingNodeRect,
+      translated: collisionRect
+    };
+  }, [active, activeNode, collisions, collisionRect, draggableNodes, draggingNode, draggingNodeRect, droppableRects, droppableContainers, over, scrollableAncestors, scrollAdjustedTranslate]);
+  useAutoScroller({
+    ...autoScrollOptions,
+    delta: translate,
+    draggingRect: collisionRect,
+    pointerCoordinates,
+    scrollableAncestors,
+    scrollableAncestorRects
+  });
+  const publicContext = (0, import_react3.useMemo)(() => {
+    const context = {
+      active,
+      activeNode,
+      activeNodeRect,
+      activatorEvent,
+      collisions,
+      containerNodeRect,
+      dragOverlay,
+      draggableNodes,
+      droppableContainers,
+      droppableRects,
+      over,
+      measureDroppableContainers,
+      scrollableAncestors,
+      scrollableAncestorRects,
+      measuringConfiguration,
+      measuringScheduled,
+      windowRect
+    };
+    return context;
+  }, [active, activeNode, activeNodeRect, activatorEvent, collisions, containerNodeRect, dragOverlay, draggableNodes, droppableContainers, droppableRects, over, measureDroppableContainers, scrollableAncestors, scrollableAncestorRects, measuringConfiguration, measuringScheduled, windowRect]);
+  const internalContext = (0, import_react3.useMemo)(() => {
+    const context = {
+      activatorEvent,
+      activators,
+      active,
+      activeNodeRect,
+      ariaDescribedById: {
+        draggable: draggableDescribedById
+      },
+      dispatch,
+      draggableNodes,
+      over,
+      measureDroppableContainers
+    };
+    return context;
+  }, [activatorEvent, activators, active, activeNodeRect, dispatch, draggableDescribedById, draggableNodes, over, measureDroppableContainers]);
+  return import_react3.default.createElement(DndMonitorContext.Provider, {
+    value: registerMonitorListener
+  }, import_react3.default.createElement(InternalContext.Provider, {
+    value: internalContext
+  }, import_react3.default.createElement(PublicContext.Provider, {
+    value: publicContext
+  }, import_react3.default.createElement(ActiveDraggableContext.Provider, {
+    value: transform
+  }, children)), import_react3.default.createElement(RestoreFocus, {
+    disabled: (accessibility == null ? void 0 : accessibility.restoreFocus) === false
+  })), import_react3.default.createElement(Accessibility, {
+    ...accessibility,
+    hiddenTextDescribedById: draggableDescribedById
+  }));
+  function getAutoScrollerOptions() {
+    const activeSensorDisablesAutoscroll = (activeSensor == null ? void 0 : activeSensor.autoScrollEnabled) === false;
+    const autoScrollGloballyDisabled = typeof autoScroll === "object" ? autoScroll.enabled === false : autoScroll === false;
+    const enabled = isInitialized && !activeSensorDisablesAutoscroll && !autoScrollGloballyDisabled;
+    if (typeof autoScroll === "object") {
+      return {
+        ...autoScroll,
+        enabled
+      };
+    }
+    return {
+      enabled
+    };
+  }
+});
+var NullContext = /* @__PURE__ */ (0, import_react3.createContext)(null);
+var defaultRole = "button";
+var ID_PREFIX = "Draggable";
+function useDraggable(_ref) {
+  let {
+    id,
+    data,
+    disabled = false,
+    attributes
+  } = _ref;
+  const key2 = useUniqueId(ID_PREFIX);
+  const {
+    activators,
+    activatorEvent,
+    active,
+    activeNodeRect,
+    ariaDescribedById,
+    draggableNodes,
+    over
+  } = (0, import_react3.useContext)(InternalContext);
+  const {
+    role = defaultRole,
+    roleDescription = "draggable",
+    tabIndex = 0
+  } = attributes != null ? attributes : {};
+  const isDragging = (active == null ? void 0 : active.id) === id;
+  const transform = (0, import_react3.useContext)(isDragging ? ActiveDraggableContext : NullContext);
+  const [node, setNodeRef] = useNodeRef();
+  const [activatorNode, setActivatorNodeRef] = useNodeRef();
+  const listeners = useSyntheticListeners(activators, id);
+  const dataRef = useLatestValue(data);
+  useIsomorphicLayoutEffect(
+    () => {
+      draggableNodes.set(id, {
+        id,
+        key: key2,
+        node,
+        activatorNode,
+        data: dataRef
+      });
+      return () => {
+        const node2 = draggableNodes.get(id);
+        if (node2 && node2.key === key2) {
+          draggableNodes.delete(id);
+        }
+      };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [draggableNodes, id]
+  );
+  const memoizedAttributes = (0, import_react3.useMemo)(() => ({
+    role,
+    tabIndex,
+    "aria-disabled": disabled,
+    "aria-pressed": isDragging && role === defaultRole ? true : void 0,
+    "aria-roledescription": roleDescription,
+    "aria-describedby": ariaDescribedById.draggable
+  }), [disabled, role, tabIndex, isDragging, roleDescription, ariaDescribedById.draggable]);
+  return {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes: memoizedAttributes,
+    isDragging,
+    listeners: disabled ? void 0 : listeners,
+    node,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform
+  };
+}
+function useDndContext() {
+  return (0, import_react3.useContext)(PublicContext);
+}
+var ID_PREFIX$1 = "Droppable";
+var defaultResizeObserverConfig = {
+  timeout: 25
+};
+function useDroppable(_ref) {
+  let {
+    data,
+    disabled = false,
+    id,
+    resizeObserverConfig
+  } = _ref;
+  const key2 = useUniqueId(ID_PREFIX$1);
+  const {
+    active,
+    dispatch,
+    over,
+    measureDroppableContainers
+  } = (0, import_react3.useContext)(InternalContext);
+  const previous = (0, import_react3.useRef)({
+    disabled
+  });
+  const resizeObserverConnected = (0, import_react3.useRef)(false);
+  const rect = (0, import_react3.useRef)(null);
+  const callbackId = (0, import_react3.useRef)(null);
+  const {
+    disabled: resizeObserverDisabled,
+    updateMeasurementsFor,
+    timeout: resizeObserverTimeout
+  } = {
+    ...defaultResizeObserverConfig,
+    ...resizeObserverConfig
+  };
+  const ids2 = useLatestValue(updateMeasurementsFor != null ? updateMeasurementsFor : id);
+  const handleResize = (0, import_react3.useCallback)(
+    () => {
+      if (!resizeObserverConnected.current) {
+        resizeObserverConnected.current = true;
+        return;
+      }
+      if (callbackId.current != null) {
+        clearTimeout(callbackId.current);
+      }
+      callbackId.current = setTimeout(() => {
+        measureDroppableContainers(Array.isArray(ids2.current) ? ids2.current : [ids2.current]);
+        callbackId.current = null;
+      }, resizeObserverTimeout);
+    },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    [resizeObserverTimeout]
+  );
+  const resizeObserver = useResizeObserver({
+    callback: handleResize,
+    disabled: resizeObserverDisabled || !active
+  });
+  const handleNodeChange = (0, import_react3.useCallback)((newElement, previousElement) => {
+    if (!resizeObserver) {
+      return;
+    }
+    if (previousElement) {
+      resizeObserver.unobserve(previousElement);
+      resizeObserverConnected.current = false;
+    }
+    if (newElement) {
+      resizeObserver.observe(newElement);
+    }
+  }, [resizeObserver]);
+  const [nodeRef, setNodeRef] = useNodeRef(handleNodeChange);
+  const dataRef = useLatestValue(data);
+  (0, import_react3.useEffect)(() => {
+    if (!resizeObserver || !nodeRef.current) {
+      return;
+    }
+    resizeObserver.disconnect();
+    resizeObserverConnected.current = false;
+    resizeObserver.observe(nodeRef.current);
+  }, [nodeRef, resizeObserver]);
+  (0, import_react3.useEffect)(
+    () => {
+      dispatch({
+        type: Action.RegisterDroppable,
+        element: {
+          id,
+          key: key2,
+          disabled,
+          node: nodeRef,
+          rect,
+          data: dataRef
+        }
+      });
+      return () => dispatch({
+        type: Action.UnregisterDroppable,
+        key: key2,
+        id
+      });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [id]
+  );
+  (0, import_react3.useEffect)(() => {
+    if (disabled !== previous.current.disabled) {
+      dispatch({
+        type: Action.SetDroppableDisabled,
+        id,
+        key: key2,
+        disabled
+      });
+      previous.current.disabled = disabled;
+    }
+  }, [id, key2, disabled, dispatch]);
+  return {
+    active,
+    rect,
+    isOver: (over == null ? void 0 : over.id) === id,
+    node: nodeRef,
+    over,
+    setNodeRef
+  };
+}
+function AnimationManager(_ref) {
+  let {
+    animation,
+    children
+  } = _ref;
+  const [clonedChildren, setClonedChildren] = (0, import_react3.useState)(null);
+  const [element, setElement] = (0, import_react3.useState)(null);
+  const previousChildren = usePrevious(children);
+  if (!children && !clonedChildren && previousChildren) {
+    setClonedChildren(previousChildren);
+  }
+  useIsomorphicLayoutEffect(() => {
+    if (!element) {
+      return;
+    }
+    const key2 = clonedChildren == null ? void 0 : clonedChildren.key;
+    const id = clonedChildren == null ? void 0 : clonedChildren.props.id;
+    if (key2 == null || id == null) {
+      setClonedChildren(null);
+      return;
+    }
+    Promise.resolve(animation(id, element)).then(() => {
+      setClonedChildren(null);
+    });
+  }, [animation, clonedChildren, element]);
+  return import_react3.default.createElement(import_react3.default.Fragment, null, children, clonedChildren ? (0, import_react3.cloneElement)(clonedChildren, {
+    ref: setElement
+  }) : null);
+}
+var defaultTransform = {
+  x: 0,
+  y: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function NullifiedContextProvider(_ref) {
+  let {
+    children
+  } = _ref;
+  return import_react3.default.createElement(InternalContext.Provider, {
+    value: defaultInternalContext
+  }, import_react3.default.createElement(ActiveDraggableContext.Provider, {
+    value: defaultTransform
+  }, children));
+}
+var baseStyles = {
+  position: "fixed",
+  touchAction: "none"
+};
+var defaultTransition = (activatorEvent) => {
+  const isKeyboardActivator = isKeyboardEvent(activatorEvent);
+  return isKeyboardActivator ? "transform 250ms ease" : void 0;
+};
+var PositionedOverlay = /* @__PURE__ */ (0, import_react3.forwardRef)((_ref, ref) => {
+  let {
+    as,
+    activatorEvent,
+    adjustScale: adjustScale2,
+    children,
+    className,
+    rect,
+    style,
+    transform,
+    transition = defaultTransition
+  } = _ref;
+  if (!rect) {
+    return null;
+  }
+  const scaleAdjustedTransform = adjustScale2 ? transform : {
+    ...transform,
+    scaleX: 1,
+    scaleY: 1
+  };
+  const styles = {
+    ...baseStyles,
+    width: rect.width,
+    height: rect.height,
+    top: rect.top,
+    left: rect.left,
+    transform: CSS.Transform.toString(scaleAdjustedTransform),
+    transformOrigin: adjustScale2 && activatorEvent ? getRelativeTransformOrigin(activatorEvent, rect) : void 0,
+    transition: typeof transition === "function" ? transition(activatorEvent) : transition,
+    ...style
+  };
+  return import_react3.default.createElement(as, {
+    className,
+    style: styles,
+    ref
+  }, children);
+});
+var defaultDropAnimationSideEffects = (options) => (_ref) => {
+  let {
+    active,
+    dragOverlay
+  } = _ref;
+  const originalStyles = {};
+  const {
+    styles,
+    className
+  } = options;
+  if (styles != null && styles.active) {
+    for (const [key2, value] of Object.entries(styles.active)) {
+      if (value === void 0) {
+        continue;
+      }
+      originalStyles[key2] = active.node.style.getPropertyValue(key2);
+      active.node.style.setProperty(key2, value);
+    }
+  }
+  if (styles != null && styles.dragOverlay) {
+    for (const [key2, value] of Object.entries(styles.dragOverlay)) {
+      if (value === void 0) {
+        continue;
+      }
+      dragOverlay.node.style.setProperty(key2, value);
+    }
+  }
+  if (className != null && className.active) {
+    active.node.classList.add(className.active);
+  }
+  if (className != null && className.dragOverlay) {
+    dragOverlay.node.classList.add(className.dragOverlay);
+  }
+  return function cleanup() {
+    for (const [key2, value] of Object.entries(originalStyles)) {
+      active.node.style.setProperty(key2, value);
+    }
+    if (className != null && className.active) {
+      active.node.classList.remove(className.active);
+    }
+  };
+};
+var defaultKeyframeResolver = (_ref2) => {
+  let {
+    transform: {
+      initial,
+      final
+    }
+  } = _ref2;
+  return [{
+    transform: CSS.Transform.toString(initial)
+  }, {
+    transform: CSS.Transform.toString(final)
+  }];
+};
+var defaultDropAnimationConfiguration = {
+  duration: 250,
+  easing: "ease",
+  keyframes: defaultKeyframeResolver,
+  sideEffects: /* @__PURE__ */ defaultDropAnimationSideEffects({
+    styles: {
+      active: {
+        opacity: "0"
+      }
+    }
+  })
+};
+function useDropAnimation(_ref3) {
+  let {
+    config,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  } = _ref3;
+  return useEvent((id, node) => {
+    if (config === null) {
+      return;
+    }
+    const activeDraggable = draggableNodes.get(id);
+    if (!activeDraggable) {
+      return;
+    }
+    const activeNode = activeDraggable.node.current;
+    if (!activeNode) {
+      return;
+    }
+    const measurableNode = getMeasurableNode(node);
+    if (!measurableNode) {
+      return;
+    }
+    const {
+      transform
+    } = getWindow(node).getComputedStyle(node);
+    const parsedTransform = parseTransform(transform);
+    if (!parsedTransform) {
+      return;
+    }
+    const animation = typeof config === "function" ? config : createDefaultDropAnimation(config);
+    scrollIntoViewIfNeeded(activeNode, measuringConfiguration.draggable.measure);
+    return animation({
+      active: {
+        id,
+        data: activeDraggable.data,
+        node: activeNode,
+        rect: measuringConfiguration.draggable.measure(activeNode)
+      },
+      draggableNodes,
+      dragOverlay: {
+        node,
+        rect: measuringConfiguration.dragOverlay.measure(measurableNode)
+      },
+      droppableContainers,
+      measuringConfiguration,
+      transform: parsedTransform
+    });
+  });
+}
+function createDefaultDropAnimation(options) {
+  const {
+    duration,
+    easing,
+    sideEffects,
+    keyframes
+  } = {
+    ...defaultDropAnimationConfiguration,
+    ...options
+  };
+  return (_ref4) => {
+    let {
+      active,
+      dragOverlay,
+      transform,
+      ...rest
+    } = _ref4;
+    if (!duration) {
+      return;
+    }
+    const delta = {
+      x: dragOverlay.rect.left - active.rect.left,
+      y: dragOverlay.rect.top - active.rect.top
+    };
+    const scale = {
+      scaleX: transform.scaleX !== 1 ? active.rect.width * transform.scaleX / dragOverlay.rect.width : 1,
+      scaleY: transform.scaleY !== 1 ? active.rect.height * transform.scaleY / dragOverlay.rect.height : 1
+    };
+    const finalTransform = {
+      x: transform.x - delta.x,
+      y: transform.y - delta.y,
+      ...scale
+    };
+    const animationKeyframes = keyframes({
+      ...rest,
+      active,
+      dragOverlay,
+      transform: {
+        initial: transform,
+        final: finalTransform
+      }
+    });
+    const [firstKeyframe] = animationKeyframes;
+    const lastKeyframe = animationKeyframes[animationKeyframes.length - 1];
+    if (JSON.stringify(firstKeyframe) === JSON.stringify(lastKeyframe)) {
+      return;
+    }
+    const cleanup = sideEffects == null ? void 0 : sideEffects({
+      active,
+      dragOverlay,
+      ...rest
+    });
+    const animation = dragOverlay.node.animate(animationKeyframes, {
+      duration,
+      easing,
+      fill: "forwards"
+    });
+    return new Promise((resolve) => {
+      animation.onfinish = () => {
+        cleanup == null ? void 0 : cleanup();
+        resolve();
+      };
+    });
+  };
+}
+var key = 0;
+function useKey(id) {
+  return (0, import_react3.useMemo)(() => {
+    if (id == null) {
+      return;
+    }
+    key++;
+    return key;
+  }, [id]);
+}
+var DragOverlay = /* @__PURE__ */ import_react3.default.memo((_ref) => {
+  let {
+    adjustScale: adjustScale2 = false,
+    children,
+    dropAnimation: dropAnimationConfig,
+    style,
+    transition,
+    modifiers,
+    wrapperElement = "div",
+    className,
+    zIndex = 999
+  } = _ref;
+  const {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggableNodes,
+    droppableContainers,
+    dragOverlay,
+    over,
+    measuringConfiguration,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    windowRect
+  } = useDndContext();
+  const transform = (0, import_react3.useContext)(ActiveDraggableContext);
+  const key2 = useKey(active == null ? void 0 : active.id);
+  const modifiedTransform = applyModifiers(modifiers, {
+    activatorEvent,
+    active,
+    activeNodeRect,
+    containerNodeRect,
+    draggingNodeRect: dragOverlay.rect,
+    over,
+    overlayNodeRect: dragOverlay.rect,
+    scrollableAncestors,
+    scrollableAncestorRects,
+    transform,
+    windowRect
+  });
+  const initialRect = useInitialValue(activeNodeRect);
+  const dropAnimation = useDropAnimation({
+    config: dropAnimationConfig,
+    draggableNodes,
+    droppableContainers,
+    measuringConfiguration
+  });
+  const ref = initialRect ? dragOverlay.setRef : void 0;
+  return import_react3.default.createElement(NullifiedContextProvider, null, import_react3.default.createElement(AnimationManager, {
+    animation: dropAnimation
+  }, active && key2 ? import_react3.default.createElement(PositionedOverlay, {
+    key: key2,
+    id: active.id,
+    ref,
+    as: wrapperElement,
+    activatorEvent,
+    adjustScale: adjustScale2,
+    className,
+    transition,
+    rect: initialRect,
+    style: {
+      zIndex,
+      ...style
+    },
+    transform: modifiedTransform
+  }, children) : null));
+});
+
+// node_modules/@dnd-kit/sortable/dist/sortable.esm.js
+var import_react4 = __toESM(require_react());
+function arrayMove(array, from, to) {
+  const newArray = array.slice();
+  newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0]);
+  return newArray;
+}
+function getSortedRects(items, rects) {
+  return items.reduce((accumulator, id, index) => {
+    const rect = rects.get(id);
+    if (rect) {
+      accumulator[index] = rect;
+    }
+    return accumulator;
+  }, Array(items.length));
+}
+function isValidIndex(index) {
+  return index !== null && index >= 0;
+}
+function itemsEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+  if (a.length !== b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+function normalizeDisabled(disabled) {
+  if (typeof disabled === "boolean") {
+    return {
+      draggable: disabled,
+      droppable: disabled
+    };
+  }
+  return disabled;
+}
+var rectSortingStrategy = (_ref) => {
+  let {
+    rects,
+    activeIndex,
+    overIndex,
+    index
+  } = _ref;
+  const newRects = arrayMove(rects, overIndex, activeIndex);
+  const oldRect = rects[index];
+  const newRect = newRects[index];
+  if (!newRect || !oldRect) {
+    return null;
+  }
+  return {
+    x: newRect.left - oldRect.left,
+    y: newRect.top - oldRect.top,
+    scaleX: newRect.width / oldRect.width,
+    scaleY: newRect.height / oldRect.height
+  };
+};
+var defaultScale$1 = {
+  scaleX: 1,
+  scaleY: 1
+};
+var verticalListSortingStrategy = (_ref) => {
+  var _rects$activeIndex;
+  let {
+    activeIndex,
+    activeNodeRect: fallbackActiveRect,
+    index,
+    rects,
+    overIndex
+  } = _ref;
+  const activeNodeRect = (_rects$activeIndex = rects[activeIndex]) != null ? _rects$activeIndex : fallbackActiveRect;
+  if (!activeNodeRect) {
+    return null;
+  }
+  if (index === activeIndex) {
+    const overIndexRect = rects[overIndex];
+    if (!overIndexRect) {
+      return null;
+    }
+    return {
+      x: 0,
+      y: activeIndex < overIndex ? overIndexRect.top + overIndexRect.height - (activeNodeRect.top + activeNodeRect.height) : overIndexRect.top - activeNodeRect.top,
+      ...defaultScale$1
+    };
+  }
+  const itemGap = getItemGap$1(rects, index, activeIndex);
+  if (index > activeIndex && index <= overIndex) {
+    return {
+      x: 0,
+      y: -activeNodeRect.height - itemGap,
+      ...defaultScale$1
+    };
+  }
+  if (index < activeIndex && index >= overIndex) {
+    return {
+      x: 0,
+      y: activeNodeRect.height + itemGap,
+      ...defaultScale$1
+    };
+  }
+  return {
+    x: 0,
+    y: 0,
+    ...defaultScale$1
+  };
+};
+function getItemGap$1(clientRects, index, activeIndex) {
+  const currentRect = clientRects[index];
+  const previousRect = clientRects[index - 1];
+  const nextRect = clientRects[index + 1];
+  if (!currentRect) {
+    return 0;
+  }
+  if (activeIndex < index) {
+    return previousRect ? currentRect.top - (previousRect.top + previousRect.height) : nextRect ? nextRect.top - (currentRect.top + currentRect.height) : 0;
+  }
+  return nextRect ? nextRect.top - (currentRect.top + currentRect.height) : previousRect ? currentRect.top - (previousRect.top + previousRect.height) : 0;
+}
+var ID_PREFIX2 = "Sortable";
+var Context = /* @__PURE__ */ import_react4.default.createContext({
+  activeIndex: -1,
+  containerId: ID_PREFIX2,
+  disableTransforms: false,
+  items: [],
+  overIndex: -1,
+  useDragOverlay: false,
+  sortedRects: [],
+  strategy: rectSortingStrategy,
+  disabled: {
+    draggable: false,
+    droppable: false
+  }
+});
+function SortableContext(_ref) {
+  let {
+    children,
+    id,
+    items: userDefinedItems,
+    strategy = rectSortingStrategy,
+    disabled: disabledProp = false
+  } = _ref;
+  const {
+    active,
+    dragOverlay,
+    droppableRects,
+    over,
+    measureDroppableContainers
+  } = useDndContext();
+  const containerId = useUniqueId(ID_PREFIX2, id);
+  const useDragOverlay = Boolean(dragOverlay.rect !== null);
+  const items = (0, import_react4.useMemo)(() => userDefinedItems.map((item) => typeof item === "object" && "id" in item ? item.id : item), [userDefinedItems]);
+  const isDragging = active != null;
+  const activeIndex = active ? items.indexOf(active.id) : -1;
+  const overIndex = over ? items.indexOf(over.id) : -1;
+  const previousItemsRef = (0, import_react4.useRef)(items);
+  const itemsHaveChanged = !itemsEqual(items, previousItemsRef.current);
+  const disableTransforms = overIndex !== -1 && activeIndex === -1 || itemsHaveChanged;
+  const disabled = normalizeDisabled(disabledProp);
+  useIsomorphicLayoutEffect(() => {
+    if (itemsHaveChanged && isDragging) {
+      measureDroppableContainers(items);
+    }
+  }, [itemsHaveChanged, items, isDragging, measureDroppableContainers]);
+  (0, import_react4.useEffect)(() => {
+    previousItemsRef.current = items;
+  }, [items]);
+  const contextValue = (0, import_react4.useMemo)(
+    () => ({
+      activeIndex,
+      containerId,
+      disabled,
+      disableTransforms,
+      items,
+      overIndex,
+      useDragOverlay,
+      sortedRects: getSortedRects(items, droppableRects),
+      strategy
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [activeIndex, containerId, disabled.draggable, disabled.droppable, disableTransforms, items, overIndex, droppableRects, useDragOverlay, strategy]
+  );
+  return import_react4.default.createElement(Context.Provider, {
+    value: contextValue
+  }, children);
+}
+var defaultNewIndexGetter = (_ref) => {
+  let {
+    id,
+    items,
+    activeIndex,
+    overIndex
+  } = _ref;
+  return arrayMove(items, activeIndex, overIndex).indexOf(id);
+};
+var defaultAnimateLayoutChanges = (_ref2) => {
+  let {
+    containerId,
+    isSorting,
+    wasDragging,
+    index,
+    items,
+    newIndex,
+    previousItems,
+    previousContainerId,
+    transition
+  } = _ref2;
+  if (!transition || !wasDragging) {
+    return false;
+  }
+  if (previousItems !== items && index === newIndex) {
+    return false;
+  }
+  if (isSorting) {
+    return true;
+  }
+  return newIndex !== index && containerId === previousContainerId;
+};
+var defaultTransition2 = {
+  duration: 200,
+  easing: "ease"
+};
+var transitionProperty = "transform";
+var disabledTransition = /* @__PURE__ */ CSS.Transition.toString({
+  property: transitionProperty,
+  duration: 0,
+  easing: "linear"
+});
+var defaultAttributes = {
+  roleDescription: "sortable"
+};
+function useDerivedTransform(_ref) {
+  let {
+    disabled,
+    index,
+    node,
+    rect
+  } = _ref;
+  const [derivedTransform, setDerivedtransform] = (0, import_react4.useState)(null);
+  const previousIndex = (0, import_react4.useRef)(index);
+  useIsomorphicLayoutEffect(() => {
+    if (!disabled && index !== previousIndex.current && node.current) {
+      const initial = rect.current;
+      if (initial) {
+        const current = getClientRect(node.current, {
+          ignoreTransform: true
+        });
+        const delta = {
+          x: initial.left - current.left,
+          y: initial.top - current.top,
+          scaleX: initial.width / current.width,
+          scaleY: initial.height / current.height
+        };
+        if (delta.x || delta.y) {
+          setDerivedtransform(delta);
+        }
+      }
+    }
+    if (index !== previousIndex.current) {
+      previousIndex.current = index;
+    }
+  }, [disabled, index, node, rect]);
+  (0, import_react4.useEffect)(() => {
+    if (derivedTransform) {
+      setDerivedtransform(null);
+    }
+  }, [derivedTransform]);
+  return derivedTransform;
+}
+function useSortable(_ref) {
+  let {
+    animateLayoutChanges = defaultAnimateLayoutChanges,
+    attributes: userDefinedAttributes,
+    disabled: localDisabled,
+    data: customData,
+    getNewIndex = defaultNewIndexGetter,
+    id,
+    strategy: localStrategy,
+    resizeObserverConfig,
+    transition = defaultTransition2
+  } = _ref;
+  const {
+    items,
+    containerId,
+    activeIndex,
+    disabled: globalDisabled,
+    disableTransforms,
+    sortedRects,
+    overIndex,
+    useDragOverlay,
+    strategy: globalStrategy
+  } = (0, import_react4.useContext)(Context);
+  const disabled = normalizeLocalDisabled(localDisabled, globalDisabled);
+  const index = items.indexOf(id);
+  const data = (0, import_react4.useMemo)(() => ({
+    sortable: {
+      containerId,
+      index,
+      items
+    },
+    ...customData
+  }), [containerId, customData, index, items]);
+  const itemsAfterCurrentSortable = (0, import_react4.useMemo)(() => items.slice(items.indexOf(id)), [items, id]);
+  const {
+    rect,
+    node,
+    isOver,
+    setNodeRef: setDroppableNodeRef
+  } = useDroppable({
+    id,
+    data,
+    disabled: disabled.droppable,
+    resizeObserverConfig: {
+      updateMeasurementsFor: itemsAfterCurrentSortable,
+      ...resizeObserverConfig
+    }
+  });
+  const {
+    active,
+    activatorEvent,
+    activeNodeRect,
+    attributes,
+    setNodeRef: setDraggableNodeRef,
+    listeners,
+    isDragging,
+    over,
+    setActivatorNodeRef,
+    transform
+  } = useDraggable({
+    id,
+    data,
+    attributes: {
+      ...defaultAttributes,
+      ...userDefinedAttributes
+    },
+    disabled: disabled.draggable
+  });
+  const setNodeRef = useCombinedRefs(setDroppableNodeRef, setDraggableNodeRef);
+  const isSorting = Boolean(active);
+  const displaceItem = isSorting && !disableTransforms && isValidIndex(activeIndex) && isValidIndex(overIndex);
+  const shouldDisplaceDragSource = !useDragOverlay && isDragging;
+  const dragSourceDisplacement = shouldDisplaceDragSource && displaceItem ? transform : null;
+  const strategy = localStrategy != null ? localStrategy : globalStrategy;
+  const finalTransform = displaceItem ? dragSourceDisplacement != null ? dragSourceDisplacement : strategy({
+    rects: sortedRects,
+    activeNodeRect,
+    activeIndex,
+    overIndex,
+    index
+  }) : null;
+  const newIndex = isValidIndex(activeIndex) && isValidIndex(overIndex) ? getNewIndex({
+    id,
+    items,
+    activeIndex,
+    overIndex
+  }) : index;
+  const activeId = active == null ? void 0 : active.id;
+  const previous = (0, import_react4.useRef)({
+    activeId,
+    items,
+    newIndex,
+    containerId
+  });
+  const itemsHaveChanged = items !== previous.current.items;
+  const shouldAnimateLayoutChanges = animateLayoutChanges({
+    active,
+    containerId,
+    isDragging,
+    isSorting,
+    id,
+    index,
+    items,
+    newIndex: previous.current.newIndex,
+    previousItems: previous.current.items,
+    previousContainerId: previous.current.containerId,
+    transition,
+    wasDragging: previous.current.activeId != null
+  });
+  const derivedTransform = useDerivedTransform({
+    disabled: !shouldAnimateLayoutChanges,
+    index,
+    node,
+    rect
+  });
+  (0, import_react4.useEffect)(() => {
+    if (isSorting && previous.current.newIndex !== newIndex) {
+      previous.current.newIndex = newIndex;
+    }
+    if (containerId !== previous.current.containerId) {
+      previous.current.containerId = containerId;
+    }
+    if (items !== previous.current.items) {
+      previous.current.items = items;
+    }
+  }, [isSorting, newIndex, containerId, items]);
+  (0, import_react4.useEffect)(() => {
+    if (activeId === previous.current.activeId) {
+      return;
+    }
+    if (activeId != null && previous.current.activeId == null) {
+      previous.current.activeId = activeId;
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      previous.current.activeId = activeId;
+    }, 50);
+    return () => clearTimeout(timeoutId);
+  }, [activeId]);
+  return {
+    active,
+    activeIndex,
+    attributes,
+    data,
+    rect,
+    index,
+    newIndex,
+    items,
+    isOver,
+    isSorting,
+    isDragging,
+    listeners,
+    node,
+    overIndex,
+    over,
+    setNodeRef,
+    setActivatorNodeRef,
+    setDroppableNodeRef,
+    setDraggableNodeRef,
+    transform: derivedTransform != null ? derivedTransform : finalTransform,
+    transition: getTransition()
+  };
+  function getTransition() {
+    if (
+      // Temporarily disable transitions for a single frame to set up derived transforms
+      derivedTransform || // Or to prevent items jumping to back to their "new" position when items change
+      itemsHaveChanged && previous.current.newIndex === index
+    ) {
+      return disabledTransition;
+    }
+    if (shouldDisplaceDragSource && !isKeyboardEvent(activatorEvent) || !transition) {
+      return void 0;
+    }
+    if (isSorting || shouldAnimateLayoutChanges) {
+      return CSS.Transition.toString({
+        ...transition,
+        property: transitionProperty
+      });
+    }
+    return void 0;
+  }
+}
+function normalizeLocalDisabled(localDisabled, globalDisabled) {
+  var _localDisabled$dragga, _localDisabled$droppa;
+  if (typeof localDisabled === "boolean") {
+    return {
+      draggable: localDisabled,
+      // Backwards compatibility
+      droppable: false
+    };
+  }
+  return {
+    draggable: (_localDisabled$dragga = localDisabled == null ? void 0 : localDisabled.draggable) != null ? _localDisabled$dragga : globalDisabled.draggable,
+    droppable: (_localDisabled$droppa = localDisabled == null ? void 0 : localDisabled.droppable) != null ? _localDisabled$droppa : globalDisabled.droppable
+  };
+}
+var directions = [KeyboardCode.Down, KeyboardCode.Right, KeyboardCode.Up, KeyboardCode.Left];
 
 // src/components/MemoTree.tsx
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -21733,7 +25915,63 @@ var matchesSearch = (node, query) => {
   if (node.children?.some((child) => matchesSearch(child, query))) return true;
   return false;
 };
-var TreeNode = ({
+var flattenTree = (nodes) => {
+  const result = [];
+  const traverse = (nodeList) => {
+    for (const node of nodeList) {
+      result.push(node.id);
+      if (node.children && node.isExpanded) {
+        traverse(node.children);
+      }
+    }
+  };
+  traverse(nodes);
+  return result;
+};
+var findNodeById = (nodes, id) => {
+  for (const node of nodes) {
+    if (node.id === id) return node;
+    if (node.children) {
+      const found = findNodeById(node.children, id);
+      if (found) return found;
+    }
+  }
+  return null;
+};
+var removeNode = (nodes, id) => {
+  let removed = null;
+  const newNodes = nodes.filter((node) => {
+    if (node.id === id) {
+      removed = node;
+      return false;
+    }
+    return true;
+  }).map((node) => {
+    if (node.children) {
+      const result = removeNode(node.children, id);
+      if (result.removed) removed = result.removed;
+      return { ...node, children: result.nodes };
+    }
+    return node;
+  });
+  return { nodes: newNodes, removed };
+};
+var insertAsChild = (nodes, nodeToInsert, targetId) => {
+  return nodes.map((node) => {
+    if (node.id === targetId) {
+      return {
+        ...node,
+        children: [...node.children || [], nodeToInsert],
+        isExpanded: true
+      };
+    }
+    if (node.children) {
+      return { ...node, children: insertAsChild(node.children, nodeToInsert, targetId) };
+    }
+    return node;
+  });
+};
+var SortableTreeNode = ({
   node,
   depth,
   onSelect,
@@ -21743,28 +25981,31 @@ var TreeNode = ({
   selectedId,
   searchQuery
 }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    isOver
+  } = useSortable({ id: node.id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1
+  };
   const hasChildren = node.children && node.children.length > 0;
   const isSelected = node.id === selectedId;
   const matches = matchesSearch(node, searchQuery || "");
   if (!matches && searchQuery) return null;
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "tree-node", children: [
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { ref: setNodeRef, style, className: "tree-node", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
       "div",
       {
-        className: `node-item ${isSelected ? "selected" : ""}`,
+        className: `node-item ${isSelected ? "selected" : ""} ${isDragging ? "dragging" : ""} ${isOver ? "drop-target" : ""}`,
         style: { paddingLeft: `${depth * 16 + 8}px` },
         onClick: () => onSelect(node),
-        draggable: true,
-        onDragStart: (e) => {
-          e.dataTransfer.setData("nodeId", node.id);
-        },
-        onDragOver: (e) => e.preventDefault(),
-        onDrop: (e) => {
-          e.preventDefault();
-          const draggedId = e.dataTransfer.getData("nodeId");
-          if (draggedId !== node.id) {
-          }
-        },
         children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
             "button",
@@ -21777,7 +26018,7 @@ var TreeNode = ({
               children: hasChildren ? node.isExpanded ? "\u25BC" : "\u25B6" : "\u2022"
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "node-name", children: node.name }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "node-name drag-handle", ...attributes, ...listeners, children: node.name }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "node-actions", children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
               "button",
@@ -21808,7 +26049,7 @@ var TreeNode = ({
       }
     ),
     hasChildren && node.isExpanded && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "children", children: node.children.map((child) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-      TreeNode,
+      SortableTreeNode,
       {
         node: child,
         depth: depth + 1,
@@ -21830,6 +26071,40 @@ var MemoTree = ({
   selectedNodeId,
   searchQuery
 }) => {
+  const [activeId, setActiveId] = (0, import_react5.useState)(null);
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8
+      }
+    })
+  );
+  const handleDragStart = (event) => {
+    setActiveId(event.active.id);
+  };
+  const handleDragOver = (_event) => {
+  };
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    setActiveId(null);
+    if (!over || active.id === over.id) return;
+    const draggedId = active.id;
+    const targetId = over.id;
+    const isDescendant = (parentId, childId) => {
+      const parent = findNodeById(nodes, parentId);
+      if (!parent?.children) return false;
+      for (const child of parent.children) {
+        if (child.id === childId) return true;
+        if (isDescendant(child.id, childId)) return true;
+      }
+      return false;
+    };
+    if (isDescendant(draggedId, targetId)) return;
+    const { nodes: nodesAfterRemove, removed } = removeNode(nodes, draggedId);
+    if (!removed) return;
+    const newNodes = insertAsChild(nodesAfterRemove, removed, targetId);
+    onNodeUpdate(newNodes);
+  };
   const handleToggle = (id) => {
     const toggleNode = (nodeList) => {
       return nodeList.map((node) => {
@@ -21883,38 +26158,53 @@ var MemoTree = ({
     };
     onNodeUpdate(deleteNode(nodes));
   };
+  const activeNode = activeId ? findNodeById(nodes, activeId) : null;
+  const flatIds = flattenTree(nodes);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "memo-tree", children: nodes.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: "empty-state", children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "\u30E1\u30E2\u304C\u3042\u308A\u307E\u305B\u3093" }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "\u300C+\u300D\u30DC\u30BF\u30F3\u3067\u65B0\u898F\u30E1\u30E2\u3092\u8FFD\u52A0" })
-  ] }) : nodes.map((node) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-    TreeNode,
+  ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    DndContext,
     {
-      node,
-      depth: 0,
-      onSelect: onNodeSelect,
-      onToggle: handleToggle,
-      onAddChild: handleAddChild,
-      onDelete: handleDelete,
-      selectedId: selectedNodeId,
-      searchQuery
-    },
-    node.id
-  )) });
+      sensors,
+      collisionDetection: closestCenter,
+      onDragStart: handleDragStart,
+      onDragOver: handleDragOver,
+      onDragEnd: handleDragEnd,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SortableContext, { items: flatIds, strategy: verticalListSortingStrategy, children: nodes.map((node) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          SortableTreeNode,
+          {
+            node,
+            depth: 0,
+            onSelect: onNodeSelect,
+            onToggle: handleToggle,
+            onAddChild: handleAddChild,
+            onDelete: handleDelete,
+            selectedId: selectedNodeId,
+            searchQuery
+          },
+          node.id
+        )) }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DragOverlay, { children: activeNode ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "node-item dragging-overlay", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "node-name", children: activeNode.name }) }) : null })
+      ]
+    }
+  ) });
 };
 
 // src/components/MemoEditor.tsx
-var import_react = __toESM(require_react(), 1);
+var import_react6 = __toESM(require_react(), 1);
 var import_jsx_runtime2 = __toESM(require_jsx_runtime(), 1);
 var renderMarkdown = (text) => {
   if (!text) return "";
   return text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>").replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>').replace(/^- (.+)$/gm, "<li>$1</li>").replace(/(<li>.*<\/li>)/s, "<ul>$1</ul>").replace(/^### (.+)$/gm, "<h3>$1</h3>").replace(/^## (.+)$/gm, "<h2>$1</h2>").replace(/^# (.+)$/gm, "<h1>$1</h1>").replace(/\n/g, "<br>");
 };
 var MemoEditor = ({ node, onUpdate }) => {
-  const [name, setName] = (0, import_react.useState)("");
-  const [content, setContent] = (0, import_react.useState)("");
-  const [isPreview, setIsPreview] = (0, import_react.useState)(false);
-  const textareaRef = (0, import_react.useRef)(null);
-  (0, import_react.useEffect)(() => {
+  const [name, setName] = (0, import_react6.useState)("");
+  const [content, setContent] = (0, import_react6.useState)("");
+  const [isPreview, setIsPreview] = (0, import_react6.useState)(false);
+  const textareaRef = (0, import_react6.useRef)(null);
+  (0, import_react6.useEffect)(() => {
     if (node) {
       setName(node.name);
       setContent(node.content);
@@ -21929,7 +26219,7 @@ var MemoEditor = ({ node, onUpdate }) => {
       updatedAt: Date.now()
     });
   };
-  (0, import_react.useEffect)(() => {
+  (0, import_react6.useEffect)(() => {
     const timer = setTimeout(() => {
       if (node && (name !== node.name || content !== node.content)) {
         handleSave();
@@ -22277,21 +26567,21 @@ var exportAllTrees = (trees, format) => {
 // src/App.tsx
 var import_jsx_runtime3 = __toESM(require_jsx_runtime(), 1);
 var App = () => {
-  const [currentTab, setCurrentTab] = (0, import_react2.useState)(null);
-  const [currentTree, setCurrentTree] = (0, import_react2.useState)(null);
-  const [allTrees, setAllTrees] = (0, import_react2.useState)([]);
-  const [selectedNode, setSelectedNode] = (0, import_react2.useState)(null);
-  const [settings, setSettings] = (0, import_react2.useState)({
+  const [currentTab, setCurrentTab] = (0, import_react7.useState)(null);
+  const [currentTree, setCurrentTree] = (0, import_react7.useState)(null);
+  const [allTrees, setAllTrees] = (0, import_react7.useState)([]);
+  const [selectedNode, setSelectedNode] = (0, import_react7.useState)(null);
+  const [settings, setSettings] = (0, import_react7.useState)({
     theme: "system",
     autoSave: true,
     syncEnabled: true,
     defaultExpanded: true
   });
-  const [searchQuery, setSearchQuery] = (0, import_react2.useState)("");
-  const [viewMode, setViewMode] = (0, import_react2.useState)("current");
-  const [showExportMenu, setShowExportMenu] = (0, import_react2.useState)(false);
-  const [showSettings, setShowSettings] = (0, import_react2.useState)(false);
-  const fetchCurrentTab = (0, import_react2.useCallback)(async () => {
+  const [searchQuery, setSearchQuery] = (0, import_react7.useState)("");
+  const [viewMode, setViewMode] = (0, import_react7.useState)("current");
+  const [showExportMenu, setShowExportMenu] = (0, import_react7.useState)(false);
+  const [showSettings, setShowSettings] = (0, import_react7.useState)(false);
+  const fetchCurrentTab = (0, import_react7.useCallback)(async () => {
     try {
       const response = await chrome.runtime.sendMessage({ type: "GET_CURRENT_TAB" });
       if (response?.url) {
@@ -22304,7 +26594,7 @@ var App = () => {
       });
     }
   }, []);
-  const loadData = (0, import_react2.useCallback)(async () => {
+  const loadData = (0, import_react7.useCallback)(async () => {
     const data = await getStorageData();
     setSettings(data.settings);
     setAllTrees(data.pageMemoTrees);
@@ -22321,15 +26611,15 @@ var App = () => {
       setCurrentTree(tree);
     }
   }, [currentTab]);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react7.useEffect)(() => {
     fetchCurrentTab();
   }, [fetchCurrentTab]);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react7.useEffect)(() => {
     if (currentTab) {
       loadData();
     }
   }, [currentTab, loadData]);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react7.useEffect)(() => {
     const handleMessage = (message) => {
       if (message.type === "TAB_CHANGED" || message.type === "TAB_UPDATED") {
         setCurrentTab(message.data);
@@ -22338,7 +26628,7 @@ var App = () => {
     chrome.runtime?.onMessage?.addListener(handleMessage);
     return () => chrome.runtime?.onMessage?.removeListener(handleMessage);
   }, []);
-  (0, import_react2.useEffect)(() => {
+  (0, import_react7.useEffect)(() => {
     const root2 = document.documentElement;
     if (settings.theme === "system") {
       const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
