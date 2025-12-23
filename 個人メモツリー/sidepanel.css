@@ -708,3 +708,26 @@ body {
   outline: 2px dashed var(--accent-color);
   outline-offset: -2px;
 }
+
+/* Back Button */
+.back-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.back-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.viewing-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

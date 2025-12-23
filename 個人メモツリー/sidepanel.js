@@ -26749,6 +26749,7 @@ var App = () => {
   });
   const [searchQuery, setSearchQuery] = (0, import_react7.useState)("");
   const [viewMode, setViewMode] = (0, import_react7.useState)("current");
+  const [viewingTree, setViewingTree] = (0, import_react7.useState)(null);
   const [showExportMenu, setShowExportMenu] = (0, import_react7.useState)(false);
   const [showSettings, setShowSettings] = (0, import_react7.useState)(false);
   const fetchCurrentTab = (0, import_react7.useCallback)(async () => {
@@ -26971,7 +26972,11 @@ var App = () => {
         "button",
         {
           className: `view-tab ${viewMode === "all" ? "active" : ""}`,
-          onClick: () => setViewMode("all"),
+          onClick: () => {
+            setViewMode("all");
+            setViewingTree(null);
+            setSelectedNode(null);
+          },
           children: "\u3059\u3079\u3066"
         }
       )
@@ -26998,12 +27003,63 @@ var App = () => {
         )
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "editor-panel", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(MemoEditor, { node: selectedNode, onUpdate: handleSelectedNodeUpdate }) })
+    ] }) : viewingTree ? /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tree-panel", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "panel-header", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { className: "back-btn", onClick: () => {
+            setViewingTree(null);
+            setSelectedNode(null);
+          }, children: "\u2190 \u623B\u308B" }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "viewing-title", children: viewingTree.title })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          MemoTree,
+          {
+            nodes: viewingTree.rootNodes,
+            onNodeSelect: setSelectedNode,
+            onNodeUpdate: async (nodes) => {
+              const updatedTree = { ...viewingTree, rootNodes: nodes };
+              setViewingTree(updatedTree);
+              await updatePageMemoTree(updatedTree);
+              setAllTrees((prev) => prev.map((t) => t.id === updatedTree.id ? updatedTree : t));
+            },
+            selectedNodeId: selectedNode?.id,
+            searchQuery
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "editor-panel", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+        MemoEditor,
+        {
+          node: selectedNode,
+          onUpdate: async (node) => {
+            const updateNode = (nodeList) => {
+              return nodeList.map((n) => {
+                if (n.id === node.id) return node;
+                if (n.children) return { ...n, children: updateNode(n.children) };
+                return n;
+              });
+            };
+            const updatedNodes = updateNode(viewingTree.rootNodes);
+            const updatedTree = { ...viewingTree, rootNodes: updatedNodes };
+            setViewingTree(updatedTree);
+            await updatePageMemoTree(updatedTree);
+            setAllTrees((prev) => prev.map((t) => t.id === updatedTree.id ? updatedTree : t));
+            setSelectedNode(node);
+          }
+        }
+      ) })
     ] }) : /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "all-trees-panel", children: allTrees.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "empty-state", children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("p", { children: "\u4FDD\u5B58\u3055\u308C\u305F\u30E1\u30E2\u304C\u3042\u308A\u307E\u305B\u3093" }) }) : allTrees.filter(
       (tree) => !searchQuery || tree.title.toLowerCase().includes(searchQuery.toLowerCase()) || tree.url.toLowerCase().includes(searchQuery.toLowerCase())
     ).map((tree) => /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
       "div",
       {
         className: `tree-item ${tree.id === currentTree?.id ? "current" : ""}`,
+        onClick: () => {
+          setViewingTree(tree);
+          setSelectedNode(null);
+        },
+        style: { cursor: "pointer" },
         children: [
           /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "tree-item-info", children: [
             /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: "tree-title", children: tree.title }),
@@ -27017,7 +27073,10 @@ var App = () => {
             "button",
             {
               className: "delete-btn",
-              onClick: () => handleDeleteTree(tree.id),
+              onClick: (e) => {
+                e.stopPropagation();
+                handleDeleteTree(tree.id);
+              },
               title: "\u524A\u9664",
               children: "Delete"
             }

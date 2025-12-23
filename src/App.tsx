@@ -35,6 +35,7 @@ export const App = () => {
   });
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"current" | "all">("current");
+  const [viewingTree, setViewingTree] = useState<PageMemoTree | null>(null);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -293,7 +294,7 @@ export const App = () => {
         </button>
         <button
           className={`view-tab ${viewMode === "all" ? "active" : ""}`}
-          onClick={() => setViewMode("all")}
+          onClick={() => { setViewMode("all"); setViewingTree(null); setSelectedNode(null); }}
         >
           すべて
         </button>
@@ -331,42 +332,89 @@ export const App = () => {
             </div>
           </>
         ) : (
-          <div className="all-trees-panel">
-            {allTrees.length === 0 ? (
-              <div className="empty-state">
-                <p>保存されたメモがありません</p>
+          viewingTree ? (
+            <>
+              <div className="tree-panel">
+                <div className="panel-header">
+                  <button className="back-btn" onClick={() => { setViewingTree(null); setSelectedNode(null); }}>
+                    ← 戻る
+                  </button>
+                  <span className="viewing-title">{viewingTree.title}</span>
+                </div>
+                <MemoTree
+                  nodes={viewingTree.rootNodes}
+                  onNodeSelect={setSelectedNode}
+                  onNodeUpdate={async (nodes) => {
+                    const updatedTree = { ...viewingTree, rootNodes: nodes };
+                    setViewingTree(updatedTree);
+                    await updatePageMemoTree(updatedTree);
+                    setAllTrees(prev => prev.map(t => t.id === updatedTree.id ? updatedTree : t));
+                  }}
+                  selectedNodeId={selectedNode?.id}
+                  searchQuery={searchQuery}
+                />
               </div>
-            ) : (
-              allTrees
-                .filter(
-                  (tree) =>
-                    !searchQuery ||
-                    tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    tree.url.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-                .map((tree) => (
-                  <div
-                    key={tree.id}
-                    className={`tree-item ${tree.id === currentTree?.id ? "current" : ""}`}
-                  >
-                    <div className="tree-item-info">
-                      <span className="tree-title">{tree.title}</span>
-                      <span className="tree-url">{tree.url}</span>
-                      <span className="tree-count">
-                        {tree.rootNodes.length} メモ
-                      </span>
-                    </div>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDeleteTree(tree.id)}
-                      title="削除"
+              <div className="editor-panel">
+                <MemoEditor
+                  node={selectedNode}
+                  onUpdate={async (node) => {
+                    const updateNode = (nodeList: MemoNode[]): MemoNode[] => {
+                      return nodeList.map((n) => {
+                        if (n.id === node.id) return node;
+                        if (n.children) return { ...n, children: updateNode(n.children) };
+                        return n;
+                      });
+                    };
+                    const updatedNodes = updateNode(viewingTree.rootNodes);
+                    const updatedTree = { ...viewingTree, rootNodes: updatedNodes };
+                    setViewingTree(updatedTree);
+                    await updatePageMemoTree(updatedTree);
+                    setAllTrees(prev => prev.map(t => t.id === updatedTree.id ? updatedTree : t));
+                    setSelectedNode(node);
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="all-trees-panel">
+              {allTrees.length === 0 ? (
+                <div className="empty-state">
+                  <p>保存されたメモがありません</p>
+                </div>
+              ) : (
+                allTrees
+                  .filter(
+                    (tree) =>
+                      !searchQuery ||
+                      tree.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      tree.url.toLowerCase().includes(searchQuery.toLowerCase())
+                  )
+                  .map((tree) => (
+                    <div
+                      key={tree.id}
+                      className={`tree-item ${tree.id === currentTree?.id ? "current" : ""}`}
+                      onClick={() => { setViewingTree(tree); setSelectedNode(null); }}
+                      style={{ cursor: "pointer" }}
                     >
-                      Delete
-                    </button>
-                  </div>
-                ))
-            )}
-          </div>
+                      <div className="tree-item-info">
+                        <span className="tree-title">{tree.title}</span>
+                        <span className="tree-url">{tree.url}</span>
+                        <span className="tree-count">
+                          {tree.rootNodes.length} メモ
+                        </span>
+                      </div>
+                      <button
+                        className="delete-btn"
+                        onClick={(e) => { e.stopPropagation(); handleDeleteTree(tree.id); }}
+                        title="削除"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))
+              )}
+            </div>
+          )
         )}
       </div>
     </div>
