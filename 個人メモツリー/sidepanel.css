@@ -675,3 +675,11 @@ body {
 .drag-handle:active {
   cursor: grabbing;
 }
+
+/* Page Drag & Drop */
+.content-textarea.drag-over {
+  border-color: var(--accent-color);
+  background: rgba(74, 144, 217, 0.1);
+  outline: 2px dashed var(--accent-color);
+  outline-offset: -2px;
+}

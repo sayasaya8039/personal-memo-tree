@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import type { MemoNode } from "../types";
 
+interface DraggedContent {
+  type: "text" | "image" | "link";
+  content: string;
+  text?: string;
+  alt?: string;
+  sourceUrl: string;
+  sourceTitle: string;
+  timestamp: number;
+}
+
 interface MemoEditorProps {
   node: MemoNode | null;
   onUpdate: (node: MemoNode) => void;
@@ -36,6 +46,7 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [isPreview, setIsPreview] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -44,6 +55,46 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       setContent(node.content);
     }
   }, [node?.id]);
+
+  // ページからのドロップを処理
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+
+    // chrome.storage.local からドラッグされたコンテンツを取得
+    const result = await chrome.storage.local.get("draggedContent");
+    const draggedContent = result.draggedContent as DraggedContent | undefined;
+
+    if (draggedContent && Date.now() - draggedContent.timestamp < 5000) {
+      let insertText = "";
+
+      switch (draggedContent.type) {
+        case "text":
+          insertText = draggedContent.content;
+          break;
+        case "image":
+          insertText = `![${draggedContent.alt || "画像"}](${draggedContent.content})`;
+          break;
+        case "link":
+          insertText = `[${draggedContent.text}](${draggedContent.content})`;
+          break;
+      }
+
+      if (insertText) {
+        const textarea = textareaRef.current;
+        if (textarea) {
+          const start = textarea.selectionStart;
+          const newContent = content.substring(0, start) + insertText + content.substring(start);
+          setContent(newContent);
+        } else {
+          setContent(content + "\n" + insertText);
+        }
+      }
+
+      // 使用済みのドラッグコンテンツを削除
+      chrome.storage.local.remove("draggedContent");
+    }
+  };
 
   const handleSave = () => {
     if (!node) return;
@@ -216,10 +267,13 @@ export const MemoEditor = ({ node, onUpdate }: MemoEditorProps) => {
       ) : (
         <textarea
           ref={textareaRef}
-          className="content-textarea"
+          className={`content-textarea ${isDragOver ? "drag-over" : ""}`}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          placeholder="メモ内容を入力..."
+          placeholder="ページからテキスト/画像/リンクをドラッグ&ドロップできます"
+          onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+          onDragLeave={() => setIsDragOver(false)}
+          onDrop={handleDrop}
           onKeyDown={(e) => {
             // キーボードショートカット
             if (e.ctrlKey || e.metaKey) {

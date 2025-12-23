@@ -26203,6 +26203,7 @@ var MemoEditor = ({ node, onUpdate }) => {
   const [name, setName] = (0, import_react6.useState)("");
   const [content, setContent] = (0, import_react6.useState)("");
   const [isPreview, setIsPreview] = (0, import_react6.useState)(false);
+  const [isDragOver, setIsDragOver] = (0, import_react6.useState)(false);
   const textareaRef = (0, import_react6.useRef)(null);
   (0, import_react6.useEffect)(() => {
     if (node) {
@@ -26210,6 +26211,37 @@ var MemoEditor = ({ node, onUpdate }) => {
       setContent(node.content);
     }
   }, [node?.id]);
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const result = await chrome.storage.local.get("draggedContent");
+    const draggedContent = result.draggedContent;
+    if (draggedContent && Date.now() - draggedContent.timestamp < 5e3) {
+      let insertText = "";
+      switch (draggedContent.type) {
+        case "text":
+          insertText = draggedContent.content;
+          break;
+        case "image":
+          insertText = `![${draggedContent.alt || "\u753B\u50CF"}](${draggedContent.content})`;
+          break;
+        case "link":
+          insertText = `[${draggedContent.text}](${draggedContent.content})`;
+          break;
+      }
+      if (insertText) {
+        const textarea = textareaRef.current;
+        if (textarea) {
+          const start = textarea.selectionStart;
+          const newContent = content.substring(0, start) + insertText + content.substring(start);
+          setContent(newContent);
+        } else {
+          setContent(content + "\n" + insertText);
+        }
+      }
+      chrome.storage.local.remove("draggedContent");
+    }
+  };
   const handleSave = () => {
     if (!node) return;
     onUpdate({
@@ -26364,10 +26396,16 @@ var MemoEditor = ({ node, onUpdate }) => {
       "textarea",
       {
         ref: textareaRef,
-        className: "content-textarea",
+        className: `content-textarea ${isDragOver ? "drag-over" : ""}`,
         value: content,
         onChange: (e) => setContent(e.target.value),
-        placeholder: "\u30E1\u30E2\u5185\u5BB9\u3092\u5165\u529B...",
+        placeholder: "\u30DA\u30FC\u30B8\u304B\u3089\u30C6\u30AD\u30B9\u30C8/\u753B\u50CF/\u30EA\u30F3\u30AF\u3092\u30C9\u30E9\u30C3\u30B0&\u30C9\u30ED\u30C3\u30D7\u3067\u304D\u307E\u3059",
+        onDragOver: (e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        },
+        onDragLeave: () => setIsDragOver(false),
+        onDrop: handleDrop,
         onKeyDown: (e) => {
           if (e.ctrlKey || e.metaKey) {
             if (e.key === "b") {
