@@ -88,6 +88,7 @@ export const App = () => {
   useEffect(() => {
     if (currentTab) {
       loadData();
+      setSelectedNode(null); // タブ切り替え時にリセット
     }
   }, [currentTab, loadData]);
 

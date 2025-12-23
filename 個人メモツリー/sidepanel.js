@@ -26801,6 +26801,7 @@ var App = () => {
   (0, import_react7.useEffect)(() => {
     if (currentTab) {
       loadData();
+      setSelectedNode(null);
     }
   }, [currentTab, loadData]);
   (0, import_react7.useEffect)(() => {
